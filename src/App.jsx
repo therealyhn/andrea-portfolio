@@ -1,9 +1,19 @@
+import Hero from "./components/sections/Hero";
+// import About from "./components/sections/About";
+// import Portfolio from "./components/sections/Portfolio";
+// import Skills from "./components/sections/Skills";
+// import Contact from "./components/sections/Contact";
+// import Footer from "./components/layout/Footer";
+
 export default function App() {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-slate-900">
-      <h1 className="text-3xl font-bold text-white">
-        React + Vite + Tailwind v3 + Sanity
-      </h1>
-    </div>
+    <>
+      <Hero />
+      {/* <About />
+      <Portfolio />
+      <Skills />
+      <Contact />
+      <Footer /> */}
+    </>
   );
 }

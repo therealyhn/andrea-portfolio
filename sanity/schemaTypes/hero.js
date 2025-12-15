@@ -1,35 +1,20 @@
 export default {
     name: "hero",
-    title: "Hero",
+    title: "Baner",
     type: "document",
     fields: [
-        {
-            name: "title",
-            title: "Title",
-            type: "string",
-        },
         {
             name: "curvedText",
             title: "Curved Text",
             type: "string",
-            description: "Text that goes around the hero image (e.g. UGC PORTFOLIO)",
+            description: "Zakrivljen Tekst",
         },
         {
             name: "image",
-            title: "Hero Image",
+            title: "Baner slika",
             type: "image",
-            options: { hotspot: true },
-        },
-        {
-            name: "ctaText",
-            title: "CTA Text",
-            type: "string",
-        },
-        {
-            name: "ctaLink",
-            title: "CTA Link",
-            type: "string",
-            description: 'Anchor like "#contact" or full URL',
+            description: "1920x1080, transparentna (.png)",
+            options: { hotspot: false },
         },
     ],
 };
