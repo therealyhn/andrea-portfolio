@@ -1,31 +1,50 @@
 export default function CurvedText({ text }) {
     if (!text) return null;
 
-    const letters = text.split("");
-    const angleStep = 180 / (letters.length - 1);
+    // Remove dupli razmaci
+    const clean = text.replace(/\s+/g, " ").trim();
+
+    // Razbijanje stringa na karaktere
+    const letters = clean.split("");
+    const radius = 400;
+    const totalAngle = 240;
+
+    // Pocetni ugao (centar luka)
+    const startAngle = -120;
+
+    // Koliko stepeni ide po slovu
+    const count = Math.max(letters.length - 1, 1);
+    const angleStep = totalAngle / count;
 
     return (
-        <div className="relative w-[360px] h-[240px] sm:w-[520px] sm:h-[300px] md:w-[1000px] md:h-[420px]">
-            {letters.map((char, i) => {
-                const angle = -90 + i * angleStep;
+        <>
+            {/* Mobile */}
+            <div className="md:hidden absolute top-28 left-1/2 -translate-x-1/2 z-20 text-text-light font-display uppercase tracking-[0.35em] text-[24px] text-center animate__animated animate__fadeInDown animate__slow">
+                {clean}
+            </div>
 
-                const radius =
-                    window.innerWidth < 640
-                        ? 130
-                        : window.innerWidth < 768
-                            ? 200
-                            : 400;
+            {/* Desktop */}
+            <div className="hidden md:block relative w-[1000px] h-[420px] animate__animated animate__fadeInDown animate__slow">
+                {letters.map((char, i) => {
+                    const angle = startAngle + i * angleStep;
+                    if (char === " ") return null;
 
-                return (
-                    <span
-                        key={i}
-                        className="absolute left-1/2 bottom-40 md:bottom-0 origin-bottom text-text-light font-serif uppercase tracking-[0.42em] text-[13px] sm:text-[17px] md:text-[22px] lg:text-[50px]"
-                        style={{ transform: `rotate(${angle}deg) translateY(-${radius}px)` }}
-                    >
-                        {char}
-                    </span>
-                );
-            })}
-        </div>
+                    return (
+                        <span
+                            key={i}
+                            className="absolute left-1/2 bottom-40 origin-center text-text-light font-bold font-display uppercase text-[22px] lg:text-[100px]
+                             animate__animated animate__fadeIn"
+                            style={{
+                                transform: `translateX(-50%) rotate(${angle}deg) translateY(-${radius}px)`,
+                                animationDelay: `${i * 0.15}s`,
+                            }}
+                        >
+                            {char}
+                        </span>
+
+                    );
+                })}
+            </div>
+        </>
     );
 }

@@ -35,21 +35,17 @@ export default function Hero() {
             )}
 
             {/* (Optional) dark overlay if needed for contrast */}
-            <div className="absolute inset-0 bg-black/20" />
+            {/* <div className="absolute inset-0 bg-black/20" /> */}
 
             {/* Scroll indicator */}
             <a
                 href="#about"
-                className="absolute left-10 md:left-16 bottom-10 z-20
-        flex flex-col items-center gap-3
-        text-text-light uppercase tracking-[0.35em] text-[10px]
-        animate__animated animate__fadeInUp animate__slow"
+                className="absolute left-10 md:left-[12%] bottom-16 z-20 flex flex-col items-center gap-3 text-text-light uppercase tracking-[0.45em] text-[9px] font-body animate__animated animate__fadeInUp animate__slow"
             >
-                <span className="writing-mode-vertical rotate-180">Scroll</span>
-
-                <span className="relative h-20 w-px bg-text-light/30 overflow-hidden">
-                    <span className="absolute inset-0 bg-text-light animate__animated animate__fadeInUp animate__infinite animate__slower" />
+                <span className="text-[40px] opacity-70 animate__animated animate__fadeInDown animate__infinite animate__slower">
+                    ⌄
                 </span>
+
             </a>
 
             {/* Curved text centered */}

@@ -8,7 +8,7 @@ export default function BurgerMenu() {
             {/* Toggle button */}
             <button
                 onClick={() => setOpen((prev) => !prev)}
-                className="fixed top-6 right-6 z-50 w-8 h-8 flex items-center justify-center"
+                className="fixed top-10 right-10 z-50 w-8 h-8 flex items-center justify-center"
                 aria-label="Toggle menu"
             >
                 <span
