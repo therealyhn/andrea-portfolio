@@ -1,4 +1,4 @@
-# 🎨 Personal Portfolio Website
+# 🎨 Andrea Milenovic - Fashion & Graphic Designer Portfolio
 
 A modern, editorial-style **personal portfolio website** built with **React, Vite, Tailwind CSS, and Sanity CMS** — designed to showcase creative work, professional experience, and personal identity through clean layouts, strong typography, and subtle animations.
 
