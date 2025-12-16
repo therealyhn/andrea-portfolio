@@ -7,7 +7,8 @@ export default function About() {
 
     useEffect(() => {
         sanityClient
-            .fetch(`*[_type == "about"][0]{ leftTitle, leftText, centerImage, rightTitle, experiences[]{role, company, period, description}, educationTitle, education[]{school, program, period} }`)
+            .fetch(`*[_type == "about"][0]{ leftTitle, leftText, centerImage, rightTitle, experiences[]
+                {role, company, period, description}, educationTitle, education[]{school, program, period} }`)
             .then(setAbout)
             .catch(console.error);
     }, []);
@@ -20,31 +21,41 @@ export default function About() {
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-center">
 
                     <div className="lg:col-span-4 animate__animated animate__fadeInUp animate__slow">
-                        <h2 className="text-text-light font-display uppercase tracking-[0.08em] text-[28px] md:text-[34px] mb-6">
+                        <h2 className="text-text-light font-display uppercase tracking-[0.08em] text-[24px] md:text-[36px] mb-6">
                             {about?.leftTitle || "About"}
                         </h2>
 
-                        <p className="text-text-light/75 font-body leading-relaxed text-[14px] md:text-[15px] max-w-md">
+                        <p className="text-text-light/75 font-body leading-relaxed text-[14px] md:text-[16px] max-w-md">
                             {about?.leftText || ""}
                         </p>
 
-                        <div className="mt-10 flex flex-wrap gap-4">
-                            <a href="#contact" className="px-7 py-3 rounded-full bg-text-light text-background-dark uppercase tracking-[0.22em] text-[11px] hover:opacity-90 transition">
+                        <div className="mt-12 flex flex-wrap gap-6">
+                            <a href="#contact" className="relative px-10 py-3 rounded-full bg-text-light 
+                            text-background-dark uppercase tracking-[0.3em] text-[10px] transition-all duration-300 hover:bg-background-dark 
+                            hover:-translate-y-[1px] hover:text-text-light border border-text-light">
                                 Contact
                             </a>
 
-                            <a href="#portfolio" className="px-7 py-3 rounded-full border border-text-light/35 text-text-light/90 uppercase tracking-[0.22em] text-[11px] hover:bg-text-light/10 transition">
+                            <a href="#portfolio" className="relative px-10 py-3 rounded-full border border-text-light
+                             text-text-light/80 uppercase tracking-[0.3em] text-[10px] transition-all duration-300 
+                             hover:border-text-light/60 hover:-translate-y-[1px]
+                             hover:bg-text-light hover:text-background-dark">
                                 My work
                             </a>
                         </div>
                     </div>
 
                     <div className="lg:col-span-4 flex justify-center animate__animated animate__fadeIn animate__slow">
-                        <div className="relative w-[340px] h-[480px] md:w-[420px] md:h-[580px] lg:w-[460px] lg:h-[640px]">
-                            <div className="absolute inset-0 rounded-[9999px] border border-text-light/25 bg-black/10 shadow-[0px_22px_90px_rgba(0,0,0,0.6)]" />
-                            <div className="absolute inset-[22px] rounded-[9999px] border border-text-light/15" />
-                            <div className="absolute inset-[40px] rounded-[9999px] overflow-hidden bg-black/20">
+                        <div className="relative w-[380px] h-[540px] md:w-[460px] md:h-[640px] lg:w-[520px] lg:h-[720px]">
 
+                            {/* Outer frame */}
+                            <div className="absolute inset-0 rounded-[9999px] border border-text-light/25 bg-black/10 shadow-[0px_30px_120px_rgba(0,0,0,0.65)]" />
+
+                            {/* Middle frame */}
+                            <div className="absolute inset-[26px] rounded-[9999px] border border-text-light/15" />
+
+                            {/* Image container */}
+                            <div className="absolute inset-[50px] rounded-[9999px] overflow-hidden bg-black/20">
                                 {imageUrl ? (
                                     <img src={imageUrl} alt="About portrait" className="w-full h-full object-cover" />
                                 ) : (
@@ -54,8 +65,15 @@ export default function About() {
                                 )}
                             </div>
 
-                            <div className="absolute -inset-6 rounded-[9999px] blur-2xl opacity-40 pointer-events-none" /></div>
+                            {/* Glow – inner */}
+                            <div className="absolute -inset-10 rounded-[9999px] blur-5xl opacity-40 pointer-events-none" />
+
+                            {/* Glow – outer / soft halo */}
+                            {/* <div className="absolute -inset-20 rounded-[9999px] blur-[140px] opacity-25 bg-text-light pointer-events-none" /> */}
+
+                        </div>
                     </div>
+
 
                     <div className="lg:col-span-4 animate__animated animate__fadeInUp animate__slow">
                         <h3 className="text-text-light font-display uppercase tracking-[0.08em] text-[24px] md:text-[36px] mb-6">
@@ -66,18 +84,18 @@ export default function About() {
                             {(about?.experiences || []).map((exp, idx) => (
                                 <div key={idx} className="border-b border-text-light/15 pb-5">
                                     <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-2">
-                                        <div className="text-text-light/90 font-body text-[14px] md:text-[15px]">
+                                        <div className="text-text-light/90 font-body text-[14px] md:text-[16px]">
                                             <span className="font-semibold">{exp?.role}</span>{exp?.company ? ` · ${exp.company}` : ""}
                                         </div>
                                         {exp?.period && (
-                                            <div className="text-text-light/55 text-[11px] uppercase tracking-[0.22em]">
+                                            <div className="text-text-light/55 text-[14px] uppercase tracking-[0.22em]">
                                                 {exp.period}
                                             </div>
                                         )}
                                     </div>
 
                                     {exp?.description && (
-                                        <p className="mt-2 text-text-light/70 font-body text-[13px] leading-relaxed">
+                                        <p className="mt-2 text-text-light/70 font-body text-[14px] leading-relaxed">
                                             {exp.description}
                                         </p>
                                     )}
@@ -92,10 +110,10 @@ export default function About() {
 
                             <div className="space-y-3">
                                 {(about?.education || []).map((ed, idx) => (
-                                    <div key={idx} className="text-text-light/75 font-body text-[13px] leading-relaxed">
+                                    <div key={idx} className="text-text-light/75 font-body text-[14px] leading-relaxed">
                                         <div className="text-text-light/90 font-semibold">{ed?.school}</div>
                                         <div>{ed?.program}</div>
-                                        {ed?.period && <div className="text-text-light/55 text-[11px] uppercase tracking-[0.22em] mt-1">{ed.period}</div>}
+                                        {ed?.period && <div className="text-text-light/55 text-[12px] uppercase italic tracking-[0.22em] mt-1">{ed.period}</div>}
                                     </div>
                                 ))}
                             </div>
