@@ -21,7 +21,7 @@ export default function Hero() {
     return (
         <section
             id="home"
-            className="relative min-h-screen bg-background-dark overflow-hidden"
+            className="relative min-h-screen bg-surface-soft overflow-hidden"
         >
             <BurgerMenu />
 
