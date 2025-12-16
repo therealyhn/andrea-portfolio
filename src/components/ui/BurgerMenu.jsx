@@ -40,11 +40,11 @@ export default function BurgerMenu() {
                 />
 
                 <aside
-                    className={`absolute top-0 right-0 h-full w-full sm:w-[380px] bg-surface
+                    className={`absolute top-0 right-0 h-full w-2/3 sm:w-[380px] bg-surface
           transform transition-transform duration-500
           ${open ? "translate-x-0" : "translate-x-full"}`}
                 >
-                    <nav className="p-20 flex flex-col gap-4 text-text-light text-2xl font-light">
+                    <nav className="p-10 md:p-20 flex flex-col gap-4 text-text-light text-2xl font-light">
                         {navLinks.map((link) => (
                             <a
                                 key={link.href}

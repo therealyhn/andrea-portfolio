@@ -19,7 +19,7 @@ export default function CurvedText({ text }) {
     return (
         <>
             {/* Mobile */}
-            <div className="md:hidden absolute top-28 left-1/2 -translate-x-1/2 z-20 text-text-light font-display uppercase tracking-[0.35em] text-[24px] text-center animate__animated animate__fadeInDown animate__slow">
+            <div className="md:hidden flex justify-center items-center absolute top-28 left-0 w-full z-20 text-text-light font-display uppercase tracking-[0.35em] text-[24px] text-center animate__animated animate__fadeInDown animate__slow">
                 {clean}
             </div>
 

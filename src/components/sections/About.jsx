@@ -58,7 +58,7 @@ export default function About() {
                     </div>
 
                     <div className="lg:col-span-4 animate__animated animate__fadeInUp animate__slow">
-                        <h3 className="text-text-light font-display uppercase tracking-[0.08em] text-[22px] md:text-[26px] mb-6">
+                        <h3 className="text-text-light font-display uppercase tracking-[0.08em] text-[24px] md:text-[36px] mb-6">
                             {about?.rightTitle || "Work experience"}
                         </h3>
 
@@ -86,7 +86,7 @@ export default function About() {
                         </div>
 
                         <div className="mt-10">
-                            <h4 className="text-text-light/90 font-display uppercase tracking-[0.08em] text-[18px] mb-4">
+                            <h4 className="text-text-light/90 font-display uppercase tracking-[0.08em] text-[24px] md:text-[36px] mb-4">
                                 {about?.educationTitle || "Education"}
                             </h4>
 
