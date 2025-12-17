@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
-export default function useInView(options = { threshold: 0.25 }) {
+export default function useInView(options = { threshold: 0.4 }) {
     const sectionRef = useRef(null);
     const [visible, setVisible] = useState(false);
 

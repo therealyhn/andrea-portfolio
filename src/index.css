@@ -26,19 +26,19 @@ h6 {
   bottom: 0 !important;
 }
 
-.swiper-pagination-bullet {
+.portfolio-swiper .swiper-pagination-bullet {
   width: 10px;
   height: 10px;
-  background: rgba(255, 255, 255, 0.35);
-  opacity: 1;
+  background: rgba(255, 255, 255, 0.25) !important;
+  opacity: 1 !important;
   transition: all 0.3s ease;
   margin: 0 6px !important;
 }
 
-.swiper-pagination-bullet-active {
+.portfolio-swiper .swiper-pagination-bullet-active {
   width: 26px;
   border-radius: 9999px;
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.9) !important;
 }
 
 

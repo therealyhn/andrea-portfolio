@@ -23,7 +23,7 @@ export default defineType({
             name: "items",
             title: "STAVKE",
             type: "array",
-            description: "Do 4 stavke (kao u dizajnu)",
+            description: "Kategorije",
             of: [
                 {
                     type: "object",
@@ -50,7 +50,7 @@ export default defineType({
                     },
                 },
             ],
-            validation: (Rule) => Rule.max(4).warning("Preporuka je max 4 stavke (kao u mockupu)."),
+            // validation: (Rule) => Rule.max(4).warning("Preporuka je max 4 stavke (kao u mockupu)."),
         }),
     ],
     preview: {

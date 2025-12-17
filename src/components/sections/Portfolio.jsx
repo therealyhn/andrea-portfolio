@@ -27,19 +27,13 @@ export default function Portfolio() {
             id="work"
             className={`relative bg-surface-soft py-14 md:py-14 lg:py-14 overflow-hidden ${inView ? "" : "opacity-0"}`}
         >
-            <div className="max-w-[1750px] mx-auto px-3 sm:px-6 lg:px-10">
+            <div className="max-w-[1750px] mx-auto">
 
                 {/* TITLE */}
                 <div className={`${inView ? "animate__animated animate__fadeInUp animate__slow" : ""}`}>
                     <h2 className="text-text-light font-display uppercase tracking-[0.08em] text-[32px] sm:text-[40px] md:text-[50px] lg:text-[62px] text-center lg:text-left">
                         {data?.heading || "MY WORK"}
                     </h2>
-
-                    {/* {data?.subheading && (
-                        <p className="mt-3 text-text-light/65 font-body text-[12px] sm:text-[13px] uppercase tracking-[0.22em] text-center lg:text-left">
-                            {data.subheading}
-                        </p>
-                    )} */}
                 </div>
 
                 {/* SWIPER */}
@@ -48,18 +42,21 @@ export default function Portfolio() {
                         modules={[Navigation, Pagination]}
                         navigation={{ nextEl: ".work-next", prevEl: ".work-prev" }}
                         pagination={{ clickable: true }}
-                        spaceBetween={1}
+                        spaceBetween={16}
                         slidesPerView={1}
                         breakpoints={{
                             480: { slidesPerView: 1.3, spaceBetween: 24 },
                             640: { slidesPerView: 1.8, spaceBetween: 32 },
-                            768: { slidesPerView: 2.2, spaceBetween: 48 },
-                            // Desktop – 3 large cards (unchanged)
-                            1024: { slidesPerView: 3, spaceBetween: 1 },
-                            1280: { slidesPerView: 3, spaceBetween: 1 },
-                            1536: { slidesPerView: 3, spaceBetween: 1 },
+
+                            // TABLET – exactly 2 slides
+                            768: { slidesPerView: 2, spaceBetween: 48 },
+
+                            // Desktop – 3 slides
+                            1024: { slidesPerView: 4, spaceBetween: 48 },
+                            1280: { slidesPerView: 4, spaceBetween: 48 },
+                            1536: { slidesPerView: 4, spaceBetween: 48 },
                         }}
-                        className="!pb-14"
+                        className="portfolio-swiper !pb-14 !px-5"
                     >
                         {(items.length ? items : Array.from({ length: 6 })).map((item, idx) => {
                             const imgUrl = item?.image
@@ -78,7 +75,7 @@ export default function Portfolio() {
                                                 max-w-[350px]
                                                 aspect-[9/16]
                                                 rounded-[20px] sm:rounded-[36px] md:rounded-[48px] lg:rounded-[48px]
-                                                border border-text-light/15
+                                                border border-text-light/30
                                                 bg-black/10
                                                 overflow-hidden
                                                 shadow-[0px_24px_36px_rgba(0,0,0,0.36)] md:shadow-[0px_40px_80px_rgba(0,0,0,0.55)]
@@ -87,7 +84,8 @@ export default function Portfolio() {
                                             `}
                                         >
                                             {/* inner frame */}
-                                            <div className="absolute inset-[6px] sm:inset-[10px] md:inset-[12px] rounded-[12px] sm:rounded-[24px] md:rounded-[36px] border border-text-light/10 pointer-events-none" />
+                                            <div className="absolute inset-[6px] sm:inset-[10px] md:inset-[12px] rounded-[12px] sm:rounded-[24px] md:rounded-[36px] 
+                                            border-4 border-text-light/10 pointer-events-none" />
 
                                             {/* image */}
                                             <div className="absolute inset-[11px] sm:inset-[16px] md:inset-[22px] rounded-[10px] sm:rounded-[18px] md:rounded-[32px] overflow-hidden bg-black/20">
@@ -109,7 +107,7 @@ export default function Portfolio() {
 
                                         {/* LABEL */}
                                         <div className="mt-4 sm:mt-6 text-center">
-                                            <span className="text-text-light/80 font-body uppercase tracking-[0.22em] text-[11px]">
+                                            <span className="text-text-light/80 font-body uppercase tracking-[0.22em] text-[14px]">
                                                 {item?.title || "WORK ITEM"}
                                             </span>
                                         </div>
@@ -119,16 +117,6 @@ export default function Portfolio() {
                             );
                         })}
                     </Swiper>
-
-                    {/* NAV */}
-                    {/* <div className="mt-6 flex items-center justify-center gap-4">
-                        <button className="work-prev w-12 h-12 rounded-full border border-text-light/25 text-text-light/80 hover:bg-text-light hover:text-background-dark transition-all duration-300">
-                            ←
-                        </button>
-                        <button className="work-next w-12 h-12 rounded-full border border-text-light/25 text-text-light/80 hover:bg-text-light hover:text-background-dark transition-all duration-300">
-                            →
-                        </button>
-                    </div> */}
                 </div>
 
             </div>
