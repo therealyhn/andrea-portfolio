@@ -67,13 +67,13 @@ export default defineType({
                             type: 'string',
                             description: 'Npr. "2023 - 2025" ili "Jan 2024 - Trenutno"',
                         }),
-                        defineField({
-                            name: 'description',
-                            title: 'OPIS',
-                            type: 'text',
-                            rows: 3,
-                            description: 'Kratak opis uloge / zaduženja',
-                        }),
+                        // defineField({
+                        //     name: 'description',
+                        //     title: 'OPIS',
+                        //     type: 'text',
+                        //     rows: 3,
+                        //     description: 'Kratak opis uloge / zaduženja',
+                        // }),
                     ],
                     preview: {
                         select: {
