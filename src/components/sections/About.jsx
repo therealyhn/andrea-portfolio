@@ -27,6 +27,28 @@ export default function About() {
             id="about"
             className={`relative bg-background-dark py-16 md:py-24 lg:py-28 overflow-hidden transition-opacity duration-700 ${inView ? "opacity-100" : "opacity-0"}`}
         >
+            {/* Scroll indicator (mobile centered, desktop right) */}
+            <a
+                href="#work"
+                className="absolute left-1/2 bottom-10 md:bottom-2 -translate-x-1/2 z-20 flex flex-col items-center gap-2
+                 text-text-light uppercase tracking-[0.45em] 
+                text-[9px] font-body animate__fadeInDown animate__infinite animate__slower"
+            >
+                <svg
+                    className="w-14 h-14 md:w-16 md:h-16 opacity-70 animate__animated animate__fadeInDown animate__infinite animate__slower"
+                    viewBox="0 0 64 64"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <path
+                        d="M18 26L32 40L46 26"
+                        stroke="currentColor"
+                        strokeWidth="2.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                    />
+                </svg>
+            </a>
             <div className="container">
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-start lg:items-center">
 
