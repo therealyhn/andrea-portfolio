@@ -52,8 +52,8 @@ export default function Portfolio() {
                             768: { slidesPerView: 2, spaceBetween: 48 },
 
                             // Desktop – 3 slides
-                            1024: { slidesPerView: 4, spaceBetween: 48 },
-                            1280: { slidesPerView: 4, spaceBetween: 48 },
+                            1024: { slidesPerView: 2, spaceBetween: 48 },
+                            1280: { slidesPerView: 3, spaceBetween: 48 },
                             1536: { slidesPerView: 4, spaceBetween: 48 },
                         }}
                         className="portfolio-swiper !pb-14 !px-5"
@@ -70,7 +70,7 @@ export default function Portfolio() {
                                         {/* CARD */}
                                         <div
                                             className={`
-                                                relative md:mt-10 md:mb-5
+                                                relative
                                                 w-[80vw] xs:w-[210px] sm:w-[250px] md:w-[350px] lg:w-[350px]
                                                 max-w-[350px]
                                                 aspect-[9/16]
@@ -78,7 +78,7 @@ export default function Portfolio() {
                                                 border border-text-light/30
                                                 bg-black/10
                                                 overflow-hidden
-                                                shadow-[0px_24px_36px_rgba(0,0,0,0.36)] md:shadow-[0px_40px_80px_rgba(0,0,0,0.55)]
+                                                shadow-[0px_24px_36px_rgba(0,0,0,0.36)] md:shadow-[0px_40px_40px_rgba(0,0,0,0.55)]
                                                 transition-transform duration-300
                                                 hover:translate-y-2
                                             `}
