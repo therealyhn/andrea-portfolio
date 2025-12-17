@@ -39,7 +39,7 @@ export default function BurgerMenu() {
             {/* --- MOBILE HEADER --- */}
             <div
                 className={`
-                    fixed top-0 left-0 w-full h-16 z-40 flex items-center sm:hidden transition-all duration-300
+                    fixed top-0 left-0 w-full h-12 z-40 flex items-center sm:hidden transition-all duration-300
                     ${scrolled || open
                         ? "backdrop-blur bg-surface/70 shadow-lg"
                         : "bg-transparent shadow-none"

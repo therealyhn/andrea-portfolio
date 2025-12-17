@@ -13,12 +13,12 @@ export default defineType({
             description: 'Npr. "MY WORK"',
             validation: (Rule) => Rule.required(),
         }),
-        defineField({
-            name: "subheading",
-            title: "PODNASLOV",
-            type: "string",
-            description: "Opcionalno (kratka linija iznad/ispod naslova)",
-        }),
+        // defineField({
+        //     name: "subheading",
+        //     title: "PODNASLOV",
+        //     type: "string",
+        //     description: "Opcionalno (kratka linija iznad/ispod naslova)",
+        // }),
         defineField({
             name: "items",
             title: "STAVKE",

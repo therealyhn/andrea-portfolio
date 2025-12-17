@@ -20,23 +20,31 @@ h5,
 h6 {
   font-family: "Playfair Display", serif;
 }
-/* Vertical text helper */
-.writing-mode-vertical {
-  writing-mode: vertical-rl;
+
+/* --- Swiper pagination custom --- */
+.swiper-pagination {
+  bottom: 0 !important;
 }
 
-/* Swiper pagination */
 .swiper-pagination-bullet {
-  width: 8px;
-  height: 8px;
-  border-radius: 9999px;
-  margin: 0 4px !important;
-  background: rgba(122, 31, 40, 0.3);
+  width: 10px;
+  height: 10px;
+  background: rgba(255, 255, 255, 0.35);
   opacity: 1;
+  transition: all 0.3s ease;
+  margin: 0 6px !important;
 }
 
 .swiper-pagination-bullet-active {
-  background: #7a1f28;
+  width: 26px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.9);
+}
+
+
+/* Vertical text helper */
+.writing-mode-vertical {
+  writing-mode: vertical-rl;
 }
 
 /* Scrollbar – WebKit */

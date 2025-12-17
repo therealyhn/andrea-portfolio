@@ -30,7 +30,7 @@ export default function About() {
             {/* Scroll indicator (mobile centered, desktop right) */}
             <a
                 href="#work"
-                className="absolute left-1/2 bottom-10 md:bottom-2 -translate-x-1/2 z-20 flex flex-col items-center gap-2
+                className="absolute left-1/2 bottom-0 md:bottom-2 -translate-x-1/2 z-20 flex flex-col items-center gap-2
                  text-text-light uppercase tracking-[0.45em] 
                 text-[9px] font-body animate__fadeInDown animate__infinite animate__slower"
             >
@@ -49,6 +49,7 @@ export default function About() {
                     />
                 </svg>
             </a>
+
             <div className="container">
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-start lg:items-center">
 
@@ -71,7 +72,7 @@ export default function About() {
                             </a>
 
                             <a
-                                href="#portfolio"
+                                href="#work"
                                 className={`w-full sm:w-auto text-center px-10 py-3 rounded-full border border-text-light text-text-light/80 uppercase tracking-[0.3em] text-[10px] transition-all duration-300 hover:bg-text-light hover:text-background-dark hover:-translate-y-[1px] ${inView ? "animate__animated animate__fadeInUp animate__slow animate__delay-4s" : "opacity-0"}`}
                             >
                                 My work
@@ -145,7 +146,7 @@ export default function About() {
                         </div>
 
 
-                        <div className="mt-14 w-full max-w-md mx-auto lg:mx-0 text-center lg:text-left">
+                        <div className="mt-14 w-full pb-10 md:pb-0 max-w-md mx-auto lg:mx-0 text-center lg:text-left">
                             <h4 className={`text-text-light/90 font-display uppercase tracking-[0.08em] text-[28px] lg:text-[32px] mb-6 ${inView ? "animate__animated animate__fadeInUp animate__slow animate__delay-6s" : "opacity-0"}`}>
                                 {about?.educationTitle || "Education"}
                             </h4>
