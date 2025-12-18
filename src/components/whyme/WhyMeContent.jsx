@@ -1,4 +1,5 @@
 import SkillList from "./SkillList";
+import Button from "../ui/Button";
 
 export default function WhyMeContent({ heading, description, skills, buttonText }) {
     return (
@@ -21,9 +22,7 @@ export default function WhyMeContent({ heading, description, skills, buttonText 
 
             <SkillList skills={skills} />
 
-            <button className="px-8 py-3 border border-text-light rounded-full hover:text-background-dark text-text-light uppercase tracking-widest hover:bg-text-light hover:text-theme-black transition-all duration-300 transform hover:scale-105">
-                {buttonText}
-            </button>
+            <Button href="#contact" variant="outline">{buttonText}</Button>
         </div>
     );
 }

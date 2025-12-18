@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { sanityClient, urlFor } from "../../lib/sanityClient";
 import useInView from "../../hooks/useInView";
+import Button from "../ui/Button";
 import "animate.css";
 
 export default function About() {
@@ -64,19 +65,8 @@ export default function About() {
                         </p>
 
                         <div className="mt-10 flex flex-col sm:flex-row flex-wrap justify-center lg:justify-start gap-4 sm:gap-6">
-                            <a
-                                href="#contact"
-                                className={`w-full sm:w-auto text-center px-10 py-3 rounded-full bg-text-light text-background-dark uppercase tracking-[0.3em] text-[10px] border border-text-light transition-all duration-300 hover:bg-background-dark hover:text-text-light hover:-translate-y-[1px] ${inView ? "animate__animated animate__fadeInUp animate__slow animate__delay-3s" : "opacity-0"}`}
-                            >
-                                Contact
-                            </a>
-
-                            <a
-                                href="#work"
-                                className={`w-full sm:w-auto text-center px-10 py-3 rounded-full border border-text-light text-text-light/80 uppercase tracking-[0.3em] text-[10px] transition-all duration-300 hover:bg-text-light hover:text-background-dark hover:-translate-y-[1px] ${inView ? "animate__animated animate__fadeInUp animate__slow animate__delay-4s" : "opacity-0"}`}
-                            >
-                                My work
-                            </a>
+                            <Button href="#contact" variant="filled">Contact</Button>
+                            <Button href="#work" variant="outline">My work</Button>
                         </div>
                     </div>
 
