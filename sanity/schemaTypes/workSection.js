@@ -41,6 +41,18 @@ export default defineType({
                             options: { hotspot: true },
                             validation: (Rule) => Rule.required(),
                         }),
+                        defineField({
+                            name: "description",
+                            title: "OPIS",
+                            type: "text",
+                            rows: 3,
+                        }),
+                        defineField({
+                            name: "gallery",
+                            title: "GALERIJA SLIKA",
+                            type: "array",
+                            of: [{ type: "image", options: { hotspot: true } }],
+                        }),
                     ],
                     preview: {
                         select: { title: "title", media: "image" },

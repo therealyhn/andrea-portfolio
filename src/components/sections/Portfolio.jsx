@@ -7,25 +7,28 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "animate.css";
+import PortfolioModal from "../portfolio/PortfolioModal";
 
 export default function Portfolio() {
     const [data, setData] = useState(null);
     const [sectionRef, inView] = useInView();
 
+
     useEffect(() => {
         sanityClient
-            .fetch(`*[_type == "workSection"][0]{ heading, subheading, items[]{ _key, title, image } }`)
+            .fetch(`*[_type == "workSection"][0]{ heading, subheading, items[]{ _key, title, image, description, gallery } }`)
             .then(setData)
             .catch(console.error);
     }, []);
 
     const items = useMemo(() => data?.items || [], [data]);
+    const [selectedItem, setSelectedItem] = useState(null);
 
     return (
         <section
             ref={sectionRef}
             id="work"
-            className={`relative bg-surface-soft py-14 md:py-14 lg:py-14 overflow-hidden ${inView ? "" : "opacity-0"}`}
+            className={`relative bg-surface-soft py-14 md:py-14 lg:py-14 ${inView ? "" : "opacity-0"}`}
         >
             <div className="max-w-[1750px] mx-auto">
 
@@ -47,11 +50,7 @@ export default function Portfolio() {
                         breakpoints={{
                             480: { slidesPerView: 1.3, spaceBetween: 24 },
                             640: { slidesPerView: 1.8, spaceBetween: 32 },
-
-                            // TABLET – exactly 2 slides
                             768: { slidesPerView: 2, spaceBetween: 48 },
-
-                            // Desktop – 3 slides
                             1024: { slidesPerView: 2, spaceBetween: 48 },
                             1280: { slidesPerView: 3, spaceBetween: 48 },
                             1536: { slidesPerView: 4, spaceBetween: 48 },
@@ -69,6 +68,7 @@ export default function Portfolio() {
 
                                         {/* CARD */}
                                         <div
+                                            onClick={() => item && setSelectedItem(item)}
                                             className={`
                                                 relative
                                                 w-[80vw] xs:w-[210px] sm:w-[250px] md:w-[350px] lg:w-[350px]
@@ -81,6 +81,7 @@ export default function Portfolio() {
                                                 shadow-[0px_24px_36px_rgba(0,0,0,0.36)] md:shadow-[0px_40px_40px_rgba(0,0,0,0.55)]
                                                 transition-transform duration-300
                                                 hover:translate-y-2
+                                                cursor-pointer
                                             `}
                                         >
                                             {/* inner frame */}
@@ -94,6 +95,8 @@ export default function Portfolio() {
                                                         src={imgUrl}
                                                         alt={item?.title || "Work"}
                                                         className="w-full h-full object-cover transition-transform duration-500 hover:scale-[1.04]"
+                                                        loading="lazy"
+                                                        decoding="async"
                                                     />
                                                 ) : (
                                                     <div className="w-full h-full flex items-center justify-center text-text-light/45 font-body text-[12px] uppercase tracking-[0.18em]">
@@ -118,8 +121,13 @@ export default function Portfolio() {
                         })}
                     </Swiper>
                 </div>
-
             </div>
+
+            {/* MODAL COMPONENT */}
+            <PortfolioModal
+                selectedItem={selectedItem}
+                onClose={() => setSelectedItem(null)}
+            />
         </section>
     );
 }
