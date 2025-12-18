@@ -10,7 +10,6 @@ export default function PortfolioModal({ selectedItem, onClose }) {
     const allImages = useMemo(() => {
         if (!selectedItem) return [];
         const imgs = [];
-        if (selectedItem.image) imgs.push(selectedItem.image);
         if (selectedItem.gallery) imgs.push(...selectedItem.gallery);
         return imgs;
     }, [selectedItem]);
@@ -72,28 +71,34 @@ export default function PortfolioModal({ selectedItem, onClose }) {
                     </div>
 
                     {/* IMAGES GRID */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
-                        {allImages.map((img, idx) => (
-                            <div
-                                key={idx}
-                                onClick={() => setLightboxIndex(idx)}
-                                className="rounded-[20px] overflow-hidden aspect-video sm:aspect-square cursor-pointer group relative"
-                            >
-                                <img
-                                    src={urlFor(img).width(600).height(600).auto('format').url()}
-                                    alt={`Gallery ${idx}`}
-                                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                                    loading="lazy"
-                                />
-                                {/* Overlay hint */}
-                                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-10 h-10 text-white drop-shadow-lg">
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607zM10.5 7.5v6m3-3h-6" />
-                                    </svg>
+                    {allImages.length === 0 ? (
+                        <div className="text-center text-white/50 py-10 font-body">
+                            Nema dodatnih slika za ovaj projekat.
+                        </div>
+                    ) : (
+                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
+                            {allImages.map((img, idx) => (
+                                <div
+                                    key={idx}
+                                    onClick={() => setLightboxIndex(idx)}
+                                    className="rounded-[20px] overflow-hidden aspect-video sm:aspect-square cursor-pointer group relative"
+                                >
+                                    <img
+                                        src={urlFor(img).width(600).height(600).auto('format').url()}
+                                        alt={`Gallery ${idx}`}
+                                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                                        loading="lazy"
+                                    />
+                                    {/* Overlay hint */}
+                                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-10 h-10 text-white drop-shadow-lg">
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607zM10.5 7.5v6m3-3h-6" />
+                                        </svg>
+                                    </div>
                                 </div>
-                            </div>
-                        ))}
-                    </div>
+                            ))}
+                        </div>
+                    )}
                 </div>
             </div>
 
