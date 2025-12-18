@@ -1,7 +1,7 @@
 import Hero from "./components/sections/Hero";
 import About from "./components/sections/About";
 import Portfolio from "./components/sections/Portfolio";
-// import Skills from "./components/sections/Skills";
+import WhyMe from "./components/sections/WhyMe";
 // import Contact from "./components/sections/Contact";
 // import Footer from "./components/layout/Footer";
 
@@ -11,7 +11,7 @@ export default function App() {
       <Hero />
       <About />
       <Portfolio />
-      {/* <Skills /> */}
+      <WhyMe />
       {/* <Contact /> */}
       {/* <Footer /> */}
     </>
