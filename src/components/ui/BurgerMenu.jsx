@@ -9,7 +9,7 @@ export default function BurgerMenu() {
         { href: "#home", label: "Home" },
         { href: "#about", label: "About" },
         { href: "#work", label: "My Work" },
-        { href: "#skills", label: "Skills" },
+        { href: "#whyme", label: "Why Me?" },
         { href: "#contact", label: "Contact" },
     ];
 

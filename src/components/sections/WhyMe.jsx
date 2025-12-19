@@ -27,7 +27,7 @@ export default function WhyMe() {
         : { backgroundColor: "#1a1a1a" };
 
     return (
-        <section className="relative w-full py-20 md:py-32 overflow-hidden bg-cover bg-center bg-no-repeat bg-fixed" style={bgStyle}>
+        <section id="whyme" className="relative w-full py-20 md:py-32 overflow-hidden bg-cover bg-center bg-no-repeat bg-fixed" style={bgStyle}>
             <div className="absolute inset-0 bg-black/60 md:bg-black/50" />
 
             <div className="relative z-10 max-w-7xl mx-auto px-6 h-full flex flex-col md:flex-row items-center md:justify-end">
