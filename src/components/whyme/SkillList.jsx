@@ -1,11 +1,8 @@
-import useInView from "../../hooks/useInView";
-
 export default function SkillList({ skills }) {
-    const [sectionRef, inView] = useInView();
     if (!skills || skills.length === 0) return null;
 
     return (
-        <ul ref={sectionRef} className={`flex flex-col items-end gap-4 mb-10 transition-all duration-700 ${inView ? "animate__animated animate__fadeInUp animate__delay-2s" : "opacity-0 invisible"}`}>
+        <ul className="flex flex-col items-end gap-4 mb-10">
             {skills.map((skill, index) => (
                 <li key={index} className="flex items-center gap-4 text-lg sm:text-xl font-light tracking-wide text-text-light/90 group">
                     <span className="opacity-80 group-hover:opacity-100 transition-opacity">{skill}</span>

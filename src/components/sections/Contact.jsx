@@ -1,28 +1,11 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import { sanityClient } from "../../lib/sanityClient";
+import useInView from "../../hooks/useInView";
 import "animate.css";
 
 export default function Contact() {
-    const sectionRef = useRef(null);
-    const [visible, setVisible] = useState(false);
+    const [sectionRef, inView] = useInView({ threshold: 0.3 });
     const [contact, setContact] = useState(null);
-
-    // Animacija
-    useEffect(() => {
-        const el = sectionRef.current;
-        if (!el) return;
-        const observer = new IntersectionObserver(
-            (entries) => {
-                if (entries[0].isIntersecting) {
-                    setVisible(true);
-                    observer.disconnect();
-                }
-            },
-            { threshold: 0.3 }
-        );
-        observer.observe(el);
-        return () => observer.disconnect();
-    }, []);
 
     // Fetch Sanity
     useEffect(() => {
@@ -41,13 +24,13 @@ export default function Contact() {
             <div className="max-w-7xl mx-auto px-6">
 
                 {/* NASLOV */}
-                <div className={`mb-16 text-center md:text-left ${visible ? "animate__animated animate__fadeInUp" : "opacity-0"}`}>
+                <div className={`mb-16 text-center md:text-left ${inView ? "animate__animated animate__fadeInUp" : "opacity-0"}`}>
                     <h2 className="text-3xl md:text-5xl font-display uppercase tracking-widest text-text-light">
                         Kontaktirajte <span className="text-white/50">Me</span>
                     </h2>
                 </div>
 
-                <div className={`grid gap-12 md:grid-cols-2 ${visible ? "animate__animated animate__fadeInUp animate__delay-1s" : "opacity-0"}`}>
+                <div className={`grid gap-12 md:grid-cols-2 ${inView ? "animate__animated animate__fadeInUp animate__delay-1s" : "opacity-0"}`}>
 
                     {/* LEVA STRANA: INFO */}
                     <div className="flex flex-col justify-center">
@@ -107,7 +90,7 @@ export default function Contact() {
                     </div>
 
                     {/* DESNA STRANA: FORMA */}
-                    <div className="bg-white/5 p-8 md:p-10 rounded-[20px] border border-white/10 backdrop-blur-sm mt-10 md:mt-0">
+                    <div className="bg-white/5 p-8 md:p-10 rounded-[20px] border-2 border-white/10 backdrop-blur-sm mt-10 md:mt-0">
                         <form
                             action="https://api.web3forms.com/submit"
                             method="POST"
@@ -134,6 +117,17 @@ export default function Contact() {
                                     required
                                     className="w-full bg-transparent border-b border-white/20 px-4 py-3 text-text-light outline-none focus:border-white transition-colors placeholder:text-white/20"
                                     placeholder="vas@email.com"
+                                />
+                            </div>
+
+                            <div className="space-y-1">
+                                <label className="text-xs uppercase tracking-widest text-white/50 ml-2">Telefon</label>
+                                <input
+                                    type="tel"
+                                    name="phone"
+                                    required
+                                    className="w-full bg-transparent border-b border-white/20 px-4 py-3 text-text-light outline-none focus:border-white transition-colors placeholder:text-white/20"
+                                    placeholder="+381 61 123 456"
                                 />
                             </div>
 

@@ -22,7 +22,16 @@ export default function Hero() {
 
             {/* FULLSCREEN image */}
             {heroImage && (
-                <img src={heroImage} alt="Hero background" className="absolute inset-0 w-full h-full object-cover animate__animated animate__fadeIn" />
+                <>
+                    <img
+                        src={heroImage}
+                        alt="Hero background"
+                        className="absolute inset-0 w-full h-full object-cover animate__animated animate__fadeIn"
+                    />
+                    {/* Red overlay tint */}
+                    <div className="absolute inset-0 bg-surface-soft/50 mix-blend-multiply" />
+                    <div className="absolute inset-0 bg-gradient-to-b from-surface-soft/20 to-black/80" />
+                </>
             )}
 
             {/* Scroll indicator (mobile centered, desktop right) */}

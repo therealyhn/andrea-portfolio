@@ -33,7 +33,7 @@ export default function CurvedText({ text }) {
                         <span
                             key={i}
                             className="absolute left-1/2 bottom-40 origin-center text-text-light font-bold font-display uppercase text-[22px] lg:text-[100px]
-                             animate__animated animate__fadeIn"
+                             animate__animated animate__fadeIn)"
                             style={{
                                 transform: `translateX(-50%) rotate(${angle}deg) translateY(-${radius}px)`,
                                 animationDelay: `${i * 0.15}s`,

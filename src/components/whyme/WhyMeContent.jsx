@@ -1,13 +1,11 @@
-import SkillList from "./SkillList";
 import Button from "../ui/Button";
-import useInView from "../../hooks/useInView";
+import SkillList from "./SkillList";
 
-export default function WhyMeContent({ heading, description, skills, buttonText }) {
-    const [sectionRef, inView] = useInView();
+export default function WhyMeContent({ heading, description, skills, buttonText, inView }) {
     return (
-        <div ref={sectionRef} className="w-full md:w-1/2 lg:w-5/12 text-right text-text-light">
+        <div className="w-full md:w-1/2 lg:w-5/12 text-right text-text-light">
             {/* Dekoracija */}
-            <div className="flex justify-end gap-2 mb-4 text-primary opacity-80">
+            <div className={`flex justify-end gap-2 mb-4 text-primary opacity-80 ${inView ? "animate__animated animate__fadeIn" : "opacity-0 invisible"}`}>
                 <span className="text-2xl">✦</span>
                 <span className="text-xl mt-2">✦</span>
             </div>
@@ -22,9 +20,13 @@ export default function WhyMeContent({ heading, description, skills, buttonText 
                 </p>
             )}
 
-            <SkillList skills={skills} />
+            <div className={`transition-all duration-700 ${inView ? "animate__animated animate__fadeInUp animate__delay-2s" : "opacity-0 invisible"}`}>
+                <SkillList skills={skills} />
+            </div>
 
-            <Button href="#contact" variant="outline" className={`transition-all duration-700 ${inView ? "animate__animated animate__fadeInUp animate__delay-2s" : "opacity-0 invisible"}`}>{buttonText}</Button>
+            <div className={`transition-all duration-700 ${inView ? "animate__animated animate__fadeInUp animate__delay-3s" : "opacity-0 invisible"}`}>
+                <Button href="#contact" variant="outline" className="mt-6">{buttonText}</Button>
+            </div>
         </div>
     );
 }
