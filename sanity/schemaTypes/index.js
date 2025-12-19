@@ -3,6 +3,7 @@ import about from "./about"
 import workSection from "./workSection"
 import whyMe from "./whyMe"
 import contact from "./contact"
+import footer from "./footer"
 
 export const schemaTypes = [
     hero,
@@ -10,4 +11,5 @@ export const schemaTypes = [
     workSection,
     whyMe,
     contact,
+    footer,
 ]
