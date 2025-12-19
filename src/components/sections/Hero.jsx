@@ -30,7 +30,7 @@ export default function Hero() {
                     />
                     {/* Red overlay tint */}
                     <div className="absolute inset-0 bg-surface-soft/50 mix-blend-multiply" />
-                    <div className="absolute inset-0 bg-gradient-to-b from-surface-soft/20 to-black/80" />
+                    <div className="absolute inset-0 bg-gradient-to-b from-surface-soft/20 to-black" />
                 </>
             )}
 

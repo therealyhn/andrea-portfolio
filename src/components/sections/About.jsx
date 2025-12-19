@@ -26,11 +26,12 @@ export default function About() {
         <section
             ref={sectionRef}
             id="about"
-            className={`relative bg-background-dark py-16 md:py-24 lg:py-28 overflow-hidden transition-opacity duration-700 ${inView ? "opacity-100" : "opacity-0"}`}
+            className={`relative py-16 md:py-24 lg:py-28 overflow-hidden transition-opacity duration-700 ${inView ? "opacity-100" : "opacity-0"}`}
         >
             {/* Red overlay tint */}
             <div className="absolute inset-0 bg-surface-soft/50 mix-blend-multiply" />
-            <div className="absolute inset-0 bg-gradient-to-b from-black/80 to-surface-soft" />
+            <div className="absolute inset-0 bg-gradient-to-b from-black to-surface-soft" />
+
             {/* Scroll indicator (mobile centered, desktop right) */}
             <a
                 href="#work"
@@ -81,7 +82,7 @@ export default function About() {
                     {/* CENTER IMAGE – DESKTOP ONLY */}
                     <div className={`hidden lg:flex lg:col-span-4 justify-center ${inView ? "animate__animated animate__fadeIn animate__slow animate__delay-2s" : "opacity-0"}`}>
                         <div className="relative w-[380px] h-[540px] md:w-[460px] md:h-[640px] lg:w-[520px] lg:h-[720px]">
-                            <div className="absolute inset-0 rounded-[9999px] border border-text-light/25 bg-black/10 shadow-[0px_30px_120px_rgba(0,0,0,0.65)]" />
+                            <div className="absolute inset-0 rounded-[9999px] border border-text-light/25 bg-black/10 shadow-[0px_30px_80px_rgba(0,0,0,0.65)]" />
                             <div className="absolute inset-[26px] rounded-[9999px] border border-text-light/15" />
                             <div className="absolute inset-[50px] rounded-[9999px] overflow-hidden bg-black/20">
                                 {imageUrl ? (

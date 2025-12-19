@@ -32,6 +32,10 @@ export default function Portfolio() {
         >
             <div className="max-w-[1750px] mx-auto">
 
+                {/* Red overlay tint */}
+                <div className="absolute inset-0 bg-surface-soft/50 mix-blend-multiply" />
+                <div className="absolute inset-0 bg-gradient-to-b from-surface-soft via-surface-soft/50 to-black" />
+
                 {/* TITLE */}
                 <div className={`${inView ? "animate__animated animate__fadeInUp animate__slow" : ""}`}>
                     <h2 className="text-text-light font-display uppercase tracking-[0.08em] text-[32px] sm:text-[40px] md:text-[50px] lg:text-[62px] text-center lg:text-left">

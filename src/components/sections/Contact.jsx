@@ -23,6 +23,10 @@ export default function Contact() {
         <section id="contact" ref={sectionRef} className="py-20 md:py-32 relative overflow-hidden">
             <div className="max-w-7xl mx-auto px-6">
 
+                {/* Red overlay tint */}
+                <div className="absolute inset-0 bg-surface-soft/50 mix-blend-multiply" />
+                <div className="absolute inset-0 bg-gradient-to-b from-surface-soft to-black" />
+
                 {/* NASLOV */}
                 <div className={`mb-16 text-center md:text-left ${inView ? "animate__animated animate__fadeInUp" : "opacity-0"}`}>
                     <h2 className="text-3xl md:text-5xl font-display uppercase tracking-widest text-text-light">
