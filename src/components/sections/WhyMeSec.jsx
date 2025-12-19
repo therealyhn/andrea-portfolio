@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { sanityClient, urlFor } from "../../lib/sanityClient";
 import WhyMeContent from "../whyme/WhyMeContent"
 
-export default function WhyMe() {
+export default function WhyMeSec() {
     const [data, setData] = useState(null);
 
     useEffect(() => {
