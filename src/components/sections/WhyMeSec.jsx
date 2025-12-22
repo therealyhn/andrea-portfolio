@@ -27,7 +27,7 @@ export default function WhyMeSec() {
 
     const bgStyle = data.backgroundImage
         ? { backgroundImage: `url(${urlFor(data.backgroundImage).width(1920).auto('format').url()})` }
-        : { backgroundColor: "#4a1a20" };
+        : { backgroundImage: `url(/img/placeholders/whyme-placeholder.jpg)` };
 
     return (
         <section

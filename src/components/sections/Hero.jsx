@@ -14,7 +14,9 @@ export default function Hero() {
             .catch(console.error);
     }, []);
 
-    const heroImage = heroData?.image ? urlFor(heroData.image).width(2200).quality(90).url() : null;
+    const heroImage = heroData?.image
+        ? urlFor(heroData.image).width(1920).quality(90).url()
+        : "/img/placeholders/hero-placeholder.jpg";
 
     return (
         <section id="home" className="relative min-h-screen bg-surface-soft overflow-hidden">

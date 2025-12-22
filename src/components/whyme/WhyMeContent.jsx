@@ -11,12 +11,12 @@ export default function WhyMeContent({ heading, description, skills, buttonText,
             </div>
 
             <h2 className={`font-display text-4xl sm:text-5xl md:text-6xl uppercase tracking-wider mb-6 transition-all duration-700 ${inView ? "animate__animated animate__fadeInUp" : "opacity-0 invisible"}`}>
-                {heading}
+                {heading || "Zašto izabrati mene?"}
             </h2>
 
             {description && (
                 <p className={`font-body text-text-light/80 text-lg sm:text-xl leading-relaxed mb-8 whitespace-pre-line transition-all duration-700 ${inView ? "animate__animated animate__fadeInUp animate__delay-1s" : "opacity-0 invisible"}`}>
-                    {description}
+                    {description || "Opis nije dostupan"}
                 </p>
             )}
 

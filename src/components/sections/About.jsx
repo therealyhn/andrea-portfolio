@@ -20,7 +20,7 @@ export default function About() {
 
     const imageUrl = about?.centerImage
         ? urlFor(about.centerImage).width(900).quality(90).url()
-        : null;
+        : "/img/placeholders/1-1.jpg";
 
     return (
         <section
@@ -85,17 +85,11 @@ export default function About() {
                             <div className="absolute inset-0 rounded-[9999px] border border-text-light/25 bg-black/10 shadow-[0px_30px_80px_rgba(0,0,0,0.65)]" />
                             <div className="absolute inset-[26px] rounded-[9999px] border border-text-light/15" />
                             <div className="absolute inset-[50px] rounded-[9999px] overflow-hidden bg-black/20">
-                                {imageUrl ? (
-                                    <img
-                                        src={imageUrl}
-                                        alt="About portrait"
-                                        className={`w-full h-full object-cover ${inView ? "animate__animated animate__fadeIn animate__slow animate__delay-3s" : "opacity-0"}`}
-                                    />
-                                ) : (
-                                    <div className={`w-full h-full flex items-center justify-center text-text-light/50 text-sm ${inView ? "animate__animated animate__fadeIn animate__slow animate__delay-3s" : "opacity-0"}`}>
-                                        Upload image in Sanity
-                                    </div>
-                                )}
+                                <img
+                                    src={imageUrl}
+                                    alt="About portrait"
+                                    className={`w-full h-full object-cover ${inView ? "animate__animated animate__fadeIn animate__slow animate__delay-3s" : "opacity-0"}`}
+                                />
                             </div>
                             <div className="absolute -inset-10 rounded-[9999px] blur-5xl opacity-40 pointer-events-none" />
                         </div>

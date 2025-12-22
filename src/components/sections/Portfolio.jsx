@@ -64,7 +64,7 @@ export default function Portfolio() {
                         {(items.length ? items : Array.from({ length: 6 })).map((item, idx) => {
                             const imgUrl = item?.image
                                 ? urlFor(item.image).width(1500).quality(90).url()
-                                : null;
+                                : "/img/placeholders/1-1.jpg";
 
                             return (
                                 <SwiperSlide key={item?._key || idx} className="!h-auto flex justify-center">
@@ -94,19 +94,13 @@ export default function Portfolio() {
 
                                             {/* image */}
                                             <div className="absolute inset-[11px] sm:inset-[16px] md:inset-[22px] rounded-[10px] sm:rounded-[18px] md:rounded-[32px] overflow-hidden bg-black/20">
-                                                {imgUrl ? (
-                                                    <img
-                                                        src={imgUrl}
-                                                        alt={item?.title || "Work"}
-                                                        className="w-full h-full object-cover transition-transform duration-500 hover:scale-[1.04]"
-                                                        loading="lazy"
-                                                        decoding="async"
-                                                    />
-                                                ) : (
-                                                    <div className="w-full h-full flex items-center justify-center text-text-light/45 font-body text-[12px] uppercase tracking-[0.18em]">
-                                                        Upload in Sanity
-                                                    </div>
-                                                )}
+                                                <img
+                                                    src={imgUrl}
+                                                    alt={item?.title || "Work"}
+                                                    className="w-full h-full object-cover transition-transform duration-500 hover:scale-[1.04]"
+                                                    loading="lazy"
+                                                    decoding="async"
+                                                />
 
                                                 <div className="absolute inset-0 bg-gradient-to-b from-black/0 via-transparent to-black/40 pointer-events-none" />
                                             </div>

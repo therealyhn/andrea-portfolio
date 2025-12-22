@@ -17,7 +17,9 @@ export default function Footer() {
             .catch(console.error);
     }, []);
 
-    const logoUrl = data?.logo ? urlFor(data.logo).width(400).url() : "/img/logo/dark.png";
+    const logoUrl = data?.logo
+        ? urlFor(data.logo).width(400).url()
+        : "/img/placeholders/1-1.jpg";
 
     return (
         <footer className="relative bg-surface-soft text-text-light pt-24 pb-10 overflow-hidden">
