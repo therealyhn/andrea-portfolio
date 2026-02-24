@@ -38,7 +38,7 @@ export default function WhyMeSec() {
         >
             {/* Red overlay tint */}
             <div className="absolute inset-0 bg-surface-soft/40 mix-blend-multiply" />
-            <div className="absolute inset-0 bg-gradient-to-b from-background-dark via-background-dark/40 to-background-dark" />
+            <div className="absolute inset-0 bg-gradient-to-b from-background-dark/5 via-background-dark/10 to-background-dark" />
 
             <div className="relative z-10 max-w-7xl mx-auto px-6 h-full flex flex-col md:flex-row items-center md:justify-end">
                 <WhyMeContent
