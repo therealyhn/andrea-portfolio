@@ -26,7 +26,7 @@ export default function About() {
         <section
             ref={sectionRef}
             id="about"
-            className={`relative py-16 md:py-24 lg:py-28 overflow-hidden bg-surface-soft transition-opacity duration-700 ${inView ? "opacity-100" : "opacity-0"}`}
+            className={`relative py-16 md:py-24 lg:py-28 md:h-screen bg-surface-soft transition-opacity duration-700 ${inView ? "opacity-100" : "opacity-0"}`}
         >
             {/* Red overlay tint */}
             <div className="absolute inset-0 bg-surface-soft/50 mix-blend-multiply" />

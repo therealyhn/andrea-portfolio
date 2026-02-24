@@ -16,7 +16,20 @@ export default function Portfolio() {
 
     useEffect(() => {
         sanityClient
-            .fetch(`*[_type == "workSection"][0]{ heading, subheading, items[]{ _key, title, image, description, gallery } }`)
+            .fetch(`*[_type == "workSection"][0]{
+                heading,
+                subheading,
+                items[]{
+                    _key,
+                    title,
+                    image,
+                    description,
+                    gallery[]{
+                        ...,
+                        "videoUrl": select(_type == "file" => asset->url, null)
+                    }
+                }
+            }`)
             .then(setData)
             .catch(console.error);
     }, []);
@@ -28,7 +41,7 @@ export default function Portfolio() {
         <section
             ref={sectionRef}
             id="work"
-            className={`relative bg-background-dark py-14 md:py-14 lg:py-14 ${inView ? "" : "opacity-0"}`}
+            className={`relative bg-background-dark md:h-screen py-14 md:py-14 lg:py-14 ${inView ? "" : "opacity-0"}`}
         >
             <div className="max-w-[1750px] mx-auto">
 
@@ -38,7 +51,7 @@ export default function Portfolio() {
 
                 {/* TITLE */}
                 <div className={`${inView ? "animate__animated animate__fadeInUp animate__slow" : ""}`}>
-                    <h2 className="text-text-light font-display uppercase tracking-[0.08em] text-[32px] sm:text-[40px] md:text-[50px] lg:text-[62px] text-center lg:text-left">
+                    <h2 className="text-text-light md:pl-10 font-display uppercase tracking-[0.08em] text-[32px] sm:text-[40px] md:text-[50px] lg:text-[62px] text-center lg:text-left">
                         {data?.heading || "MY WORK"}
                     </h2>
                 </div>

@@ -6,12 +6,12 @@ import Lightbox from "./Lightbox";
 export default function PortfolioModal({ selectedItem, onClose }) {
     const [lightboxIndex, setLightboxIndex] = useState(null);
 
-    // Combine main image and gallery into one array for the lightbox
-    const allImages = useMemo(() => {
+    // Mixed gallery: images + videos
+    const allMedia = useMemo(() => {
         if (!selectedItem) return [];
-        const imgs = [];
-        if (selectedItem.gallery) imgs.push(...selectedItem.gallery);
-        return imgs;
+        const media = [];
+        if (selectedItem.gallery) media.push(...selectedItem.gallery);
+        return media;
     }, [selectedItem]);
 
     // Prevent scrolling
@@ -27,11 +27,13 @@ export default function PortfolioModal({ selectedItem, onClose }) {
     if (!selectedItem) return null;
 
     const handleNext = () => {
-        setLightboxIndex((prev) => (prev + 1) % allImages.length);
+        if (!allMedia.length) return;
+        setLightboxIndex((prev) => (prev + 1) % allMedia.length);
     };
 
     const handlePrev = () => {
-        setLightboxIndex((prev) => (prev - 1 + allImages.length) % allImages.length);
+        if (!allMedia.length) return;
+        setLightboxIndex((prev) => (prev - 1 + allMedia.length) % allMedia.length);
     };
 
     return (
@@ -70,25 +72,44 @@ export default function PortfolioModal({ selectedItem, onClose }) {
                         )}
                     </div>
 
-                    {/* IMAGES GRID */}
-                    {allImages.length === 0 ? (
+                    {/* MEDIA GRID */}
+                    {allMedia.length === 0 ? (
                         <div className="text-center text-white/50 py-10 font-body">
-                            Nema dodatnih slika za ovaj projekat.
+                            Nema dodatnih medija za ovaj projekat.
                         </div>
                     ) : (
                         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
-                            {allImages.map((img, idx) => (
+                            {allMedia.map((item, idx) => (
                                 <div
                                     key={idx}
                                     onClick={() => setLightboxIndex(idx)}
                                     className="rounded-[20px] overflow-hidden aspect-video sm:aspect-square cursor-pointer group relative"
                                 >
-                                    <img
-                                        src={urlFor(img).width(600).height(600).auto('format').url()}
-                                        alt={`Gallery ${idx}`}
-                                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                                        loading="lazy"
-                                    />
+                                    {item?.videoUrl ? (
+                                        <>
+                                            <video
+                                                src={item.videoUrl}
+                                                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                                                muted
+                                                playsInline
+                                                preload="metadata"
+                                            />
+                                            <div className="absolute inset-0 bg-black/25 flex items-center justify-center">
+                                                <div className="w-12 h-12 rounded-full border border-white/40 flex items-center justify-center">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 text-white ml-0.5">
+                                                        <path fillRule="evenodd" d="M4.5 5.653c0-1.426 1.529-2.33 2.779-1.643l11.54 6.348c1.295.712 1.295 2.573 0 3.285L7.28 19.991c-1.25.687-2.779-.217-2.779-1.643V5.653z" clipRule="evenodd" />
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                        </>
+                                    ) : (
+                                        <img
+                                            src={urlFor(item).width(600).height(600).auto("format").url()}
+                                            alt={`Gallery ${idx}`}
+                                            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                                            loading="lazy"
+                                        />
+                                    )}
                                     {/* Overlay hint */}
                                     <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-10 h-10 text-white drop-shadow-lg">
@@ -104,7 +125,7 @@ export default function PortfolioModal({ selectedItem, onClose }) {
 
             {/* --- LIGHTBOX COMPONENT --- */}
             <Lightbox
-                images={allImages}
+                items={allMedia}
                 currentIndex={lightboxIndex}
                 onClose={() => setLightboxIndex(null)}
                 onNext={handleNext}

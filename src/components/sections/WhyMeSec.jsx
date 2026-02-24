@@ -33,7 +33,7 @@ export default function WhyMeSec() {
         <section
             id="whyme"
             ref={sectionRef}
-            className="relative w-full py-20 md:py-32 overflow-hidden bg-cover bg-center bg-no-repeat bg-fixed"
+            className="relative w-full py-20 md:py-32 overflow-hidden bg-[position:30%_center] bg-no-repeat bg-fixed"
             style={bgStyle}
         >
             {/* Red overlay tint */}

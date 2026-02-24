@@ -49,9 +49,16 @@ export default defineType({
                         }),
                         defineField({
                             name: "gallery",
-                            title: "GALERIJA SLIKA",
+                            title: "GALERIJA (SLIKE / VIDEO)",
                             type: "array",
-                            of: [{ type: "image", options: { hotspot: true } }],
+                            of: [
+                                { type: "image", options: { hotspot: true } },
+                                {
+                                    type: "file",
+                                    options: { accept: "video/*" },
+                                },
+                            ],
+                            description: "Mozes dodati slike i video klipove u istu galeriju.",
                         }),
                     ],
                     preview: {
