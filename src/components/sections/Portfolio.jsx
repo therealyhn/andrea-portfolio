@@ -28,13 +28,13 @@ export default function Portfolio() {
         <section
             ref={sectionRef}
             id="work"
-            className={`relative bg-surface-soft py-14 md:py-14 lg:py-14 ${inView ? "" : "opacity-0"}`}
+            className={`relative bg-background-dark py-14 md:py-14 lg:py-14 ${inView ? "" : "opacity-0"}`}
         >
             <div className="max-w-[1750px] mx-auto">
 
                 {/* Red overlay tint */}
                 <div className="absolute inset-0 bg-surface-soft/50 mix-blend-multiply" />
-                <div className="absolute inset-0 bg-gradient-to-b from-surface-soft via-surface-soft/50 to-black" />
+                <div className="absolute inset-0 bg-gradient-to-b from-background-dark via-background-dark/50 to-surface-soft" />
 
                 {/* TITLE */}
                 <div className={`${inView ? "animate__animated animate__fadeInUp animate__slow" : ""}`}>

@@ -19,7 +19,10 @@ export default function Hero() {
         : "/img/placeholders/hero-placeholder.jpg";
 
     return (
-        <section id="home" className="relative min-h-screen bg-surface-soft overflow-hidden">
+        <section
+            id="home"
+            className="relative min-h-svh md:min-h-dvh bg-surface-soft overflow-hidden"
+        >
             <BurgerMenu />
 
             {/* FULLSCREEN image */}
@@ -32,19 +35,19 @@ export default function Hero() {
                     />
                     {/* Red overlay tint */}
                     <div className="absolute inset-0 bg-surface-soft/50 mix-blend-multiply" />
-                    <div className="absolute inset-0 bg-gradient-to-b from-surface-soft/20 to-black" />
+                    <div className="absolute inset-0 bg-gradient-to-b from-surface-soft/20 to-surface-soft" />
                 </>
             )}
 
             {/* Scroll indicator (mobile centered, desktop right) */}
             <a
                 href="#about"
-                className="absolute left-1/2 bottom-10 md:bottom-14 -translate-x-1/2 z-20 flex flex-col items-center gap-2
+                className="absolute left-1/2 bottom-6 sm:bottom-8 md:bottom-10 lg:bottom-14 2k:bottom-16 4k:bottom-20 -translate-x-1/2 z-20 flex flex-col items-center gap-2
                  text-text-light uppercase tracking-[0.45em] 
-                text-[9px] font-body animate__fadeInDown animate__infinite animate__slower"
+                text-[8px] sm:text-[9px] 2k:text-[10px] 4k:text-[12px] font-body animate__fadeInDown animate__infinite animate__slower"
             >
                 <svg
-                    className="w-14 h-14 md:w-16 md:h-16 opacity-70 animate__animated animate__fadeInDown animate__infinite animate__slower"
+                    className="w-14 h-14 md:w-16 md:h-16 2k:w-20 2k:h-20 4k:w-24 4k:h-24 opacity-70 animate__animated animate__fadeInDown animate__infinite animate__slower"
                     viewBox="0 0 64 64"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
@@ -61,7 +64,7 @@ export default function Hero() {
 
 
             {/* Curved text centered */}
-            <div className="absolute inset-0 z-10 flex items-center justify-center text-text-light pointer-events-none">
+            <div className="absolute inset-0 z-10 flex items-center justify-center px-4 pt-10 sm:pt-12 md:pt-8 2k:px-8 2k:pt-10 4k:px-12 4k:pt-14 pb-20 sm:pb-24 md:pb-24 2k:pb-28 4k:pb-36 text-text-light pointer-events-none">
                 <CurvedText text={heroData?.curvedText} />
             </div>
         </section>
