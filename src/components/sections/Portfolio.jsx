@@ -33,8 +33,8 @@ export default function Portfolio() {
             <div className="max-w-[1750px] mx-auto">
 
                 {/* Red overlay tint */}
-                <div className="absolute inset-0 bg-surface-soft/50 mix-blend-multiply" />
-                <div className="absolute inset-0 bg-gradient-to-b from-background-dark via-background-dark/50 to-surface-soft" />
+                <div className="absolute inset-0 bg-surface-soft/30 mix-blend-multiply" />
+                <div className="absolute inset-0 bg-gradient-to-b from-background-dark via-transparent to-background-dark" />
 
                 {/* TITLE */}
                 <div className={`${inView ? "animate__animated animate__fadeInUp animate__slow" : ""}`}>
@@ -45,6 +45,27 @@ export default function Portfolio() {
 
                 {/* SWIPER */}
                 <div className={`mt-8 md:mt-10 ${inView ? "animate__animated animate__fadeIn animate__slow" : ""}`}>
+                    <div className="mb-4 md:mb-6 px-5 flex items-center justify-end gap-3">
+                        <button
+                            type="button"
+                            aria-label="Previous work item"
+                            className="work-prev portfolio-nav-btn"
+                        >
+                            <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M15 5L8 12L15 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                            </svg>
+                        </button>
+                        <button
+                            type="button"
+                            aria-label="Next work item"
+                            className="work-next portfolio-nav-btn"
+                        >
+                            <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9 5L16 12L9 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                            </svg>
+                        </button>
+                    </div>
+
                     <Swiper
                         modules={[Navigation, Pagination]}
                         navigation={{ nextEl: ".work-next", prevEl: ".work-prev" }}

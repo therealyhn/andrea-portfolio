@@ -31,11 +31,11 @@ export default function Hero() {
                     <img
                         src={heroImage}
                         alt="Hero background"
-                        className="absolute inset-0 w-full h-full object-cover animate__animated animate__fadeIn"
+                        className="absolute inset-0 w-full h-full object-cover drop-shadow-[0_24px_80px_rgba(0,0,0,0.35)] animate__animated animate__fadeIn"
                     />
                     {/* Red overlay tint */}
-                    <div className="absolute inset-0 bg-surface-soft/50 mix-blend-multiply" />
-                    <div className="absolute inset-0 bg-gradient-to-b from-surface-soft/20 to-surface-soft" />
+                    <div className="absolute inset-0 bg-surface-soft/10 mix-blend-multiply" />
+                    <div className="absolute inset-0 bg-gradient-to-b from-transparent via-surface-soft/10  to-surface-soft" />
                 </>
             )}
 

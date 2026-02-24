@@ -30,7 +30,7 @@ export default function About() {
         >
             {/* Red overlay tint */}
             <div className="absolute inset-0 bg-surface-soft/50 mix-blend-multiply" />
-            <div className="absolute inset-0 bg-gradient-to-b from-surface-soft to-background-dark" />
+            <div className="absolute inset-0 bg-gradient-to-b from-surface-soft via-surface-soft/80 to-background-dark" />
 
             {/* Scroll indicator (mobile centered, desktop right) */}
             <a
@@ -59,12 +59,12 @@ export default function About() {
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-start lg:items-center">
 
                     {/* LEFT */}
-                    <div className={`lg:col-span-4 text-center lg:text-left ${inView ? "animate__animated animate__fadeInUp animate__slow animate__delay-1s" : "opacity-0"}`}>
-                        <h2 className={`text-text-light font-display uppercase tracking-[0.08em] text-[22px] sm:text-[24px] md:text-[32px] lg:text-[36px] mb-6 ${inView ? "animate__animated animate__fadeInUp animate__slow animate__delay-1s" : "opacity-0"}`}>
+                    <div className={`lg:col-span-4 text-center lg:text-left ${inView ? "animate__animated animate__fadeInUp animate__fast" : "opacity-0"}`}>
+                        <h2 className={`text-text-light font-display uppercase tracking-[0.08em] text-[22px] sm:text-[24px] md:text-[32px] lg:text-[36px] mb-6 ${inView ? "animate__animated animate__fadeInUp animate__fast" : "opacity-0"}`}>
                             {about?.leftTitle || "About"}
                         </h2>
 
-                        <p className={`text-text-light/75 font-body leading-relaxed text-[14px] md:text-[16px] max-w-md mx-auto lg:mx-0 ${inView ? "animate__animated animate__fadeInUp animate__slow animate__delay-2s" : "opacity-0"}`}>
+                        <p className={`text-text-light/75 font-body leading-relaxed text-[14px] md:text-[16px] max-w-md mx-auto lg:mx-0 ${inView ? "animate__animated animate__fadeInUp animate__fast" : "opacity-0"}`}>
                             {about?.leftText || ""}
                         </p>
 
@@ -75,12 +75,12 @@ export default function About() {
                     </div>
 
                     {/* MOBILE SEPARATOR */}
-                    <div className={`lg:hidden my-14 w-full flex justify-center ${inView ? "animate__animated animate__fadeIn animate__slow animate__delay-4s" : "opacity-0"}`}>
+                    <div className={`lg:hidden my-14 w-full flex justify-center ${inView ? "animate__animated animate__fadeIn animate__fast" : "opacity-0"}`}>
                         <span className="w-20 h-px bg-text-light/25"></span>
                     </div>
 
                     {/* CENTER IMAGE – DESKTOP ONLY */}
-                    <div className={`hidden lg:flex lg:col-span-4 justify-center ${inView ? "animate__animated animate__fadeIn animate__slow animate__delay-2s" : "opacity-0"}`}>
+                    <div className={`hidden lg:flex lg:col-span-4 justify-center ${inView ? "animate__animated animate__fadeIn animate__fast" : "opacity-0"}`}>
                         <div className="relative w-[380px] h-[540px] md:w-[460px] md:h-[640px] lg:w-[520px] lg:h-[720px]">
                             <div className="absolute inset-0 rounded-[9999px] border border-text-light/25 bg-black/10 shadow-[0px_30px_80px_rgba(0,0,0,0.65)]" />
                             <div className="absolute inset-[26px] rounded-[9999px] border border-text-light/15" />
@@ -88,7 +88,7 @@ export default function About() {
                                 <img
                                     src={imageUrl}
                                     alt="About portrait"
-                                    className={`w-full h-full object-cover ${inView ? "animate__animated animate__fadeIn animate__slow animate__delay-3s" : "opacity-0"}`}
+                                    className={`w-full h-full object-cover ${inView ? "animate__animated animate__fadeIn animate__fast" : "opacity-0"}`}
                                 />
                             </div>
                             <div className="absolute -inset-10 rounded-[9999px] blur-5xl opacity-40 pointer-events-none" />
@@ -96,15 +96,16 @@ export default function About() {
                     </div>
 
                     {/* RIGHT */}
-                    <div className={`lg:col-span-4 flex flex-col items-center lg:items-start text-center lg:text-left ${inView ? "animate__animated animate__fadeInUp animate__slow animate__delay-3s" : "opacity-0"}`}>
-                        <h3 className={`text-text-light font-display uppercase tracking-[0.08em] text-[28px] lg:text-[36px] mb-6 ${inView ? "animate__animated animate__fadeInUp animate__slow animate__delay-4s" : "opacity-0"}`}>
+                    <div className={`lg:col-span-4 flex flex-col items-center lg:items-start text-center lg:text-left ${inView ? "animate__animated animate__fadeInUp animate__fast" : "opacity-0"}`}>
+                        <h3 className={`text-text-light font-display uppercase tracking-[0.08em] text-[28px] lg:text-[36px] mb-6 ${inView ? "animate__animated animate__fadeInUp animate__fast" : "opacity-0"}`}>
                             {about?.rightTitle || "Work experience"}
                         </h3>
                         <div className="space-y-8 w-full max-w-md mx-auto lg:mx-0 text-center lg:text-left">
                             {(about?.experiences || []).map((exp, idx) => (
                                 <div
                                     key={idx}
-                                    className={`${inView ? `animate__animated animate__fadeInUp animate__slow animate__delay-${5 + idx}s` : "opacity-0"}`}
+                                    className={`${inView ? "animate__animated animate__fadeInUp animate__fast" : "opacity-0"}`}
+                                    style={inView ? { animationDelay: `${idx * 120}ms`, animationFillMode: "both" } : undefined}
                                 >
                                     <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-2">
                                         <div className="text-text-light/90 font-body text-[14px] md:text-[16px] flex flex-col">
@@ -135,14 +136,15 @@ export default function About() {
 
 
                         <div className="mt-14 w-full pb-10 md:pb-0 max-w-md mx-auto lg:mx-0 text-center lg:text-left">
-                            <h4 className={`text-text-light/90 font-display uppercase tracking-[0.08em] text-[28px] lg:text-[32px] mb-6 ${inView ? "animate__animated animate__fadeInUp animate__slow animate__delay-6s" : "opacity-0"}`}>
+                            <h4 className={`text-text-light/90 font-display uppercase tracking-[0.08em] text-[28px] lg:text-[32px] mb-6 ${inView ? "animate__animated animate__fadeInUp animate__fast" : "opacity-0"}`}>
                                 {about?.educationTitle || "Education"}
                             </h4>
                             <div className="space-y-6">
                                 {(about?.education || []).map((ed, idx) => (
                                     <div
                                         key={idx}
-                                        className={`relative pl-4 text-text-light/75 font-body text-[14px] leading-relaxed text-center lg:text-left ${inView ? `animate__animated animate__fadeInUp animate__slow animate__delay-${7 + idx}s` : "opacity-0"}`}
+                                        className={`relative pl-4 text-text-light/75 font-body text-[14px] leading-relaxed text-center lg:text-left ${inView ? "animate__animated animate__fadeInUp animate__fast" : "opacity-0"}`}
+                                        style={inView ? { animationDelay: `${120 + idx * 120}ms`, animationFillMode: "both" } : undefined}
                                     >
                                         <span className="hidden md:block absolute left-0 top-1 w-px h-full bg-accent-gold"></span>
 
