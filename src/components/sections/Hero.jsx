@@ -64,7 +64,7 @@ export default function Hero() {
 
 
             {/* Curved text centered */}
-            <div className="absolute inset-0 z-10 flex items-center justify-center px-4 pt-10 sm:pt-12 md:pt-8 2k:px-8 2k:pt-10 4k:px-12 4k:pt-14 pb-20 sm:pb-24 md:pb-24 2k:pb-28 4k:pb-36 text-text-light pointer-events-none">
+            <div className="absolute inset-0 z-10 flex items-center justify-center text-text-light pointer-events-none">
                 <CurvedText text={heroData?.curvedText} />
             </div>
         </section>

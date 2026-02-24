@@ -18,8 +18,9 @@ export default function BurgerMenu() {
         function onScroll() {
             const y = window.scrollY;
 
-            setScrolled(y > 4);
-            setShowDesktopBurger(y < window.innerHeight * 0.6);
+            setScrolled(y > 10);
+            // Hide burger only deeper into the page
+            setShowDesktopBurger(y < window.innerHeight * 0.85);
         }
 
         window.addEventListener("scroll", onScroll, { passive: true });

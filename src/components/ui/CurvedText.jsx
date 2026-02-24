@@ -26,35 +26,34 @@ export default function CurvedText({ text }) {
 
     // Razbijanje stringa na karaktere
     const letters = clean.split("");
-    const isTabletOrSmallDesktop = viewport.width < 1280;
-    const isCompactHeight = viewport.height < 820;
+    const isTabletOrSmallDesktop = viewport.width < 1200;
+    const isCompactHeight = viewport.height < 720;
     const showStraightText = isTabletOrSmallDesktop || isCompactHeight;
-    const is2K = viewport.width >= 1920;
-    const is4K = viewport.width >= 2560;
 
-    const radiusMax = is4K ? 720 : is2K ? 560 : 360;
-    const radius = Math.max(220, Math.min(radiusMax, Math.floor(viewport.width * 0.22)));
-    const totalAngle = 240;
+    // --- UNIVERSAL HEIGHT-BASED SCALING ---
 
-    // Pocetni ugao (centar luka)
-    const startAngle = -120;
+    // Radius is 65% of screen height - ensures consistent curvature regardless of width
+    const radius = Math.floor(viewport.height * 0.65);
 
-    // Koliko stepeni ide po slovu
+    // Center the arc vertically so the top is always at ~90% of screen height
+    const desktopBottomOffset = Math.floor(viewport.height * 0.25);
+
+    // Shallower angle for a sophisticated look (max 140deg)
+    const totalAngle = Math.min(140, letters.length * 8);
+    const startAngle = -(totalAngle / 2);
+
     const count = Math.max(letters.length - 1, 1);
     const angleStep = totalAngle / count;
-    const fontMax = is4K ? 160 : is2K ? 112 : 72;
+
+    // Fluid font size tied directly to screen height, clamped for desktop readability
     const desktopFontSize = Math.max(
         34,
-        Math.min(fontMax, Math.floor(Math.min(viewport.width * 0.05, viewport.height * 0.085)))
+        Math.min(viewport.height * 0.085, 120)
     );
-    const widthMax = is4K ? 2000 : is2K ? 1500 : 1000;
-    const heightMax = is4K ? 860 : is2K ? 620 : 420;
-    const desktopContainerWidth = Math.max(680, Math.min(widthMax, Math.floor(viewport.width * 0.84)));
-    const desktopContainerHeight = Math.max(260, Math.min(heightMax, Math.floor(viewport.height * 0.44)));
-    const desktopBottomOffset = Math.max(
-        88,
-        Math.min(is4K ? 280 : is2K ? 220 : 160, Math.floor(desktopContainerHeight * 0.38))
-    );
+
+    // Use full viewport dimensions for the arc container
+    const desktopContainerWidth = viewport.width;
+    const desktopContainerHeight = viewport.height;
 
     return (
         <>
@@ -65,8 +64,8 @@ export default function CurvedText({ text }) {
 
             {/* Tablet + compact-height fallback */}
             {showStraightText && (
-                <div className="hidden md:flex absolute inset-x-0 top-[18%] lg:top-[20%] 2k:top-[21%] 4k:top-[22%] justify-center px-6 2k:px-10 4k:px-16 z-20 text-text-light font-display uppercase tracking-[0.2em] lg:tracking-[0.28em] 2k:tracking-[0.32em] 4k:tracking-[0.38em] text-center animate__animated animate__fadeInDown animate__slow">
-                    <span className="text-[clamp(28px,4.5vw,56px)] 2k:text-[clamp(56px,3.6vw,88px)] 4k:text-[clamp(88px,3.4vw,128px)] leading-tight">
+                <div className="hidden md:flex absolute inset-0 items-center justify-center px-6 2k:px-10 4k:px-16 z-20 text-text-light font-display uppercase tracking-[0.2em] lg:tracking-[0.28em] 2k:tracking-[0.32em] 4k:tracking-[0.38em] text-center animate__animated animate__fadeInDown animate__slow">
+                    <span className="text-[clamp(32px,5.5vw,68px)] 2k:text-[clamp(68px,4.2vw,100px)] 4k:text-[clamp(100px,4vw,144px)] leading-[1.1]">
                         {clean}
                     </span>
                 </div>
@@ -81,28 +80,28 @@ export default function CurvedText({ text }) {
                         height: `${desktopContainerHeight}px`,
                     }}
                 >
-                {letters.map((char, i) => {
-                    const angle = startAngle + i * angleStep;
-                    if (char === " ") return null;
+                    {letters.map((char, i) => {
+                        const angle = startAngle + i * angleStep;
+                        if (char === " ") return null;
 
-                    return (
-                        <span
-                            key={i}
-                            className="absolute left-1/2 origin-center text-text-light font-bold font-display uppercase
+                        return (
+                            <span
+                                key={i}
+                                className="absolute left-1/2 origin-center text-text-light font-bold font-display uppercase
                              animate__animated animate__fadeIn"
-                            style={{
-                                bottom: `${desktopBottomOffset}px`,
-                                fontSize: `${desktopFontSize}px`,
-                                lineHeight: 1,
-                                transform: `translateX(-50%) rotate(${angle}deg) translateY(-${radius}px)`,
-                                animationDelay: `${i * 0.15}s`,
-                            }}
-                        >
-                            {char}
-                        </span>
+                                style={{
+                                    bottom: `${desktopBottomOffset}px`,
+                                    fontSize: `${desktopFontSize}px`,
+                                    lineHeight: 1,
+                                    transform: `translateX(-50%) rotate(${angle}deg) translateY(-${radius}px)`,
+                                    animationDelay: `${i * 0.15}s`,
+                                }}
+                            >
+                                {char}
+                            </span>
 
-                    );
-                })}
+                        );
+                    })}
                 </div>
             )}
         </>
