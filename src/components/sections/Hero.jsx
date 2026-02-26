@@ -16,7 +16,7 @@ export default function Hero() {
 
     const heroImage = heroData?.image
         ? urlFor(heroData.image).width(1920).quality(90).url()
-        : "/img/placeholders/hero-placeholder.jpg";
+        : "";
 
     return (
         <section
