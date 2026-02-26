@@ -64,7 +64,7 @@ export default function About() {
                             {about?.leftTitle || "About"}
                         </h2>
 
-                        <p className={`text-text-light/75 font-body leading-relaxed text-[16px] md:text-[18px] lg:text-[20px] xl:text-[21px] max-w-md mx-auto lg:mx-0 ${inView ? "animate__animated animate__fadeInUp animate__fast" : "opacity-0"}`}>
+                        <p className={`text-text-light/75 font-body leading-relaxed text-[14px] md:text-[16px] lg:text-[18px] xl:text-[20px] max-w-md mx-auto lg:mx-0 ${inView ? "animate__animated animate__fadeInUp animate__fast" : "opacity-0"}`}>
                             {about?.leftText || ""}
                         </p>
 
