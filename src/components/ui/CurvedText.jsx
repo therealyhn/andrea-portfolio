@@ -26,20 +26,18 @@ export default function CurvedText({ text }) {
 
     // Razbijanje stringa na karaktere
     const letters = clean.split("");
-    const isTabletOrSmallDesktop = viewport.width < 1200;
-    const isCompactHeight = viewport.height < 720;
-    const showStraightText = isTabletOrSmallDesktop || isCompactHeight;
+    const showStraightText = viewport.width < 1024;
 
     // --- UNIVERSAL HEIGHT-BASED SCALING ---
 
-    // Radius is 65% of screen height - ensures consistent curvature regardless of width
-    const radius = Math.floor(viewport.height * 0.65);
+    // Bigger circle radius for near-full circular text
+    const radius = Math.floor(Math.min(viewport.width, viewport.height) * 0.34);
 
-    // Center the arc vertically so the top is always at ~90% of screen height
-    const desktopBottomOffset = Math.floor(viewport.height * 0.25);
+    // Keep the circle centered in the hero area
+    const desktopBottomOffset = Math.floor(viewport.height * 0.5);
 
-    // Shallower angle for a sophisticated look (max 140deg)
-    const totalAngle = Math.min(140, letters.length * 8);
+    // Slightly larger opening between last and first letter for readability
+    const totalAngle = 300;
     const startAngle = -(totalAngle / 2);
 
     const count = Math.max(letters.length - 1, 1);
@@ -74,7 +72,7 @@ export default function CurvedText({ text }) {
             {/* Large desktop curved text */}
             {!showStraightText && (
                 <div
-                    className="hidden xl:block 2k:scale-[1.04] 4k:scale-[1.08] relative animate__animated animate__fadeInDown animate__slow"
+                    className="hidden lg:block 2k:scale-[1.04] 4k:scale-[1.08] relative animate__animated animate__fadeInDown animate__slow"
                     style={{
                         width: `${desktopContainerWidth}px`,
                         height: `${desktopContainerHeight}px`,
