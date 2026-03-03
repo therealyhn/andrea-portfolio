@@ -41,9 +41,9 @@ export default function Portfolio() {
         <section
             ref={sectionRef}
             id="work"
-            className={`relative bg-background-dark md:h-screen py-14 md:py-14 lg:py-14 ${inView ? "" : "opacity-0"}`}
+            className={`relative bg-background-dark py-14 md:py-20 lg:py-24 ${inView ? "" : "opacity-0"}`}
         >
-            <div className="max-w-[1750px] mx-auto">
+            <div className="max-w-[1750px] mx-auto px-2 sm:px-4 md:px-6">
 
                 {/* Red overlay tint */}
                 <div className="absolute inset-0 bg-surface-soft/30 mix-blend-multiply" />
@@ -51,7 +51,7 @@ export default function Portfolio() {
 
                 {/* TITLE */}
                 <div className={`${inView ? "animate__animated animate__fadeInUp animate__slow" : ""}`}>
-                    <h2 className="text-text-light md:pl-10 font-display uppercase tracking-[0.08em] text-[32px] sm:text-[40px] md:text-[50px] lg:text-[62px] text-center lg:text-left">
+                    <h2 className="text-text-light md:pl-4 lg:pl-6 font-display uppercase tracking-[0.08em] text-[32px] sm:text-[40px] md:text-[50px] lg:text-[62px] text-center lg:text-left">
                         {data?.heading || "MY WORK"}
                     </h2>
                 </div>
@@ -62,7 +62,7 @@ export default function Portfolio() {
                         <button
                             type="button"
                             aria-label="Previous work item"
-                            className="work-prev portfolio-nav-btn pointer-events-auto absolute lg:-left-8 xl:-left-12 top-[47%] -translate-y-1/2"
+                            className="work-prev portfolio-nav-btn pointer-events-auto absolute lg:left-2 xl:-left-8 top-[47%] -translate-y-1/2"
                         >
                             <svg viewBox="0 0 24 24" className="w-6 h-6" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M15 5L8 12L15 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
@@ -71,7 +71,7 @@ export default function Portfolio() {
                         <button
                             type="button"
                             aria-label="Next work item"
-                            className="work-next portfolio-nav-btn pointer-events-auto absolute lg:-right-8 xl:-right-12 top-[47%] -translate-y-1/2"
+                            className="work-next portfolio-nav-btn pointer-events-auto absolute lg:right-2 xl:-right-8 top-[47%] -translate-y-1/2"
                         >
                             <svg viewBox="0 0 24 24" className="w-6 h-6" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M9 5L16 12L9 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />

@@ -26,7 +26,7 @@ export default function About() {
         <section
             ref={sectionRef}
             id="about"
-            className={`relative py-16 md:py-24 lg:py-28 md:h-screen bg-surface-soft transition-opacity duration-700 ${inView ? "opacity-100" : "opacity-0"}`}
+            className={`relative py-16 md:py-24 lg:py-28 overflow-hidden bg-surface-soft transition-opacity duration-700 ${inView ? "opacity-100" : "opacity-0"}`}
         >
             {/* Red overlay tint */}
             <div className="absolute inset-0 bg-surface-soft/50 mix-blend-multiply" />
@@ -56,10 +56,10 @@ export default function About() {
             </a>
 
             <div className="container relative z-10">
-                <div className="flex flex-col md:flex-row justify-evenly items-center">
+                <div className="mx-auto max-w-7xl grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-12 lg:gap-16 items-center">
 
                     {/* LEFT */}
-                    <div className={`w-full max-w-[560px] mx-auto lg:mx-0 text-center lg:text-left ${inView ? "animate__animated animate__fadeInUp animate__fast" : "opacity-0"}`}>
+                    <div className={`w-full max-w-[560px] mx-auto md:mx-0 text-center md:text-left ${inView ? "animate__animated animate__fadeInUp animate__fast" : "opacity-0"}`}>
                         <h2 className={`text-text-light font-display uppercase tracking-[0.08em] text-[30px] sm:text-[36px] md:text-[44px] lg:text-[52px] xl:text-[58px] mb-6 ${inView ? "animate__animated animate__fadeInUp animate__fast" : "opacity-0"}`}>
                             {about?.leftTitle || "About"}
                         </h2>
@@ -68,20 +68,20 @@ export default function About() {
                             {about?.leftText || ""}
                         </p>
 
-                        <div className="mt-10 flex flex-col sm:flex-row flex-wrap justify-center lg:justify-start gap-4 sm:gap-6">
+                        <div className="mt-10 flex flex-col sm:flex-row flex-wrap justify-center md:justify-start gap-4 sm:gap-6">
                             <Button href="#contact" variant="filled">Contact</Button>
                             <Button href="#work" variant="outline">My work</Button>
                         </div>
                     </div>
 
                     {/* MOBILE SEPARATOR */}
-                    <div className={`lg:hidden my-14 w-full flex justify-center ${inView ? "animate__animated animate__fadeIn animate__fast" : "opacity-0"}`}>
+                    <div className={`md:hidden my-10 w-full flex justify-center ${inView ? "animate__animated animate__fadeIn animate__fast" : "opacity-0"}`}>
                         <span className="w-20 h-px bg-text-light/25"></span>
                     </div>
 
                     {/* CENTER IMAGE – DESKTOP ONLY */}
-                    <div className={`hidden lg:flex justify-center lg:justify-end ${inView ? "animate__animated animate__fadeIn animate__fast" : "opacity-0"}`}>
-                        <div className="relative w-[380px] h-[540px] md:w-[460px] md:h-[640px] lg:w-[520px] lg:h-[720px]">
+                    <div className={`flex justify-center md:justify-end ${inView ? "animate__animated animate__fadeIn animate__fast" : "opacity-0"}`}>
+                        <div className="relative w-[75vw] max-w-[380px] h-[520px] sm:w-[360px] sm:h-[560px] md:w-[390px] md:h-[560px] lg:w-[460px] lg:h-[640px] xl:w-[520px] xl:h-[720px]">
                             <div className="absolute inset-0 rounded-[9999px] border border-text-light/25 bg-black/10 shadow-[0px_30px_80px_rgba(0,0,0,0.65)]" />
                             <div className="absolute inset-[26px] rounded-[9999px] border border-text-light/15" />
                             <div className="absolute inset-[50px] rounded-[9999px] overflow-hidden bg-black/20">
