@@ -57,23 +57,23 @@ export default function Portfolio() {
                 </div>
 
                 {/* SWIPER */}
-                <div className={`mt-8 md:mt-10 ${inView ? "animate__animated animate__fadeIn animate__slow" : ""}`}>
-                    <div className="mb-4 md:mb-6 px-5 flex items-center justify-end gap-3">
+                <div className={`mt-8 md:mt-10 relative ${inView ? "animate__animated animate__fadeIn animate__slow" : ""}`}>
+                    <div className="pointer-events-none absolute inset-y-0 left-0 right-0 z-20 hidden lg:block">
                         <button
                             type="button"
                             aria-label="Previous work item"
-                            className="work-prev portfolio-nav-btn"
+                            className="work-prev portfolio-nav-btn pointer-events-auto absolute lg:-left-8 xl:-left-12 top-[47%] -translate-y-1/2"
                         >
-                            <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <svg viewBox="0 0 24 24" className="w-6 h-6" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M15 5L8 12L15 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                             </svg>
                         </button>
                         <button
                             type="button"
                             aria-label="Next work item"
-                            className="work-next portfolio-nav-btn"
+                            className="work-next portfolio-nav-btn pointer-events-auto absolute lg:-right-8 xl:-right-12 top-[47%] -translate-y-1/2"
                         >
-                            <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <svg viewBox="0 0 24 24" className="w-6 h-6" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M9 5L16 12L9 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                             </svg>
                         </button>
