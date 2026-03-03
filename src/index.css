@@ -127,3 +127,107 @@ h6 {
     padding-bottom: 4rem;
   }
 }
+
+/* Extra compact desktop profile (commonly seen with 125% OS scaling) */
+@media (min-width: 1024px) and (max-height: 820px) {
+  #home .hero-curved-wrap {
+    padding-top: 0.5rem;
+    padding-bottom: 2.25rem;
+  }
+
+  #home > a[href="#about"] {
+    bottom: 0.5rem !important;
+  }
+
+  #about.about-section {
+    padding-top: 2.75rem !important;
+    padding-bottom: 2.75rem !important;
+  }
+
+  #about .about-grid {
+    gap: 1.75rem !important;
+    align-items: center;
+  }
+
+  #about .about-title {
+    margin-bottom: 1rem !important;
+    font-size: clamp(2rem, 3.1vw, 2.8rem) !important;
+  }
+
+  #about .about-text {
+    font-size: clamp(1rem, 1.35vw, 1.2rem) !important;
+    line-height: 1.45 !important;
+    max-width: 34rem !important;
+  }
+
+  #about .about-image-wrap {
+    width: min(29vw, 360px) !important;
+    height: min(70vh, 520px) !important;
+  }
+
+  #work {
+    padding-top: 3.25rem !important;
+    padding-bottom: 3.5rem !important;
+  }
+
+  #work .portfolio-swiper {
+    padding-bottom: 2.25rem !important;
+  }
+
+  #work .portfolio-nav-btn {
+    width: 44px;
+    height: 44px;
+  }
+
+  #whyme {
+    padding-top: 3.5rem !important;
+    padding-bottom: 3.5rem !important;
+    min-height: 68vh !important;
+    background-position: 26% center !important;
+    background-attachment: scroll !important;
+  }
+
+  #whyme .whyme-content {
+    width: min(46%, 640px) !important;
+  }
+
+  #whyme .whyme-title {
+    margin-bottom: 1rem !important;
+    font-size: clamp(2.5rem, 4.1vw, 4.1rem) !important;
+    line-height: 1.05;
+  }
+
+  #whyme .whyme-desc {
+    margin-bottom: 1.25rem !important;
+    font-size: clamp(1.1rem, 1.5vw, 1.55rem) !important;
+    line-height: 1.35 !important;
+  }
+
+  #contact.contact-section {
+    padding-top: 3rem !important;
+    padding-bottom: 3.5rem !important;
+  }
+
+  #contact .contact-heading {
+    margin-bottom: 2rem !important;
+  }
+
+  #contact .contact-title {
+    font-size: clamp(2.2rem, 4vw, 3.1rem) !important;
+  }
+
+  #contact .contact-grid {
+    gap: 1.75rem !important;
+    align-items: start;
+  }
+
+  #contact .contact-intro {
+    margin-bottom: 1.5rem !important;
+    font-size: 1.12rem !important;
+    line-height: 1.5 !important;
+  }
+
+  #contact .contact-form {
+    padding: 1.35rem 1.5rem !important;
+  }
+}

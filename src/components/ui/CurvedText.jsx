@@ -28,17 +28,20 @@ export default function CurvedText({ text }) {
     const letters = clean.split("");
     const showStraightText = viewport.width < 1024;
     const compactLaptop = viewport.width >= 1024 && viewport.height <= 900;
+    const extraCompactDesktop = viewport.width >= 1024 && viewport.height <= 820;
 
     // --- UNIVERSAL HEIGHT-BASED SCALING ---
 
     // Bigger circle radius for near-full circular text
-    const radius = Math.floor(Math.min(viewport.width, viewport.height) * (compactLaptop ? 0.3 : 0.34));
+    const radius = Math.floor(
+        Math.min(viewport.width, viewport.height) * (extraCompactDesktop ? 0.29 : compactLaptop ? 0.33 : 0.43)
+    );
 
     // Keep the circle centered in the hero area
-    const desktopBottomOffset = Math.floor(viewport.height * (compactLaptop ? 0.46 : 0.5));
+    const desktopBottomOffset = Math.floor(viewport.height * (extraCompactDesktop ? 0.41 : compactLaptop ? 0.43 : 0.47));
 
     // Slightly larger opening between last and first letter for readability
-    const totalAngle = compactLaptop ? 285 : 300;
+    const totalAngle = extraCompactDesktop ? 276 : compactLaptop ? 285 : 250;
     const startAngle = -(totalAngle / 2);
 
     const count = Math.max(letters.length - 1, 1);
@@ -46,8 +49,11 @@ export default function CurvedText({ text }) {
 
     // Fluid font size tied directly to screen height, clamped for desktop readability
     const desktopFontSize = Math.max(
-        34,
-        Math.min(viewport.height * (compactLaptop ? 0.075 : 0.085), compactLaptop ? 102 : 120)
+        30,
+        Math.min(
+            viewport.height * (extraCompactDesktop ? 0.067 : compactLaptop ? 0.075 : 0.085),
+            extraCompactDesktop ? 86 : compactLaptop ? 102 : 86
+        )
     );
 
     // Use full viewport dimensions for the arc container
@@ -81,7 +87,7 @@ export default function CurvedText({ text }) {
                 >
                     {letters.map((char, i) => {
                         const angle = startAngle + i * angleStep;
-                        if (char === " ") return null;
+                        if (char === "") return null;
 
                         return (
                             <span

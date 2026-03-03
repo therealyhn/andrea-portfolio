@@ -20,7 +20,7 @@ export default function Contact() {
     const introText = contact?.intro || "Molim vas popunite formular ili me kontaktirajte direktno.";
 
     return (
-        <section id="contact" ref={sectionRef} className="py-20 md:py-24 lg:py-28 relative overflow-hidden bg-background-dark">
+        <section id="contact" ref={sectionRef} className="contact-section py-20 md:py-24 lg:py-28 relative overflow-hidden bg-background-dark">
             {/* Red overlay tint */}
             <div className="absolute inset-0 bg-surface-soft/40 mix-blend-multiply" />
             <div className="absolute inset-0 bg-gradient-to-b from-background-dark via-background-dark/80 to-black" />
@@ -28,17 +28,17 @@ export default function Contact() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
 
                 {/* NASLOV */}
-                <div className={`mb-12 md:mb-16 text-center md:text-left ${inView ? "animate__animated animate__fadeInUp" : "opacity-0"}`}>
-                    <h2 className="text-3xl sm:text-4xl md:text-5xl font-display uppercase tracking-widest text-text-light">
+                <div className={`contact-heading mb-12 md:mb-16 text-center md:text-left ${inView ? "animate__animated animate__fadeInUp" : "opacity-0"}`}>
+                    <h2 className="contact-title text-3xl sm:text-4xl md:text-5xl font-display uppercase tracking-widest text-text-light">
                         Kontaktirajte <span className="text-white/50">Me</span>
                     </h2>
                 </div>
 
-                <div className={`grid gap-12 md:grid-cols-2 ${inView ? "animate__animated animate__fadeInUp animate__delay-1s" : "opacity-0"}`}>
+                <div className={`contact-grid grid gap-12 md:grid-cols-2 ${inView ? "animate__animated animate__fadeInUp animate__delay-1s" : "opacity-0"}`}>
 
                     {/* LEVA STRANA: INFO */}
-                    <div className="flex flex-col justify-center">
-                        <p className="text-text-light/80 text-lg mb-12 leading-relaxed max-w-md font-body">
+                    <div className="contact-info flex flex-col justify-center">
+                        <p className="contact-intro text-text-light/80 text-lg mb-12 leading-relaxed max-w-md font-body">
                             {introText}
                         </p>
 
@@ -94,7 +94,7 @@ export default function Contact() {
                     </div>
 
                     {/* DESNA STRANA: FORMA */}
-                    <div className="bg-white/5 p-6 sm:p-8 md:p-10 rounded-[20px] border border-white/10 backdrop-blur-sm mt-2 md:mt-0">
+                    <div className="contact-form bg-white/5 p-6 sm:p-8 md:p-10 rounded-[20px] border border-white/10 backdrop-blur-sm mt-2 md:mt-0">
                         <form
                             action="https://api.web3forms.com/submit"
                             method="POST"
