@@ -1,0 +1,6 @@
+﻿User-agent: *
+Allow: /
+Host: andreamilenovic.com
+
+Sitemap: https://andreamilenovic.com/sitemap.xml
+
