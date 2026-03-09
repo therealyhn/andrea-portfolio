@@ -12,10 +12,59 @@ export default defineType({
             initialValue: "Why Me?",
         }),
         defineField({
-            name: "description",
-            title: "Opis / Tekst",
-            type: "text",
-            rows: 4,
+            name: "descriptionContent",
+            title: "Opis / Tekst - RICH TEXT",
+            type: "array",
+            description: "Isti format kao About sekcija",
+            of: [
+                defineField({
+                    type: "block",
+                    styles: [
+                        { title: "Normal", value: "normal" },
+                        { title: "Heading 3", value: "h3" },
+                        { title: "Quote", value: "blockquote" },
+                    ],
+                    lists: [{ title: "Bullet", value: "bullet" }],
+                    marks: {
+                        decorators: [
+                            { title: "Strong", value: "strong" },
+                            { title: "Emphasis", value: "em" },
+                        ],
+                        annotations: [
+                            defineField({
+                                name: "link",
+                                title: "Link",
+                                type: "object",
+                                fields: [
+                                    defineField({
+                                        name: "href",
+                                        title: "URL",
+                                        type: "url",
+                                        validation: (Rule) =>
+                                            Rule.uri({
+                                                scheme: ["http", "https", "mailto", "tel"],
+                                            }),
+                                    }),
+                                ],
+                            }),
+                        ],
+                    },
+                }),
+                defineField({
+                    type: "image",
+                    title: "Inline slika",
+                    options: { hotspot: true },
+                    fields: [
+                        defineField({
+                            name: "alt",
+                            title: "Alt tekst",
+                            type: "string",
+                        }),
+                    ],
+                }),
+            ],
+            validation: (Rule) =>
+                Rule.min(1).warning("Preporuka: koristi rich text umesto legacy plain texta."),
         }),
         defineField({
             name: "skills",

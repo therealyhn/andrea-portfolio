@@ -14,6 +14,7 @@ export default function WhyMeSec() {
                 `*[_type == "whyMe"][0]{
                     heading,
                     description,
+                    descriptionContent,
                     skills,
                     buttonText,
                     backgroundImage
@@ -44,6 +45,7 @@ export default function WhyMeSec() {
                 <WhyMeContent
                     heading={data.heading}
                     description={data.description}
+                    descriptionContent={data.descriptionContent}
                     skills={data.skills}
                     buttonText={data.buttonText}
                     inView={inView}
