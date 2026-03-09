@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { sanityClient, urlFor } from "../../lib/sanityClient";
+import { PortableText } from "@portabletext/react";
 import useInView from "../../hooks/useInView";
 import Button from "../ui/Button";
 import "animate.css";
@@ -11,7 +12,7 @@ export default function About() {
     useEffect(() => {
         sanityClient
             .fetch(
-                `*[_type == "about"][0]{ leftTitle, leftText, centerImage, rightTitle, experiences[]
+                `*[_type == "about"][0]{ leftTitle, leftText, leftContent, centerImage, rightTitle, experiences[]
                     {role, company, period, description}, educationTitle, education[]{school, program, period} }`
             )
             .then(setAbout)
@@ -21,6 +22,55 @@ export default function About() {
     const imageUrl = about?.centerImage
         ? urlFor(about.centerImage).width(900).quality(90).url()
         : "/img/placeholders/1-1.jpg";
+
+    const richTextComponents = {
+        types: {
+            image: ({ value }) => {
+                if (!value?.asset) return null;
+                const src = urlFor(value).width(1200).quality(88).fit("max").url();
+
+                return (
+                    <figure className="my-5">
+                        <img
+                            src={src}
+                            alt={value.alt || "About image"}
+                            className="w-full rounded-2xl object-cover"
+                            loading="lazy"
+                            decoding="async"
+                        />
+                    </figure>
+                );
+            },
+        },
+        block: {
+            h3: ({ children }) => (
+                <h3 className="mt-5 mb-3 font-display uppercase tracking-[0.08em] text-[20px] md:text-[22px] lg:text-[24px] text-text-light">
+                    {children}
+                </h3>
+            ),
+            blockquote: ({ children }) => (
+                <blockquote className="my-5 border-l-2 border-text-light/30 pl-4 italic text-text-light/80">
+                    {children}
+                </blockquote>
+            ),
+            normal: ({ children }) => <p className="about-rich-paragraph">{children}</p>,
+        },
+        list: {
+            bullet: ({ children }) => <ul className="my-4 list-disc pl-6 space-y-2">{children}</ul>,
+        },
+        marks: {
+            link: ({ value, children }) => (
+                <a
+                    href={value?.href}
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    className="underline decoration-text-light/40 underline-offset-4 hover:decoration-text-light"
+                >
+                    {children}
+                </a>
+            ),
+        },
+    };
 
     return (
         <section
@@ -64,9 +114,13 @@ export default function About() {
                             {about?.leftTitle || "About"}
                         </h2>
 
-                        <p className={`about-text text-text-light/75 font-body leading-relaxed text-[14px] md:text-[16px] lg:text-[18px] xl:text-[20px] max-w-md mx-auto lg:mx-0 ${inView ? "animate__animated animate__fadeInUp animate__fast" : "opacity-0"}`}>
-                            {about?.leftText || ""}
-                        </p>
+                        <div className={`about-text about-richtext text-text-light/75 font-body leading-relaxed text-[14px] md:text-[16px] lg:text-[18px] xl:text-[20px] max-w-md mx-auto lg:mx-0 ${inView ? "animate__animated animate__fadeInUp animate__fast" : "opacity-0"}`}>
+                            {Array.isArray(about?.leftContent) && about.leftContent.length > 0 ? (
+                                <PortableText value={about.leftContent} components={richTextComponents} />
+                            ) : (
+                                <p className="about-rich-paragraph">{about?.leftText || ""}</p>
+                            )}
+                        </div>
 
                         <div className="mt-10 flex flex-col sm:flex-row flex-wrap justify-center md:justify-start gap-4 sm:gap-6">
                             <Button href="#contact" variant="filled">Contact</Button>
