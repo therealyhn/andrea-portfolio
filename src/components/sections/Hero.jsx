@@ -6,17 +6,27 @@ import "animate.css";
 
 export default function Hero() {
     const [heroData, setHeroData] = useState(null);
+    const [sanityImageLoaded, setSanityImageLoaded] = useState(false);
+    const [sanityImageUrl, setSanityImageUrl] = useState(null);
 
     useEffect(() => {
         sanityClient
             .fetch(`*[_type == "hero"][0]{ image, curvedText }`)
-            .then(setHeroData)
+            .then((data) => {
+                setHeroData(data);
+                if (data?.image) {
+                    const url = urlFor(data.image).width(1920).quality(90).url();
+                    // Preload Sanity image in background
+                    const img = new Image();
+                    img.src = url;
+                    img.onload = () => {
+                        setSanityImageUrl(url);
+                        setSanityImageLoaded(true);
+                    };
+                }
+            })
             .catch(console.error);
     }, []);
-
-    const heroImage = heroData?.image
-        ? urlFor(heroData.image).width(1920).quality(90).url()
-        : "/img/hero.webp";
 
     return (
         <section
@@ -25,17 +35,31 @@ export default function Hero() {
         >
             <BurgerMenu />
 
-            {/* FULLSCREEN image */}
+            {/* Local fallback — LCP element, loads instantly */}
             <img
-                src={heroImage || undefined}
+                src="/img/hero.webp"
                 alt="Hero background"
                 width={1920}
                 height={1080}
                 fetchPriority="high"
                 decoding="sync"
                 loading="eager"
-                className={`absolute inset-0 w-full h-full object-cover drop-shadow-[0_24px_80px_rgba(0,0,0,0.35)] transition-opacity duration-700 ${heroImage ? "opacity-100" : "opacity-0"}`}
+                className={`absolute inset-0 w-full h-full object-cover drop-shadow-[0_24px_80px_rgba(0,0,0,0.35)] transition-opacity duration-700 ${sanityImageLoaded ? "opacity-0" : "opacity-100"}`}
             />
+
+            {/* Sanity image — fades in on top once fully loaded */}
+            {sanityImageUrl && (
+                <img
+                    src={sanityImageUrl}
+                    alt="Hero background"
+                    width={1920}
+                    height={1080}
+                    loading="eager"
+                    decoding="async"
+                    className={`absolute inset-0 w-full h-full object-cover drop-shadow-[0_24px_80px_rgba(0,0,0,0.35)] transition-opacity duration-700 ${sanityImageLoaded ? "opacity-100" : "opacity-0"}`}
+                />
+            )}
+
             {/* Red overlay tint */}
             <div className="absolute inset-0 bg-surface-soft/10 mix-blend-multiply" />
 
