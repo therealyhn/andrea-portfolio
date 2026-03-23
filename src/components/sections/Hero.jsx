@@ -26,18 +26,18 @@ export default function Hero() {
             <BurgerMenu />
 
             {/* FULLSCREEN image */}
-            {heroImage && (
-                <>
-                    <img
-                        src={heroImage}
-                        alt="Hero background"
-                        className="absolute inset-0 w-full h-full object-cover drop-shadow-[0_24px_80px_rgba(0,0,0,0.35)] animate__animated animate__fadeIn"
-                    />
-                    {/* Red overlay tint */}
-                    <div className="absolute inset-0 bg-surface-soft/10 mix-blend-multiply" />
-                    {/* <div className="absolute inset-0 bg-gradient-to-b from-transparent via-surface-soft/10  to-surface-soft" /> */}
-                </>
-            )}
+            <img
+                src={heroImage || undefined}
+                alt="Hero background"
+                width={1920}
+                height={1080}
+                fetchPriority="high"
+                decoding="sync"
+                loading="eager"
+                className={`absolute inset-0 w-full h-full object-cover drop-shadow-[0_24px_80px_rgba(0,0,0,0.35)] transition-opacity duration-700 ${heroImage ? "opacity-100" : "opacity-0"}`}
+            />
+            {/* Red overlay tint */}
+            <div className="absolute inset-0 bg-surface-soft/10 mix-blend-multiply" />
 
             {/* Scroll indicator (mobile centered, desktop right) */}
             <a
