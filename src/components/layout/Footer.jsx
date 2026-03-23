@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { sanityClient, urlFor } from "../../lib/sanityClient";
+import LegalModal from "../ui/LegalModal";
 
 export default function Footer() {
     const [data, setData] = useState(null);
+    const [legalModal, setLegalModal] = useState(null); // "privacy" | "terms" | null
 
     useEffect(() => {
         sanityClient
@@ -45,6 +47,7 @@ export default function Footer() {
                         {[
                             { id: "facebook", url: data?.facebookUrl },
                             { id: "tik-tok", url: data?.tiktokUrl },
+                            { id: "linkedin", url: "https://www.linkedin.com/in/andrea-milenovi%C4%87-457057276" },
                             { id: "instagram", url: data?.instagramUrl }
                         ].map((social) => (
                             <a
@@ -73,7 +76,7 @@ export default function Footer() {
                             © {new Date().getFullYear()} {data?.copyrightName || "Andrea Portfolio"}
                         </p>
                         <p className="text-[10px] uppercase tracking-[0.2em] text-white/20">
-                            Sva prava zadržana.
+                            All rights reserved.
                         </p>
                     </div>
                 </div>
@@ -84,15 +87,17 @@ export default function Footer() {
                 {/* Potpis */}
                 <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] uppercase tracking-[0.25em] text-white/30 font-body">
                     <p>
-                        Razvijeno od strane{" "}
-                        <a href="https://jovanljusic.com/" target="_blank" rel="noopener noreferrer" className="text-text-light hover:text-white transition-colors underline underline-offset-4 decoration-white/10">Jovan Ljušić</a>
+                        Developed by{" "}
+                        <a href="https://jovanljusic.com/" target="_blank" rel="noopener noreferrer" className="text-text-light hover:text-white transition-colors underline underline-offset-4 decoration-white/10">Jovan Ljusic</a>
                     </p>
                     <div className="flex gap-6">
-                        <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
-                        <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
+                        <button onClick={() => setLegalModal("privacy")} className="hover:text-white transition-colors">Privacy Policy</button>
+                        <button onClick={() => setLegalModal("terms")} className="hover:text-white transition-colors">Terms of Service</button>
                     </div>
                 </div>
             </div>
+
+            <LegalModal type={legalModal} onClose={() => setLegalModal(null)} />
         </footer>
     );
 }

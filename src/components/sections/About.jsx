@@ -136,8 +136,8 @@ export default function About() {
                     {/* CENTER IMAGE – DESKTOP ONLY */}
                     <div className={`flex justify-center md:justify-end ${inView ? "animate__animated animate__fadeIn animate__fast" : "opacity-0"}`}>
                         <div className="about-image-wrap relative w-[75vw] max-w-[380px] h-[520px] sm:w-[360px] sm:h-[560px] md:w-[390px] md:h-[560px] lg:w-[460px] lg:h-[640px] xl:w-[520px] xl:h-[720px]">
-                            <div className="absolute inset-0 rounded-[9999px] border border-text-light/25 bg-[#6b1b2a]/35 shadow-[0px_30px_80px_rgba(0,0,0,0.65)]" />
-                            <div className="absolute inset-[26px] fill-black rounded-[9999px] border border-text-light/15" />
+                            <div className="absolute inset-0 rounded-[9999px] border border-text-light/25 bg-[#3d0812] shadow-[0px_30px_80px_rgba(0,0,0,0.65)]" />
+                            <div className="absolute inset-[26px] rounded-[9999px] border border-text-light/15 bg-[#6b1b2a]/50" />
                             <div className="absolute inset-[50px] rounded-[9999px] overflow-hidden bg-black/20">
                                 <img
                                     src={imageUrl}

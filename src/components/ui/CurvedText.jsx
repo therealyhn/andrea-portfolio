@@ -27,34 +27,39 @@ export default function CurvedText({ text }) {
     // Razbijanje stringa na karaktere
     const letters = clean.split("");
     const showStraightText = viewport.width < 1024;
-    const compactLaptop = viewport.width >= 1024 && viewport.height <= 900;
-    const extraCompactDesktop = viewport.width >= 1024 && viewport.height <= 820;
 
-    // --- UNIVERSAL HEIGHT-BASED SCALING ---
+    // --- BREAKPOINTS ---
+    const is4K = viewport.width >= 2560;
+    const is2K = !is4K && viewport.width >= 1920;
+    const is1440 = !is4K && !is2K && viewport.width >= 1440;
+    const extraCompactDesktop = !is1440 && !is2K && !is4K && viewport.width >= 1024 && viewport.height <= 820;
+    const compactLaptop = !is1440 && !is2K && !is4K && viewport.width >= 1024 && viewport.height <= 900;
 
-    // Bigger circle radius for near-full circular text
-    const radius = Math.floor(
-        Math.min(viewport.width, viewport.height) * (extraCompactDesktop ? 0.29 : compactLaptop ? 0.33 : 0.43)
-    );
+    // --- PER-BREAKPOINT VALUES ---
+    let radiusMultiplier, fontMultiplier, fontMax, totalAngle, bottomOffsetMult;
 
-    // Keep the circle centered in the hero area
-    const desktopBottomOffset = Math.floor(viewport.height * (extraCompactDesktop ? 0.41 : compactLaptop ? 0.43 : 0.47));
+    if (is4K) {
+        radiusMultiplier = 0.54; fontMultiplier = 0.085; fontMax = 220; totalAngle = 240; bottomOffsetMult = 0.47;
+    } else if (is2K) {
+        radiusMultiplier = 0.43; fontMultiplier = 0.085; fontMax = 165; totalAngle = 244; bottomOffsetMult = 0.44;
+    } else if (is1440) {
+        radiusMultiplier = 0.46; fontMultiplier = 0.085; fontMax = 118; totalAngle = 248; bottomOffsetMult = 0.40;
+    } else if (extraCompactDesktop) {
+        radiusMultiplier = 0.33; fontMultiplier = 0.067; fontMax = 86; totalAngle = 272; bottomOffsetMult = 0.41;
+    } else if (compactLaptop) {
+        radiusMultiplier = 0.38; fontMultiplier = 0.075; fontMax = 102; totalAngle = 280; bottomOffsetMult = 0.43;
+    } else {
+        radiusMultiplier = 0.43; fontMultiplier = 0.085; fontMax = 86; totalAngle = 250; bottomOffsetMult = 0.47;
+    }
 
-    // Slightly larger opening between last and first letter for readability
-    const totalAngle = extraCompactDesktop ? 276 : compactLaptop ? 285 : 250;
+    const radius = Math.floor(Math.min(viewport.width, viewport.height) * radiusMultiplier);
+    const desktopBottomOffset = Math.floor(viewport.height * bottomOffsetMult);
     const startAngle = -(totalAngle / 2);
 
     const count = Math.max(letters.length - 1, 1);
     const angleStep = totalAngle / count;
 
-    // Fluid font size tied directly to screen height, clamped for desktop readability
-    const desktopFontSize = Math.max(
-        30,
-        Math.min(
-            viewport.height * (extraCompactDesktop ? 0.067 : compactLaptop ? 0.075 : 0.085),
-            extraCompactDesktop ? 86 : compactLaptop ? 102 : 86
-        )
-    );
+    const desktopFontSize = Math.max(30, Math.min(viewport.height * fontMultiplier, fontMax));
 
     // Use full viewport dimensions for the arc container
     const desktopContainerWidth = viewport.width;
@@ -79,7 +84,7 @@ export default function CurvedText({ text }) {
             {/* Large desktop curved text */}
             {!showStraightText && (
                 <div
-                    className="hidden lg:block 2k:scale-[1.04] 4k:scale-[1.08] relative animate__animated animate__fadeInDown animate__slow"
+                    className="hidden lg:block relative animate__animated animate__fadeInDown animate__slow"
                     style={{
                         width: `${desktopContainerWidth}px`,
                         height: `${desktopContainerHeight}px`,

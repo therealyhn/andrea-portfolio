@@ -30,7 +30,7 @@ export default function Contact() {
                 {/* NASLOV */}
                 <div className={`contact-heading mb-12 md:mb-16 text-center md:text-left ${inView ? "animate__animated animate__fadeInUp" : "opacity-0"}`}>
                     <h2 className="contact-title text-3xl sm:text-4xl md:text-5xl font-display uppercase tracking-widest text-text-light">
-                        Kontaktirajte <span className="text-white/50">Me</span>
+                        Get in <span className="text-white/50">Touch</span>
                     </h2>
                 </div>
 
@@ -49,7 +49,7 @@ export default function Contact() {
                                         <img src="/img/svg/location.svg" alt="location" className="w-5 h-5 opacity-80 group-hover:opacity-100 invert group-hover:invert-0 transition-all" />
                                     </div>
                                     <div>
-                                        <p className="text-xs uppercase tracking-widest text-white/50 mb-1">Adresa</p>
+                                        <p className="text-xs uppercase tracking-widest text-white/50 mb-1">Address</p>
                                         <p className="text-lg text-text-light">{contact.addressValue}</p>
                                     </div>
                                 </div>
@@ -73,11 +73,21 @@ export default function Contact() {
                                         <img src="/img/svg/phone.svg" alt="phone" className="w-5 h-5 opacity-80 group-hover:opacity-100 invert group-hover:invert-0 transition-all" />
                                     </div>
                                     <div>
-                                        <p className="text-xs uppercase tracking-widest text-white/50 mb-1">Telefon</p>
+                                        <p className="text-xs uppercase tracking-widest text-white/50 mb-1">Phone</p>
                                         <p className="text-lg text-text-light group-hover:text-white transition-colors">{contact.phoneValue}</p>
                                     </div>
                                 </a>
                             )}
+
+                            <a href="https://www.linkedin.com/in/andrea-milenovi%C4%87-457057276" target="_blank" rel="noopener noreferrer" className="flex items-center gap-6 group hover:translate-x-2 transition-transform duration-300">
+                                <div className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center bg-white/5 group-hover:bg-white transition-all duration-300">
+                                    <img src="/img/svg/social/linkedin.svg" alt="linkedin" className="w-5 h-5 opacity-80 group-hover:opacity-100 invert group-hover:invert-0 transition-all" />
+                                </div>
+                                <div>
+                                    <p className="text-xs uppercase tracking-widest text-white/50 mb-1">LinkedIn</p>
+                                    <p className="text-lg text-text-light group-hover:text-white transition-colors">Andrea Milenović</p>
+                                </div>
+                            </a>
 
                             {contact?.instagramHandle && (
                                 <a href={contact.instagramUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-6 group hover:translate-x-2 transition-transform duration-300">
@@ -103,13 +113,13 @@ export default function Contact() {
                             <input type="hidden" name="access_key" value={import.meta.env.VITE_WEB3FORMS_KEY} />
 
                             <div className="space-y-1">
-                                <label className="text-xs uppercase tracking-widest text-white/50 ml-2">Ime i Prezime</label>
+                                <label className="text-xs uppercase tracking-widest text-white/50 ml-2">Name</label>
                                 <input
                                     type="text"
                                     name="name"
                                     required
                                     className="w-full bg-transparent border-b border-white/20 px-4 py-3 text-text-light outline-none focus:border-white transition-colors placeholder:text-white/20"
-                                    placeholder="Vaše ime"
+                                    placeholder="Your name"
                                 />
                             </div>
 
@@ -120,12 +130,12 @@ export default function Contact() {
                                     name="email"
                                     required
                                     className="w-full bg-transparent border-b border-white/20 px-4 py-3 text-text-light outline-none focus:border-white transition-colors placeholder:text-white/20"
-                                    placeholder="vas@email.com"
+                                    placeholder="your@email.com"
                                 />
                             </div>
 
                             <div className="space-y-1">
-                                <label className="text-xs uppercase tracking-widest text-white/50 ml-2">Telefon</label>
+                                <label className="text-xs uppercase tracking-widest text-white/50 ml-2">Phone</label>
                                 <input
                                     type="tel"
                                     name="phone"
@@ -136,13 +146,13 @@ export default function Contact() {
                             </div>
 
                             <div className="space-y-1">
-                                <label className="text-xs uppercase tracking-widest text-white/50 ml-2">Poruka</label>
+                                <label className="text-xs uppercase tracking-widest text-white/50 ml-2">Message</label>
                                 <textarea
                                     name="message"
                                     rows="4"
                                     required
                                     className="w-full bg-transparent border-b border-white/20 px-4 py-3 text-text-light outline-none focus:border-white transition-colors resize-none placeholder:text-white/20"
-                                    placeholder="Kako vam mogu pomoći?"
+                                    placeholder="How can I help you?"
                                 />
                             </div>
 
@@ -150,7 +160,7 @@ export default function Contact() {
                                 type="submit"
                                 className="w-full mt-4 border border-text-light py-4 rounded-full text-text-light uppercase tracking-[0.2em] hover:bg-text-light hover:text-black transition-all duration-300 text-sm font-medium"
                             >
-                                Pošalji Poruku
+                                Send Message
                             </button>
                         </form>
                     </div>
