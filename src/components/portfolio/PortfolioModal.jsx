@@ -66,9 +66,19 @@ export default function PortfolioModal({ selectedItem, onClose }) {
                             {selectedItem.title}
                         </h3>
                         {selectedItem.description && (
-                            <p className="mt-4 text-text-light/70 font-body text-[16px] sm:text-[18px] max-w-3xl mx-auto leading-relaxed">
-                                {selectedItem.description}
-                            </p>
+                            <div className="mt-4 max-w-3xl mx-auto relative">
+                                {/* Mobile: fixed height + scroll, Desktop: full height */}
+                                <div
+                                    className="overflow-y-auto max-h-[130px] sm:overflow-visible sm:max-h-none [&::-webkit-scrollbar]:hidden"
+                                    style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+                                >
+                                    <p className="text-text-light/70 font-body text-[16px] sm:text-[18px] leading-relaxed">
+                                        {selectedItem.description}
+                                    </p>
+                                </div>
+                                {/* Scroll hint — fade gradient, mobile only */}
+                                <div className="sm:hidden absolute bottom-0 left-0 right-0 h-7 bg-gradient-to-t from-[#1a1a1a] to-transparent pointer-events-none" />
+                            </div>
                         )}
                     </div>
 
