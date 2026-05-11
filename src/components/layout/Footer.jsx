@@ -87,8 +87,8 @@ export default function Footer() {
                 {/* Potpis */}
                 <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] uppercase tracking-[0.25em] text-white/30 font-body">
                     <p>
-                        Developed by{" "}
-                        <a href="https://jovanljusic.com/" target="_blank" rel="noopener noreferrer" className="text-text-light hover:text-white transition-colors underline underline-offset-4 decoration-white/10">Jovan Ljusic</a>
+                        Developed & Hosted by{" "}
+                        <a href="https://maestro-solutions.org" target="_blank" rel="noopener noreferrer" className="text-text-light hover:text-white transition-colors underline underline-offset-4 decoration-white/10">Maestro Solutions</a>
                     </p>
                     <div className="flex gap-6">
                         <button onClick={() => setLegalModal("privacy")} className="hover:text-white transition-colors">Privacy Policy</button>
