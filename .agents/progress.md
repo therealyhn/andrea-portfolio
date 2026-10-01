@@ -1,11 +1,11 @@
 # Progress - andrea-portfolio redizajn
 
 ## Trenutno stanje
-- CURRENT: R2.01 DONE 2026-10-01 (Opus 5.5 na "nastavi" posle /compact). Novi header, mobilni meni i hero su u App.jsx; ispod
-  njih i dalje stare sekcije About/Portfolio/WhyMeSec/Contact/Footer. Nova šema NIJE deploy-ovana (R3.02).
+- CURRENT: R2.02 DONE 2026-10-01 (Opus 5.5 na "nastavi" posle /compact). Novi header, meni, hero, About i Why Me su u App.jsx;
+  između njih i dalje stari Portfolio, ispod stari Contact/Footer. Nova šema NIJE deploy-ovana (R3.02).
 - Aktivan task: nema.
-- Sledeći kandidat: R2.02 (DEPENDS R2.01 DONE).
-- Poslednja isporuka: R2.01 (commit `R2.01 DONE: ...`).
+- Sledeći kandidat: R2.03 (DEPENDS R2.02 DONE).
+- Poslednja isporuka: R2.02 (commit `R2.02 DONE: ...`).
 
 ## Task registar
 | ID | Naziv | Status | Napomena (<= 300 znakova) |
@@ -13,7 +13,7 @@
 | R1.01 | Asseti, Tailwind tokeni i plugin, head, osnovni UI | DONE | Opus 5.5 ("radi ti"). Build 0, eslint 0, 23/23 klasa iz §2.10 generisano. Dodato: transitionDuration 350/400/450/600, viewport-fit=cover, disabled stil dugmeta. Vidi handoff. |
 | R1.02 | Sanity šema i sloj podataka | DONE | Opus 5.5 ("nastavi sad"). Schema validate 0/0, Node VERIFY 8/8 izlaza tačno, eslint 0, build 0. Ispravljeni brojevi redova JSON-a u planu (podaci 666, pravni 667). |
 | R2.01 | Header, mobilni meni, Hero | DONE | Opus 5.5 ("nastavi"). eslint 0, build 0; 3 viewport-a = redizajn po getBoundingClientRect (indeks 25/13/6/6), solid header, meni/Escape/fokus, spy 5/5, konzola 0. Van WRITE: fontsReady.js (čeka Bodoni), dev port 5173 (Sanity CORS). |
-| R2.02 | About i Why Me | TODO | |
+| R2.02 | About i Why Me | DONE | Opus 5.5 ("nastavi"). eslint 0, build 0; About/Why = redizajn na 1440/1024/390 (47 elemenata, iste visine; 1440/1024 bez starih compact-height pravila), sticky "Why me?", drop cap, konzola 0. Van WRITE: Display `id` prop. |
 | R2.03 | Work sekcija i Lightbox | TODO | |
 | R2.04 | Drawer, Contact, Footer | TODO | |
 | R3.01 | Čišćenje i QA gate | TODO | REVIEW, gate M2 |
@@ -32,33 +32,31 @@
 - Vlasnik/klijent u Studiju (R3.02): upload izrezanih figura, preimenovanje kategorija 2-4, brisanje duplikata (pozicija 25).
 
 ## POSLEDNJI handoff
-### Handoff R2.01 - 2026-10-01
+### Handoff R2.02 - 2026-10-01
 - Status: DONE
-- Repo: andrea-portfolio, commit "R2.01 DONE: header, mobilni meni i hero" (hash: `git log -1`)
-- Izmenjeni fajlovi: src/App.jsx, src/components/layout/{Header,MobileMenu}.jsx, src/components/sections/Hero.jsx,
-  src/components/hero/{HeroMasthead,HeroFigure,HeroIntro,HeroIndex}.jsx, src/data/{siteData,heroData}.js,
-  src/hooks/{useHeaderSolid,useScrollSpy,useScrollLock,useFocusTrap,useFigureSource}.js, tailwind.config.js (spacing `tap` 44px,
-  `logo` 26px, `hero-edge` clamp(32px,7cqh,72px)), obrisani src/components/ui/{BurgerMenu,CurvedText}.jsx; van WRITE:
-  src/lib/utils/fontsReady.js (otvorena stavka iz R1.01, vidi Napomene), .agents/verification.md + plan.md R2.01 (port 5180 -> 5173)
-- Provere: eslint WRITE fajlova + fontsReady.js -> exit 0; npm run build -> exit 0; Playwright na :5173 i :5181:
-  1440x900/1024x768/390x844 - masthead, prezime, figura, intro, dugmad i indeks na istim koordinatama kao redizajn (getBoundingClientRect),
-  indeks 25/13/6/6 sa `#ch-<key>`; skrol 700 -> header `data-solid="true"`, 64px, rgba(34,4,10,.95), nazad na vrhu "false"; spy
-  about/work/whyme/contact/home tačno; 390x844: Menu -> fokus na Close, Tab petlja kroz 8 elemenata, Escape zatvara i activeElement
-  = Menu; klik na link zatvara meni (fokus na BODY, isto kao redizajn); konzola 0 grešaka; slovo "A" `animation-name: rise` (paused
-  bez `.fonts`, running sa njom); Sanity figura (page.route mock): jedan `<img>`, src lokalni -> CDN, srcset 480-1360, sizes
-  `min(57.98vh, 877px)`, slika preuzeta jednom (680w).
+- Repo: andrea-portfolio, commit "R2.02 DONE: About i Why Me" (hash: `git log -1`)
+- Izmenjeni fajlovi: src/App.jsx (WhyMeSec -> WhyMe sa `whyFigure`), src/components/sections/{About,WhyMe}.jsx,
+  src/components/about/{AboutArt,AboutCopy,CvBlock}.jsx, src/components/why/{WhyFigure,SkillsList,WhyClose}.jsx,
+  src/components/ui/RichText.jsx, src/data/{aboutData,whyData}.js; obrisani src/components/sections/WhyMeSec.jsx,
+  src/components/whyme/ (ceo), src/components/ui/Button.jsx (grep `ui/Button"` = 0); tailwind.config.js bez izmena (svi tokeni
+  postoje); van WRITE: src/components/ui/Display.jsx - dodat `id` prop (cilj `aria-labelledby` sekcije; treba i R2.03/R2.04)
+- Provere: eslint WRITE fajlova + Display.jsx -> exit 0; npm run build -> exit 0 (sve nove klase u CSS-u); Playwright :5173 vs :5181,
+  pozicije 26 About + 21 Why elemenata relativno na sekciju (Reveal transform isključen): 1440x900 i 1024x768 identične posle
+  uklanjanja starih compact-height pravila iz CSSOM-a, 390x844 identične i bez toga; visine About/Why 1309/1575, 1434/1408,
+  1983/2298 = redizajn; razlika samo tekst brojeva veština (`<span>` umesto `::before`). Drop cap rgb(184,23,47), Bodoni 69.7px,
+  opsz 40; umetnuta slika preklapa glavnu 100 px i 48 px ispod; veštine 2 kolone 01-10; sticky: skrol +200 i +450 -> naslov na
+  y=158 (screenshot-ovi .playwright-mcp/r202-why-1440-a/b.png, van repoa); Sanity whyFigure (page.route mock): src CDN w=780,
+  srcset 390-1560, sizes "(max-width: 959px) 88vw, 600px", width/height iz ref-a; konzola 0 grešaka/upozorenja.
 - Pregled: git diff --check exit 0; eslint exit 0
-- Napomene: (1) Sanity CORS odbija `localhost:5180` (403 na sve upite), `localhost:5173` prolazi -> verification.md ispravljen.
-  (2) fontsReady: `.fonts` je dodavan posle ~120 ms bez ijednog Bodoni @font-face (async font CSS), pa je hero animacija uvek
-  kretala sa rezervnim fontom; sada se proba ponavlja na `loadingdone` -> `.fonts` posle 534 ms (sa Bodoni), sa CSS kašnjenjem
-  800 ms posle 1393 ms, bez fonta timeout 2,5 s. (3) `NAV_COPY` (labele skip/header/meni) je dodatni export u siteData.js.
-  (4) useFigureSource preload koristi isti srcset/sizes kao `<img>` (bez duplog preuzimanja). (5) useScrollSpy traži sekcije pri
-  svakom prolazu (stari WhyMeSec vraća null dok ne stignu podaci).
-- Otvoreno (prelazno): stari PortfolioModal i LegalModal na mount-u postavljaju inline `body.style.overflow = "auto"` -> poništava
-  `overflow-x: clip` (horizontalni scrollbar od starog Swiper-a) i `overflow-hidden` iz useScrollLock (otvoren meni ne zaključava
-  skrol). Nestaje kad R2.03 (Portfolio) i R2.04 (LegalModal) uklone stare komponente.
+- Napomene: (1) Reveal + Eyebrow/Display = Reveal omotač oko komponente (Eyebrow/Display nemaju ref). (2) About inset `src` =
+  ai-visual-640.webp (lokalno nema 480; srcset 320/640 isti kao redizajn). (3) Broj veštine je `<span aria-hidden="true">`.
+- Otvoreno (prelazno): stari compact-height media upiti u src/index.css (`@media (min-width:1024px) and (max-height:900px|820px)`,
+  `#about`/`#whyme`/`#work`/`#contact` sa `!important` padding-om) i dalje važe do R3.01: na 1440x900 About ima padding 56px
+  umesto 173px, Why dobija 56px gore/dole. Za vizuelnu proveru R2.03/R2.04 na 1440x900 i 1024x768 obriši ta pravila iz CSSOM-a
+  u Playwright-u (CSSMediaRule sa `max-height`, selektor sa id-em sekcije) ili ih planer premesti u raniji task.
+  Stari PortfolioModal/LegalModal `body.style.overflow = "auto"` i dalje (vidi R2.01) -> nestaje u R2.03/R2.04.
 - Tuđe necommitovane izmene: nema
-- Sledeći task: R2.02
+- Sledeći task: R2.03
 
 ## Šablon handoff-a
 ```
@@ -79,3 +77,4 @@
 - 2026-10-01 R1.01 DONE (Opus 5.5 na "radi ti"): asseti, tokeni + plugin, head, UI osnova; build/eslint 0.
 - 2026-10-01 R1.02 DONE (Opus 5.5 na "nastavi sad"): šema (hidden polja, figure), upit, normalizacija, workData, useSiteMedia; M1 PASSED.
 - 2026-10-01 R2.01 DONE (Opus 5.5 na "nastavi"): header, meni, hero = redizajn na 3 viewport-a; fontsReady čeka Bodoni; dev port 5173 (CORS).
+- 2026-10-01 R2.02 DONE (Opus 5.5 na "nastavi"): About i Why Me = redizajn na 3 viewport-a, sticky naslov; Display dobio `id`.

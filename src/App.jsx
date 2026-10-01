@@ -5,7 +5,7 @@ import MobileMenu from "./components/layout/MobileMenu";
 import Hero from "./components/sections/Hero";
 import About from "./components/sections/About";
 import Portfolio from "./components/sections/Portfolio";
-import WhyMeSec from "./components/sections/WhyMeSec";
+import WhyMe from "./components/sections/WhyMe";
 import Contact from "./components/sections/Contact";
 import Footer from "./components/layout/Footer";
 import { NAV_COPY, SECTION_IDS } from "./data/siteData";
@@ -56,7 +56,7 @@ export default function App() {
         />
         <About />
         <Portfolio />
-        <WhyMeSec />
+        <WhyMe whyFigure={data?.whyFigure ?? null} />
         <Contact />
       </main>
       <Footer />
