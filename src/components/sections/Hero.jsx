@@ -1,96 +1,51 @@
-import { useEffect, useState } from "react";
-import { sanityClient, urlFor } from "../../lib/sanityClient";
-import BurgerMenu from "../ui/BurgerMenu";
-import CurvedText from "../ui/CurvedText";
-import "animate.css";
+import { BRAND } from "../../data/siteData";
+import { HERO_COPY } from "../../data/heroData";
+import HeroFigure from "../hero/HeroFigure";
+import HeroIndex from "../hero/HeroIndex";
+import HeroIntro from "../hero/HeroIntro";
+import HeroMasthead from "../hero/HeroMasthead";
+import Icon from "../ui/Icon";
 
-export default function Hero() {
-    const [heroData, setHeroData] = useState(null);
-    const [sanityImageLoaded, setSanityImageLoaded] = useState(false);
-    const [sanityImageUrl, setSanityImageUrl] = useState(null);
-
-    useEffect(() => {
-        sanityClient
-            .fetch(`*[_type == "hero"][0]{ image, curvedText }`)
-            .then((data) => {
-                setHeroData(data);
-                if (data?.image) {
-                    const url = urlFor(data.image).width(1920).quality(90).url();
-                    // Preload Sanity image in background
-                    const img = new Image();
-                    img.src = url;
-                    img.onload = () => {
-                        setSanityImageUrl(url);
-                        setSanityImageLoaded(true);
-                    };
-                }
-            })
-            .catch(console.error);
-    }, []);
-
+/*
+  .hero - full-height opening section and the size container for every cq-* variant inside it.
+  The sentinel (28% down) tells the header when to turn solid; timeline-hero drives the scroll-out motion.
+*/
+export default function Hero({ heroFigure, chapters, status, sentinelRef }) {
     return (
         <section
             id="home"
-            className="relative min-h-svh md:min-h-dvh bg-surface-soft overflow-hidden"
+            aria-label={HERO_COPY.sectionLabel}
+            className="relative isolate h-svh min-h-[600px] overflow-hidden bg-wine [container-type:size] timeline-hero"
         >
-            <BurgerMenu />
+            {/* .hero__sentinel */}
+            <span ref={sentinelRef} aria-hidden="true" className="pointer-events-none absolute left-0 top-[28%] h-px w-px" />
 
-            {/* Local fallback — LCP element, loads instantly */}
-            <img
-                src="/img/hero.webp"
-                alt="Hero background"
-                width={1920}
-                height={1080}
-                fetchPriority="high"
-                decoding="sync"
-                loading="eager"
-                className={`absolute inset-0 w-full h-full object-cover drop-shadow-[0_24px_80px_rgba(0,0,0,0.35)] transition-opacity duration-700 ${sanityImageLoaded ? "opacity-0" : "opacity-100"}`}
+            <HeroMasthead />
+
+            {/* .hero__kicker - portrait only */}
+            <p
+                aria-hidden="true"
+                className="absolute inset-x-0 top-[calc(var(--hd)_+_7cqh_+_min(20.5cqw,13cqh)*.84_+_min(10.5cqw,6.4cqh)*1.25)] z-[3] hidden text-center font-sans text-11 font-medium uppercase leading-100 tracking-[.24em] text-cream-soft motion-fade [--fade-delay:.7s] fonts-pending:[animation-play-state:paused] cq-portrait:block"
+            >
+                {BRAND.role}
+            </p>
+
+            {/* .hero__place - wide landscape only */}
+            <p className="absolute right-gutter top-[calc(var(--hd)_+_3cqh_+_min(20.5cqw,30cqh)*.84_+_1.6cqh)] z-[3] flex items-center gap-2.5 font-sans text-11 font-medium uppercase leading-140 tracking-20 text-cream-soft motion-fade [--fade-delay:.65s] cq-land-1199:hidden cq-portrait:hidden">
+                <Icon name="pin" size={16} />
+                {BRAND.place}
+            </p>
+
+            <HeroFigure figure={heroFigure} />
+
+            {/* .hero::after - portrait fade under the buttons */}
+            <div
+                aria-hidden="true"
+                className="absolute inset-x-0 bottom-0 z-[2] hidden h-[34cqh] bg-gradient-to-t from-wine from-[18%] via-wine/[.86] via-[48%] to-wine/0 cq-portrait:block"
             />
 
-            {/* Sanity image — fades in on top once fully loaded */}
-            {sanityImageUrl && (
-                <img
-                    src={sanityImageUrl}
-                    alt="Hero background"
-                    width={1920}
-                    height={1080}
-                    loading="eager"
-                    decoding="async"
-                    className={`absolute inset-0 w-full h-full object-cover drop-shadow-[0_24px_80px_rgba(0,0,0,0.35)] transition-opacity duration-700 ${sanityImageLoaded ? "opacity-100" : "opacity-0"}`}
-                />
-            )}
-
-            {/* Red overlay tint */}
-            <div className="absolute inset-0 bg-surface-soft/10 mix-blend-multiply" />
-
-            {/* Scroll indicator (mobile centered, desktop right) */}
-            <a
-                href="#about"
-                className="absolute left-1/2 bottom-6 sm:bottom-8 md:bottom-10 lg:bottom-14 2k:bottom-16 4k:bottom-20 -translate-x-1/2 z-20 flex flex-col items-center gap-2
-                 text-text-light uppercase tracking-[0.45em] 
-                text-[8px] sm:text-[9px] 2k:text-[10px] 4k:text-[12px] font-body animate__fadeInDown animate__infinite animate__slower"
-            >
-                <svg
-                    className="w-14 h-14 md:w-16 md:h-16 2k:w-20 2k:h-20 4k:w-24 4k:h-24 opacity-70 animate__animated animate__fadeInDown animate__infinite animate__slower"
-                    viewBox="0 0 64 64"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                >
-                    <path
-                        d="M18 26L32 40L46 26"
-                        stroke="currentColor"
-                        strokeWidth="2.5"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                    />
-                </svg>
-            </a>
-
-
-            {/* Curved text centered */}
-            <div className="hero-curved-wrap absolute inset-0 z-10 flex items-center justify-center text-text-light pointer-events-none">
-                <CurvedText text={heroData?.curvedText} />
-            </div>
+            <HeroIntro />
+            <HeroIndex chapters={chapters} status={status} />
         </section>
     );
 }

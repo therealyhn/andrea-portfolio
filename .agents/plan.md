@@ -372,11 +372,11 @@ upisuju se u handoff.
   - FORBIDDEN: dva `<img>` sloja sa opacity prelazom (O06); JS scroll handler za header umesto IntersectionObserver-a; BEM klase.
 - VERIFY / DONE:
   - `npx eslint` nad svim fajlovima iz WRITE liste exit 0; `npm run build` exit 0.
-  - Vizuelno (verification.md §Vizuelno): screenshot vrha stranice na 1440x900, 1024x768, 390x844 za `:5180` i redizajn `:5181`;
+  - Vizuelno (verification.md §Vizuelno): screenshot vrha stranice na 1440x900, 1024x768, 390x844 za `:5173` i redizajn `:5181`;
     masthead, figura, intro i indeks na istim mestima (indeks pokazuje 25/13/6/6 dok se ne obriše duplikat). Posle skrola 700 px
     header ima `data-solid="true"`. Na 390x844: Menu otvara meni, Escape zatvara, `document.activeElement` je dugme Menu. Konzola bez
     grešaka. `getComputedStyle` na slovu "A" pre i posle učitavanja fontova: `animation-name` = `rise`.
-- STOP: vizuelni alat nedostupan -> handoff sa NOT_RUN i status IN_REVIEW sa pitanjem vlasniku da pogleda `http://localhost:5180`.
+- STOP: vizuelni alat nedostupan -> handoff sa NOT_RUN i status IN_REVIEW sa pitanjem vlasniku da pogleda `http://localhost:5173`.
 
 ## R2.02 — About i Why Me
 - DEPENDS: R2.01 DONE. PREGLED: NORMAL.

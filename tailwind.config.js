@@ -118,6 +118,9 @@ export default {
       spacing: {
         gutter: "clamp(16px,4vw,64px)",
         hd: "var(--hd)",
+        tap: "44px",
+        logo: "26px",
+        "hero-edge": "clamp(32px,7cqh,72px)",
       },
       maxWidth: {
         wrap: "1560px",

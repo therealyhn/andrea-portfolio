@@ -18,12 +18,13 @@ Napomena: `npm run build` piše u `dist/` (gitignored). Za probni build bez dira
 - `npm run build` exit 0 posle svakog taska.
 
 ## Vizuelno poređenje sa redizajnom
-1. Dev server u pozadini sa logom: `npm run dev -- --port 5180 --strictPort > <scratchpad>/dev.log 2>&1` (Bash `run_in_background`).
+1. Dev server u pozadini sa logom: `npm run dev -- --port 5173 --strictPort > <scratchpad>/dev.log 2>&1` (Bash `run_in_background`). Port 5173,
+   ne 5180: Sanity CORS dozvoljava `localhost:5173` (i `:3333`), a na `:5180` svi upiti padaju sa 403 (provereno u R2.01).
 2. Redizajn: `python -m http.server 5181 --directory redesign > <scratchpad>/redesign.log 2>&1` (pozadina) ->
    `http://localhost:5181/andrea-milenovic-redesign.html`.
 3. Playwright MCP (`browser_resize`, `browser_navigate`, `browser_take_screenshot`, `browser_evaluate`, `browser_run_code_unsafe` za
    `page.route`); ako nije dostupan, chrome-devtools MCP. Ako nijedan nije dostupan: NOT_RUN u handoff-u + IN_REVIEW pitanje vlasniku
-   da pogleda `http://localhost:5180`.
+   da pogleda `http://localhost:5173`.
 4. Viewport-i: 1440x900, 1024x768, 390x844 (R3.01 i 768x1024). Screenshot-ovi idu u scratchpad, ne u repo.
 5. Posle provere zaustavi oba servera.
 
