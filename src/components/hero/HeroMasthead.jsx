@@ -26,10 +26,10 @@ export default function HeroMasthead() {
                 ))}
             </span>
 
-            {/* .mast__b */}
+            {/* .mast__b - on the right in landscape (owner, 2026-10-01; the redesign has it on the left) */}
             <span
                 aria-hidden="true"
-                className="absolute left-gutter top-[calc(var(--hd)_+_3cqh_+_min(20.5cqw,30cqh)*.84)] z-[3] font-serif text-[length:min(6.2cqw,10.5cqh)] font-normal italic leading-100 tracking-neg1 text-cream opsz-36 motion-fade [--fade-delay:.55s] fonts-pending:[animation-play-state:paused] cq-portrait:left-0 cq-portrait:right-0 cq-portrait:top-[calc(var(--hd)_+_7cqh_+_min(20.5cqw,13cqh)*.84)] cq-portrait:text-center cq-portrait:text-[length:min(10.5cqw,6.4cqh)]"
+                className="absolute right-gutter top-[calc(var(--hd)_+_3cqh_+_min(20.5cqw,30cqh)*.84)] z-[3] font-serif text-[length:min(6.2cqw,10.5cqh)] font-normal italic leading-100 tracking-neg1 text-cream opsz-36 motion-fade [--fade-delay:.55s] fonts-pending:[animation-play-state:paused] cq-portrait:left-0 cq-portrait:right-0 cq-portrait:top-[calc(var(--hd)_+_7cqh_+_min(20.5cqw,13cqh)*.84)] cq-portrait:text-center cq-portrait:text-[length:min(10.5cqw,6.4cqh)]"
             >
                 {BRAND.lastName}
             </span>

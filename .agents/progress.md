@@ -129,3 +129,4 @@
 - 2026-10-01 R3.01 IN_REVIEW (Opus 5.5 na "go"): čišćenje (3 paketa, 88 asseta, stari CSS/tokeni), LH 96-100, 4 viewport-a = redizajn.
 - 2026-10-01 R3.01 DONE: vlasnik prihvatio ("Prihvatam, DONE"), M2 PASSED; npm audit fix na vlasnikov izbor -> 0 ranjivosti.
 - 2026-10-01 R3.02 IN_PROGRESS: vlasnik "ne treba backup" (O08 RESOLVED); Studio singletoni; čeka vlasnikov deploy i sadržaj.
+- 2026-10-01 vlasnik: u hero-u (landscape) prezime "Milenović" desno, "Based in Požarevac, Serbia" levo (svesno odstupanje od redizajna; portret isti).
