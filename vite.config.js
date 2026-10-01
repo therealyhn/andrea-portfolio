@@ -9,8 +9,6 @@ export default defineConfig({
         manualChunks: {
           vendor: ['react', 'react-dom'],
           sanity: ['@sanity/client', '@sanity/image-url'],
-          portable: ['@portabletext/react'],
-          swiper: ['swiper'],
         },
       },
     },

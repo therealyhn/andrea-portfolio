@@ -8,8 +8,6 @@ export default {
   theme: {
     extend: {
       screens: {
-        "2k": "1920px",
-        "4k": "2560px",
         upto1100: { raw: "(max-width: 1100px)" },
         upto959: { raw: "(max-width: 959px)" },
         upto700: { raw: "(max-width: 700px)" },
@@ -17,40 +15,10 @@ export default {
         upto560: { raw: "(max-width: 560px)" },
       },
       fontFamily: {
-        display: ['"Playfair Display"', "serif"],
-        body: ['"Inter"', "system-ui", "-apple-system", "BlinkMacSystemFont", '"Segoe UI"', "sans-serif"],
         serif: ['"Bodoni Moda"', "Didot", '"Bodoni 72"', '"Bodoni MT"', "Georgia", "serif"],
         sans: ['"Instrument Sans"', "system-ui", "-apple-system", '"Segoe UI"', "sans-serif"],
       },
       colors: {
-        background: {
-          DEFAULT: "#f4efe9",
-          soft: "#ede6de",
-          dark: "#2b0f12",
-        },
-        surface: {
-          DEFAULT: "#3a1318",
-          soft: "#4a1a20",
-        },
-        text: {
-          heading: "#2b0f12",
-          base: "#5c4a4a",
-          light: "#f5ede6",
-          muted: "#c9bdb5",
-        },
-        border: {
-          subtle: "rgba(43,15,18,0.15)",
-          soft: "rgba(43,15,18,0.08)",
-        },
-        primary: {
-          DEFAULT: "#7a1f28",
-          dark: "#5c161d",
-          light: "#9c2c36",
-        },
-        accent: {
-          gold: "#c9a46a",
-          cream: "#f7efe7",
-        },
         wine: {
           DEFAULT: "#4a0917",
           2: "#38060f",
@@ -135,28 +103,6 @@ export default {
         400: "400ms",
         450: "450ms",
         600: "600ms",
-      },
-      keyframes: {
-        fadeUp: {
-          "0%": { opacity: 0, transform: "translateY(20px)" },
-          "100%": { opacity: 1, transform: "translateY(0)" },
-        },
-      },
-      animation: {
-        fadeUp: "fadeUp 0.6s ease-out both",
-      },
-      container: {
-        center: true,
-        padding: {
-          DEFAULT: "1.25rem",
-          md: "2rem",
-          lg: "2.5rem",
-        },
-        screens: {
-          lg: "1024px",
-          xl: "1200px",
-          "2xl": "1440px",
-        },
       },
     },
   },
