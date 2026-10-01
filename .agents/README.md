@@ -37,7 +37,7 @@ Cilj: sajt izgleda i radi kao `redesign/andrea-milenovic-redesign.html` (vidi `p
 
 ## Poznate zamke
 1. Original redizajna ima base64 na redovima 353, 472, 535, 666 (~480 KB) - čitaj `reference/redesign-stripped.html`.
-2. Tekstovi sekcija se prepisuju iz HTML markup-a (redovi 463-664), ne iz JSON-a u redu 667 (JSON ima stariju verziju) - osim
+2. Tekstovi sekcija se prepisuju iz HTML markup-a (redovi 463-664), ne iz JSON-a u redu 666 (JSON ima stariju verziju) - osim
    alt tekstova, priča poglavlja i video podataka (`plan.md` §2.4).
 3. `overflow-x: hidden` (`overflow-hidden`) na `html`/`body` ili precima sticky naslova lomi `position: sticky`; redizajn koristi
    `overflow-x: clip` (`overflow-x-clip`). R1.01 briše stara `html`/`body` pravila iz `src/index.css`.

@@ -2,7 +2,7 @@ import { defineType, defineField } from "sanity";
 
 export default defineType({
     name: "workSection",
-    title: "WORK SECTION",
+    title: "WORK - KATEGORIJE",
     type: "document",
     description: "My Work / Portfolio sekcija",
     fields: [
@@ -11,7 +11,7 @@ export default defineType({
             title: "NASLOV",
             type: "string",
             description: 'Npr. "MY WORK"',
-            validation: (Rule) => Rule.required(),
+            hidden: true,
         }),
         // defineField({
         //     name: "subheading",
@@ -21,16 +21,16 @@ export default defineType({
         // }),
         defineField({
             name: "items",
-            title: "STAVKE",
+            title: "KATEGORIJE",
             type: "array",
-            description: "Kategorije",
+            description: "Svaka stavka je jedna kategorija na sajtu. Redosled ovde = redosled na sajtu.",
             of: [
                 {
                     type: "object",
                     fields: [
                         defineField({
                             name: "title",
-                            title: "NAZIV",
+                            title: "NAZIV KATEGORIJE",
                             type: "string",
                             validation: (Rule) => Rule.required(),
                         }),
@@ -39,17 +39,18 @@ export default defineType({
                             title: "SLIKA",
                             type: "image",
                             options: { hotspot: true },
-                            validation: (Rule) => Rule.required(),
+                            hidden: true,
                         }),
                         defineField({
                             name: "description",
                             title: "OPIS",
                             type: "text",
                             rows: 3,
+                            hidden: true,
                         }),
                         defineField({
                             name: "gallery",
-                            title: "GALERIJA (SLIKE / VIDEO)",
+                            title: "MEDIJI (SLIKE / VIDEO)",
                             type: "array",
                             of: [
                                 { type: "image", options: { hotspot: true } },
@@ -58,13 +59,13 @@ export default defineType({
                                     options: { accept: "video/*" },
                                 },
                             ],
-                            description: "Mozes dodati slike i video klipove u istu galeriju.",
+                            description: "Slike i video klipovi u ovoj kategoriji. Redosled ovde = redosled na sajtu.",
                         }),
                     ],
                     preview: {
-                        select: { title: "title", media: "image" },
-                        prepare({ title, media }) {
-                            return { title: title || "Work item", media };
+                        select: { title: "title", gallery: "gallery" },
+                        prepare({ title, gallery }) {
+                            return { title: title || "Kategorija", subtitle: `${(gallery || []).length} medija` };
                         },
                     },
                 },

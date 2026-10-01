@@ -1,16 +1,17 @@
 # Progress - andrea-portfolio redizajn
 
 ## Trenutno stanje
-- CURRENT: R1.01 DONE 2026-10-01 (Opus 5.5 na "radi ti"). Novi UI delovi postoje, stari sajt i dalje radi.
+- CURRENT: R1.02 DONE 2026-10-01 (Opus 5.5 na "nastavi sad"). M1 Osnova zatvoren. Stari sajt i dalje radi; nova šema NIJE
+  deploy-ovana (R3.02), novi sloj podataka još nigde nije uključen (R2.x).
 - Aktivan task: nema.
-- Sledeći kandidat: R1.02 (DEPENDS R1.01 DONE).
-- Poslednja isporuka: R1.01 (commit `R1.01 DONE: ...`).
+- Sledeći kandidat: R2.01 (DEPENDS R1.02 DONE).
+- Poslednja isporuka: R1.02 (commit `R1.02 DONE: ...`).
 
 ## Task registar
 | ID | Naziv | Status | Napomena (<= 300 znakova) |
 |---|---|---|---|
 | R1.01 | Asseti, Tailwind tokeni i plugin, head, osnovni UI | DONE | Opus 5.5 ("radi ti"). Build 0, eslint 0, 23/23 klasa iz §2.10 generisano. Dodato: transitionDuration 350/400/450/600, viewport-fit=cover, disabled stil dugmeta. Vidi handoff. |
-| R1.02 | Sanity šema i sloj podataka | TODO | |
+| R1.02 | Sanity šema i sloj podataka | DONE | Opus 5.5 ("nastavi sad"). Schema validate 0/0, Node VERIFY 8/8 izlaza tačno, eslint 0, build 0. Ispravljeni brojevi redova JSON-a u planu (podaci 666, pravni 667). |
 | R2.01 | Header, mobilni meni, Hero | TODO | |
 | R2.02 | About i Why Me | TODO | |
 | R2.03 | Work sekcija i Lightbox | TODO | |
@@ -22,7 +23,7 @@
 ## Milestone gate registar
 | Milestone | Status | Datum i citat |
 |---|---|---|
-| M1 Osnova | PENDING | |
+| M1 Osnova | PASSED | 2026-10-01, objektivni kriterijum: build exit 0 + VERIFY R1.02 (gate bez vlasnikovog pregleda) |
 | M2 Sekcije | PENDING | |
 | M3 Produkcija | PENDING | |
 
@@ -31,27 +32,22 @@
 - Vlasnik/klijent u Studiju (R3.02): upload izrezanih figura, preimenovanje kategorija 2-4, brisanje duplikata (pozicija 25).
 
 ## POSLEDNJI handoff
-### Handoff R1.01 - 2026-10-01
+### Handoff R1.02 - 2026-10-01
 - Status: DONE
-- Repo: andrea-portfolio, commit "R1.01 DONE: asseti, Tailwind tokeni i plugin, head, UI" (hash: `git log -1`)
-- Izmenjeni fajlovi: public/img/{logo/am-mark.png,hero-figure.webp,whyme-figure.webp,favicon-am.png,posters/*.webp (6),about/*.webp (5)},
-  tailwind.config.js, src/index.css, index.html, src/main.jsx, src/lib/utils/{fontsReady,format}.js,
-  src/components/ui/{Icon,IconSprite,ButtonLink,Eyebrow,Display,Wrap,Reveal}.jsx, src/hooks/useReveal.js; van WRITE: nema
-- Provere: extract -> `matches 10`, 6 postera; am-mark/hero/whyme = 22803/90930/47382 B; about -> 5 WEBP 9986-69506 B
-  (+ stari praćeni `about/1.jpg` 4527 B, nije diran); resolveConfig -> `2,3,DEFAULT,glow,tile,media,deep {"raw":"(max-width: 959px)"}
-  "Bodoni Moda" clamp(16px,4vw,64px)` (JS stavlja numeričke ključeve prve, isti skup kao u planu); vite build -> exit 0,
-  `@keyframes figIn` 1; Tailwind CLI proba 23 klase (cq-*, fonts-pending, motion-*, timeline-hero, opsz-*, upto*, tokeni) -> sve
-  generisane, media redosled 1100 > 959 > 700 > 600 > 560 tačan; favicon PNG 64x64; BOM u index.html ostao (ef bb bf).
-- Dodati ključevi: fontSize 11,12,13,14,15,16,17,22; letterSpacing 12,14,18,20,neg1,neg2; lineHeight 86,100,102,110,120,125,140,
-  160,165,170,175; transitionDuration 350,400,450,600 (.35s/.4s/.45s/.6s se javljaju 2+ puta). Ponovljene rgba = `/<broj>` modifikator.
-- Odstupanja: viewport `viewport-fit=cover` iz reda 5 (redizajn koristi env(safe-area-inset-bottom)); ButtonLink
-  `disabled:opacity-60 disabled:cursor-default` (redizajn nema disabled stil, forma isključuje dugme); `as` prop -> `const Tag = as`
-  (eslint ne broji JSX kao upotrebu parametra).
-- Pregled: git diff --check exit 0; eslint (main.jsx, lib/utils, components/ui, useReveal, tailwind.config.js) exit 0
-- Otvoreno: font CSS je async (preload+onload) - ako `document.fonts.load` stigne pre `@font-face`, klasa `fonts` ide odmah i hero
-  animacija krene sa rezervnim fontom; proveriti vizuelno u R2.01.
+- Repo: andrea-portfolio, commit "R1.02 DONE: Sanity šema i sloj podataka" (hash: `git log -1`)
+- Izmenjeni fajlovi: sanity/schemaTypes/{hero,whyMe,workSection,index}.js, obrisani sanity/schemaTypes/{about,contact,footer}.js,
+  src/lib/sanityClient.js (export projectId/dataset), src/lib/sanity/{queries,normalizeSiteMedia,imageUrl}.js,
+  src/lib/utils/{sanityRef,workSummary}.js, src/data/workData.js (generisan iz JSON-a red 666), src/hooks/useSiteMedia.js;
+  van WRITE: .agents/plan.md + README.md (samo brojevi redova: JSON podaci 667->666, pravni 668->667)
+- Provere: `npx sanity schema validate` -> 0 errors, 0 warnings, exit 0; Node VERIFY (živi API) -> `43 6`, 4 poglavlja tačno
+  po kartici (25/13/6/6, 0 generisanih alt-ova), `figures null null`, rečenica "Four chapters, ...: 25 designs, 13 AI images,
+  6 films and 6 portraits.", test nove kategorije i `normalizeSiteMedia(null)` identični očekivanim; _key kategorija = §2.4.
+- Pregled: git diff --check exit 0; eslint src/lib src/data src/hooks/useSiteMedia.js sanity/schemaTypes exit 0; npm run build exit 0
+- Napomene: fallback alt broji važeće stavke (preskočen medij ne pravi rupu u numeraciji); `imageUrl` vraća null, `imageSrcSet`
+  "" za nevažeći ref; `imageUrl.js` nije čist modul (uvozi sanityClient).
+- Otvoreno: (iz R1.01) async font CSS može da pusti hero animaciju pre fonta - proveriti u R2.01.
 - Tuđe necommitovane izmene: nema
-- Sledeći task: R1.02
+- Sledeći task: R2.01
 
 ## Šablon handoff-a
 ```
@@ -70,3 +66,4 @@
 - 2026-10-01 plan: plan paket napisan; O02 RESOLVED (Sanity samo hero slika, kategorije+mediji, Why Me slika).
 - 2026-10-01 plan: vlasnik rešio O01 (sve Tailwind), O03, O04-O06, O09 (bez Sentry-ja); planer proverio Tailwind 3.4 mehanizme CLI testom.
 - 2026-10-01 R1.01 DONE (Opus 5.5 na "radi ti"): asseti, tokeni + plugin, head, UI osnova; build/eslint 0.
+- 2026-10-01 R1.02 DONE (Opus 5.5 na "nastavi sad"): šema (hidden polja, figure), upit, normalizacija, workData, useSiteMedia; M1 PASSED.

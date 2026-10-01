@@ -6,16 +6,25 @@ export default defineType({
     type: "document",
     fields: [
         defineField({
+            name: "figure",
+            title: "SLIKA (izrezana figura)",
+            type: "image",
+            description: "PNG ili WebP sa providnom pozadinom. Preporuka: oko 1560 x 1784 px.",
+            options: { hotspot: false },
+        }),
+        defineField({
             name: "heading",
             title: "Naslov",
             type: "string",
             initialValue: "Why Me?",
+            hidden: true,
         }),
         defineField({
             name: "descriptionContent",
             title: "Opis / Tekst - RICH TEXT",
             type: "array",
             description: "Isti format kao About sekcija",
+            hidden: true,
             of: [
                 defineField({
                     type: "block",
@@ -71,18 +80,27 @@ export default defineType({
             title: "Lista Veština (Skills)",
             type: "array",
             of: [{ type: "string" }],
+            hidden: true,
         }),
         defineField({
             name: "buttonText",
             title: "Tekst dugmeta",
             type: "string",
             initialValue: "Work With Me",
+            hidden: true,
         }),
         defineField({
             name: "backgroundImage",
             title: "Pozadinska slika",
             type: "image",
             options: { hotspot: true },
+            hidden: true,
         }),
     ],
+    preview: {
+        select: { media: "figure" },
+        prepare({ media }) {
+            return { title: "Why Me - slika", media };
+        },
+    },
 });

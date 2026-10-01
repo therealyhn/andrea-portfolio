@@ -24,7 +24,7 @@ na redovima 353, 472, 535, 666 (base64, ~480 KB). Mapa referentnih redova:
 | footer | 342-358 | 607-637 | 985 |
 | lightbox | 360-379 | 639-648 | 805-881 |
 | drawer | 381-399 | 650-664 | 883-922 |
-| podaci (JSON) | - | 667 (redizajn podaci), 668 (pravni tekstovi) | - |
+| podaci (JSON) | - | 666 (redizajn podaci), 667 (pravni tekstovi) | - |
 
 ## 2. Ugovori
 
@@ -75,13 +75,13 @@ validnog ref-a = `null`. Duplikati se NE uklanjaju.
 
 ### 2.4 Statični podaci (`src/data/`, čisti ES moduli, importi sa eksplicitnim `.js`)
 - `workData.js`: `CHAPTER_COPY` po Sanity `_key`:
-  - `133fe10f8203`: short "Fashion design", unit "designs", lead = story[0], story = 5 pasusa poglavlja "design" iz reda 667.
+  - `133fe10f8203`: short "Fashion design", unit "designs", lead = story[0], story = 5 pasusa poglavlja "design" iz reda 666.
   - `13ff0c82d1e2`: short "AI imagery", unit "AI images", lead = story[0], story = 5 pasusa poglavlja "ai".
   - `ab4639cfebd6`: short "AI video", unit "films", lead "Short AI-generated fashion films, from yacht editorials to holiday
     campaigns.", story [].
   - `dc1d157cfab6`: short "Portraits", unit "portraits", lead "Hand-drawn pencil portraits.", story [].
-  - `MEDIA_ALT`: `{ "<image ref>": "<a>" }` za svih 43 slike iz reda 667 (24 + 13 + 6).
-  - `VIDEO_META`: `{ "file-<id>-mp4": { alt, poster: "/img/posters/<id>.webp", width, height, duration } }` za 6 videa iz reda 667
+  - `MEDIA_ALT`: `{ "<image ref>": "<a>" }` za svih 43 slike iz reda 666 (24 + 13 + 6).
+  - `VIDEO_META`: `{ "file-<id>-mp4": { alt, poster: "/img/posters/<id>.webp", width, height, duration } }` za 6 videa iz reda 666
     (`w`, `h`, `d`, `a`; `<id>` = 40 heks znakova iz URL-a `v`).
   - `WORK_COPY = { eyebrow: "Portfolio", summaryLead: "from technical drawing to AI campaign" }`.
 - `siteData.js`: `BRAND` (firstName "Andrea", lastName "Milenović", role "Fashion & AI Designer", place "Based in Požarevac, Serbia",
@@ -92,8 +92,8 @@ validnog ref-a = `null`. Duplikati se NE uklanjaju.
   linkedin `{ label: "Andrea Milenović", url: "https://www.linkedin.com/in/andrea-milenovi%C4%87-457057276" }`, location
   "Požarevac, Serbia").
 - `heroData.js`, `aboutData.js`, `whyData.js`, `contactData.js`, `legalData.js`: tekstovi PREPISANI IZ HTML MARKUP-A redizajna
-  (redovi 463-664), ne iz JSON-a u redu 667 (markup ima uređenu verziju: "2025 - 2026", "Svetozar Marković", "Surdulica, General
-  program", jedan red školovanja, "Digital Fashion Design / Fashion Design"). Pravni tekstovi iz reda 668.
+  (redovi 463-664), ne iz JSON-a u redu 666 (markup ima uređenu verziju: "2025 - 2026", "Svetozar Marković", "Surdulica, General
+  program", jedan red školovanja, "Digital Fashion Design / Fashion Design"). Pravni tekstovi iz reda 667.
 - Rečenice sa `<em>` delovima su nizovi segmenata `[{ text }, { text, em: true }]` i renderuje ih `ui/RichText.jsx`.
 
 ### 2.5 Pomoćni moduli
@@ -296,13 +296,13 @@ upisuju se u handoff.
 
 ## R1.02 — Sanity šema i sloj podataka
 - DEPENDS: R1.01 DONE, O03 i O04 RESOLVED (da). PREGLED: NORMAL.
-- READ: `sanity/schemaTypes/*.js`, `src/lib/sanityClient.js`, `.agents/reference/redesign-stripped.html` red 667 i redovi 683-685;
+- READ: `sanity/schemaTypes/*.js`, `src/lib/sanityClient.js`, `.agents/reference/redesign-stripped.html` red 666 i redovi 683-685;
   ovaj plan §2.1-§2.6.
 - WRITE: `sanity/schemaTypes/{hero,whyMe,workSection,index}.js`, brisanje `sanity/schemaTypes/{about,contact,footer}.js`,
   `src/lib/sanityClient.js` (samo named export `projectId`, `dataset`), `src/lib/sanity/{queries,normalizeSiteMedia,imageUrl}.js`,
   `src/lib/utils/{sanityRef,workSummary}.js`, `src/data/workData.js`, `src/hooks/useSiteMedia.js`.
 - URADI: šema tačno po §2.1; upit po §2.2; normalizacija po §2.3; `workData.js` po §2.4 (alt tekstovi i video podaci prepisani iz
-  reda 667, ključ = ceo ref string, npr. `image-2872cd...-3508x4961-jpg`, `file-119221eb...-mp4`); pomoćni moduli po §2.5;
+  reda 666, ključ = ceo ref string, npr. `image-2872cd...-3508x4961-jpg`, `file-119221eb...-mp4`); pomoćni moduli po §2.5;
   hook po §2.6. Čisti moduli (`src/data`, `queries`, `normalizeSiteMedia`, `sanityRef`, `format`, `workSummary`) ne importuju
   ništa što koristi `import.meta.env` i koriste importe sa `.js` ekstenzijom (pokreću se i u Node-u).
   - BUILDS ON: postojeći `sanityClient` (`useCdn: true`, apiVersion `2025-01-01`), postojeći dokumenti u datasetu.
@@ -393,7 +393,7 @@ upisuju se u handoff.
   holding a laptop", `loading="lazy"`. `SkillsList` = 10 stavki iz markup-a, broj `pad2(i + 1)` u `<span>` (§2.9 pravilo 7).
   `App.jsx`: `WhyMeSec` -> `WhyMe` sa `whyFigure`.
   - BUILDS ON: `Reveal`, `Eyebrow`, `Display`, `Wrap`, `ButtonLink`, `Icon`, `imageUrl`, tokeni iz R1.01.
-  - FORBIDDEN: tekst iz JSON-a u redu 667 (vidi §2.4); `overflow-hidden` na precima sticky naslova (lomi sticky; redizajn koristi
+  - FORBIDDEN: tekst iz JSON-a u redu 666 (vidi §2.4); `overflow-hidden` na precima sticky naslova (lomi sticky; redizajn koristi
     `overflow: clip` na sekciji - `overflow-clip`).
 - VERIFY / DONE: eslint WRITE fajlova exit 0; `npm run build` exit 0; vizuelno About i Why na 1440x900, 1024x768, 390x844 prema
   redizajnu (drop cap crvenim, umetnuta slika preklapa glavnu, 2 kolone veština 01-10, naslov "Why me?" ostaje zalepljen dok se
@@ -447,7 +447,7 @@ upisuju se u handoff.
 
 ## R2.04 — Drawer, Contact, Footer
 - DEPENDS: R2.03 DONE, O05 RESOLVED (da). PREGLED: NORMAL.
-- READ: `.agents/reference/redesign-stripped.html` redovi 305-358, 381-399, 552-637, 650-664, 668, 883-922, 964-985;
+- READ: `.agents/reference/redesign-stripped.html` redovi 305-358, 381-399, 552-637, 650-664, 667, 883-922, 964-985;
   `src/components/sections/Contact.jsx` (stari, samo naziv env ključa); `src/App.jsx`; `src/components/work/{Chapter,ChapterMeta}.jsx`.
 - WRITE: `src/components/overlays/Drawer.jsx`, `src/hooks/{useDrawer,useContactForm}.js`, `src/data/{contactData,legalData}.js`,
   `src/components/sections/Contact.jsx` (prepisuje stari), `src/components/contact/{ContactList,ContactForm,FormField,FormDone}.jsx`,
