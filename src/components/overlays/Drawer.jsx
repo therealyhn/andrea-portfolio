@@ -15,7 +15,7 @@ const YEAR = new Date().getFullYear();
 
 // .dr__content p and p:first-child (the story lead)
 const PARAGRAPH_CLASSES = "mb-[18px] text-17 leading-175 text-ink-story";
-const LEAD_CLASSES = "mb-[18px] font-serif text-22 font-normal leading-[1.5] text-ink opsz-20";
+const LEAD_CLASSES = "mb-[18px] font-serif text-22 font-normal leading-[1.5] text-ink opsz-12";
 
 // Text of the current view: a chapter story or a legal document (null before the first open)
 function drawerContent(view, chapters) {

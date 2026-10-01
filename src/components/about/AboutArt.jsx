@@ -54,7 +54,7 @@ export default function AboutArt() {
                         key={caption.label}
                         className={`flex items-baseline gap-2 whitespace-nowrap ${i === 0 ? "max-w-[44%]" : "mt-11"}`}
                     >
-                        <b className="font-serif text-17 font-normal italic leading-120 text-ink opsz-20">{caption.label}</b>{" "}
+                        <b className="font-serif text-17 font-normal italic leading-120 text-ink opsz-12">{caption.label}</b>{" "}
                         {caption.text}
                     </span>
                 ))}

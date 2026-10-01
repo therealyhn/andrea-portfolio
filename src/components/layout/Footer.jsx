@@ -27,7 +27,7 @@ export default function Footer({ onOpenLegal }) {
                         {/* .ft__mail */}
                         <a
                             href={`mailto:${CONTACT.email}`}
-                            className="mt-[22px] inline-block bg-[linear-gradient(currentColor,currentColor)] bg-[length:0_1px] bg-[position:0_100%] bg-no-repeat font-serif text-[length:clamp(26px,5.4vw,88px)] font-normal leading-110 tracking-neg2 opsz-34 transition-[background-size] duration-700 ease-editorial hover:bg-[length:100%_1px] hover:italic"
+                            className="mt-[22px] inline-block bg-[linear-gradient(currentColor,currentColor)] bg-[length:0_1px] bg-[position:0_100%] bg-no-repeat font-serif text-[length:clamp(26px,5.4vw,88px)] font-normal leading-110 tracking-neg2 opsz-18 transition-[background-size] duration-700 ease-editorial hover:bg-[length:100%_1px] hover:italic"
                         >
                             {EMAIL_PARTS[0]}
                             <wbr />

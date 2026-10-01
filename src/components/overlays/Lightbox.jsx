@@ -128,7 +128,7 @@ export default function Lightbox({ chapters, state, onClose, onGo }) {
             {/* .lb__top */}
             <div className="flex min-h-[72px] items-center justify-between gap-4 px-gutter py-3.5">
                 <p className="flex min-w-0 items-baseline gap-3.5">
-                    <b id="lbTitle" className="truncate font-serif text-[length:clamp(18px,1.6vw,24px)] font-normal leading-120 opsz-20">
+                    <b id="lbTitle" className="truncate font-serif text-[length:clamp(18px,1.6vw,24px)] font-normal leading-120 opsz-12">
                         {chapter?.title}
                     </b>
                     <span className="whitespace-nowrap font-sans text-12 font-medium leading-100 tracking-12 tabular-nums text-cream-faint">

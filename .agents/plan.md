@@ -212,7 +212,7 @@ upisuju se u handoff.
   animationTimeline: "auto, --heroT", animationRange: "normal, exit 0% exit 100%" } }`; `.motion-mast { "@supports (...)": {
   animation: "mastOut linear both", animationTimeline: "--heroT", animationRange: "exit 0% exit 100%" } }`; `.timeline-hero {
   "@supports (...)": { viewTimeline: "--heroT block" } }`; `.opsz-20`, `.opsz-34`, `.opsz-36`, `.opsz-40`, `.opsz-52`
-  (`font-variation-settings: "opsz" N`, redovi 402-406).
+  (`font-variation-settings: "opsz" N`, redovi 402-406). Od 2026-10-01 (O12): `.opsz-12`, `.opsz-18`, `.opsz-24`.
 
 ## 3. Milestone-i i gate-ovi
 | Milestone | Taskovi | Gate |

@@ -13,7 +13,7 @@ export default function SkillsList() {
                 {SKILLS.map((skill, i) => (
                     <li
                         key={skill}
-                        className="flex items-baseline gap-4 border-b border-line-dark py-4 font-serif text-[length:clamp(19px,1.5vw,23px)] leading-125 opsz-20"
+                        className="flex items-baseline gap-4 border-b border-line-dark py-4 font-serif text-[length:clamp(19px,1.5vw,23px)] leading-125 opsz-12"
                     >
                         {/* .skills li::before */}
                         <span

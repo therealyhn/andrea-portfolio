@@ -62,7 +62,7 @@ export default function MobileMenu({ open, activeId, onClose }) {
                         aria-current={link.id === activeId ? "true" : undefined}
                         onClick={onClose}
                         style={{ "--i": i }}
-                        className="flex translate-y-6 items-baseline gap-4 py-1.5 font-serif text-[length:clamp(40px,11vw,64px)] font-normal leading-[1.08] tracking-neg2 opacity-0 opsz-34 transition-[opacity,transform] duration-600 ease-editorial group-data-[open=true]/mn:translate-y-0 group-data-[open=true]/mn:opacity-100 group-data-[open=true]/mn:[transition-delay:calc(.08s_+_var(--i)_*_.05s)] aria-[current=true]:italic"
+                        className="flex translate-y-6 items-baseline gap-4 py-1.5 font-serif text-[length:clamp(40px,11vw,64px)] font-normal leading-[1.08] tracking-neg2 opacity-0 opsz-18 transition-[opacity,transform] duration-600 ease-editorial group-data-[open=true]/mn:translate-y-0 group-data-[open=true]/mn:opacity-100 group-data-[open=true]/mn:[transition-delay:calc(.08s_+_var(--i)_*_.05s)] aria-[current=true]:italic"
                     >
                         <small className="min-w-[22px] font-sans text-11 font-medium not-italic leading-100 tracking-18 text-cream-faint">
                             {pad2(i + 1)}

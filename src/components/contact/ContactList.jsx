@@ -16,7 +16,7 @@ export default function ContactList() {
                         <small className="font-sans text-11 font-medium uppercase leading-120 tracking-18 text-ink-soft">
                             {row.label}
                         </small>
-                        <span className="font-serif text-[length:clamp(19px,1.7vw,25px)] font-normal leading-125 opsz-20 [overflow-wrap:break-word] group-hover/row:italic">
+                        <span className="font-serif text-[length:clamp(19px,1.7vw,25px)] font-normal leading-125 opsz-12 [overflow-wrap:break-word] group-hover/row:italic">
                             {row.parts.map((part, i) => (
                                 <Fragment key={part}>
                                     {i > 0 && <wbr />}

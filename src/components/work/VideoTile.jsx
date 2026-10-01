@@ -66,7 +66,7 @@ function VideoTile({ item, index, chapterIndex, onOpenItem }) {
                     aria-hidden="true"
                     className="absolute bottom-4 left-[18px] right-[18px] z-[2] flex items-baseline justify-between gap-3 text-left"
                 >
-                    <b className="font-serif text-[20px] font-normal leading-[1.15] opsz-20">{item.alt}</b>
+                    <b className="font-serif text-[20px] font-normal leading-[1.15] opsz-12">{item.alt}</b>
                     {length && (
                         <span className="font-sans text-12 font-medium leading-100 tracking-[.1em] tabular-nums text-cream-soft">
                             {length}

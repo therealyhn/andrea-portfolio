@@ -163,11 +163,10 @@ export default {
             viewTimeline: "--heroT block",
           },
         },
-        ".opsz-20": { fontVariationSettings: '"opsz" 20' },
-        ".opsz-34": { fontVariationSettings: '"opsz" 34' },
-        ".opsz-36": { fontVariationSettings: '"opsz" 36' },
-        ".opsz-40": { fontVariationSettings: '"opsz" 40' },
-        ".opsz-52": { fontVariationSettings: '"opsz" 52' },
+        // Bodoni Moda optical size, lower than the redesign (20/34/36/40/52) so hairlines stay visible on 1x screens (owner, 2026-10-01)
+        ".opsz-12": { fontVariationSettings: '"opsz" 12' },
+        ".opsz-18": { fontVariationSettings: '"opsz" 18' },
+        ".opsz-24": { fontVariationSettings: '"opsz" 24' },
       });
     }),
   ],

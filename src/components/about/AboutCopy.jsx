@@ -3,7 +3,7 @@ import Reveal from "../ui/Reveal";
 
 // .about__copy p:first-child::first-letter - red serif drop cap
 const DROP_CAP_CLASSES =
-    "first-letter:float-left first-letter:mt-[.04em] first-letter:mr-[.06em] first-letter:-ml-[.02em] first-letter:font-serif first-letter:text-[4.1em] first-letter:leading-[.82] first-letter:text-rouge first-letter:opsz-40";
+    "first-letter:float-left first-letter:mt-[.04em] first-letter:mr-[.06em] first-letter:-ml-[.02em] first-letter:font-serif first-letter:text-[4.1em] first-letter:leading-[.82] first-letter:text-rouge first-letter:opsz-18";
 
 // .about__copy - body text column, the first paragraph opens with a drop cap
 export default function AboutCopy() {

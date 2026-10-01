@@ -130,3 +130,4 @@
 - 2026-10-01 R3.01 DONE: vlasnik prihvatio ("Prihvatam, DONE"), M2 PASSED; npm audit fix na vlasnikov izbor -> 0 ranjivosti.
 - 2026-10-01 R3.02 IN_PROGRESS: vlasnik "ne treba backup" (O08 RESOLVED); Studio singletoni; čeka vlasnikov deploy i sadržaj.
 - 2026-10-01 vlasnik: u hero-u (landscape) prezime "Milenović" desno, "Based in Požarevac, Serbia" levo (svesno odstupanje od redizajna; portret isti).
+- 2026-10-01 vlasnik (O12): Bodoni opsz smanjen (52/34-40/20 -> 24/18/12) da se tanki potezi vide na računaru.

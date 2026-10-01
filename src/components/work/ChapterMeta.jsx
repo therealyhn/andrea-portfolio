@@ -16,7 +16,7 @@ export default function ChapterMeta({ chapter, chapterIndex, index, atStart, atE
     return (
         <Reveal className="flex min-h-full flex-col pl-gutter upto959:pr-gutter">
             {/* .chap__no */}
-            <p className="flex items-center gap-3 font-serif text-15 font-normal italic leading-100 text-cream-faint opsz-20 after:h-px after:flex-1 after:bg-line-dark after:content-['']">
+            <p className="flex items-center gap-3 font-serif text-15 font-normal italic leading-100 text-cream-faint opsz-12 after:h-px after:flex-1 after:bg-line-dark after:content-['']">
                 {WORK_COPY.chapter} {chapter.no}
             </p>
             <Display
@@ -42,7 +42,7 @@ export default function ChapterMeta({ chapter, chapterIndex, index, atStart, atE
 
             {/* .chap__ctrl */}
             <div className="mt-auto flex items-center justify-between gap-4 pt-8 upto959:pt-5">
-                <p aria-live="polite" className="font-serif text-15 font-normal leading-100 tabular-nums text-cream-faint opsz-20">
+                <p aria-live="polite" className="font-serif text-15 font-normal leading-100 tabular-nums text-cream-faint opsz-12">
                     <b className="mr-1.5 text-[30px] font-normal italic text-cream">{pad2(index + 1)}</b>/ {pad2(total)}
                 </p>
                 <div className="flex gap-2 upto600:hidden">

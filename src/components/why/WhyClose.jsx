@@ -9,7 +9,7 @@ export default function WhyClose() {
 
     return (
         <Reveal className="mt-[clamp(56px,6vw,88px)] flex flex-wrap items-end justify-between gap-7">
-            <p className="max-w-[20em] font-serif text-[length:clamp(26px,2.4vw,38px)] italic leading-120 text-cream opsz-20">
+            <p className="max-w-[20em] font-serif text-[length:clamp(26px,2.4vw,38px)] italic leading-120 text-cream opsz-12">
                 <span className="mb-3.5 block max-w-[44ch] font-sans text-16 not-italic leading-160 text-cream-soft">
                     {WHY_COPY.closeIntro}
                 </span>

@@ -11,7 +11,7 @@ export default function CvBlock({ title, items }) {
                         <time className="mb-2 block font-sans text-12 font-medium leading-100 tracking-12 text-ink-soft">
                             {item.period}
                         </time>
-                        <b className="block font-serif text-22 font-normal leading-120 tracking-neg1 opsz-20">{item.role}</b>
+                        <b className="block font-serif text-22 font-normal leading-120 tracking-neg1 opsz-12">{item.role}</b>
                         <span className="mt-1 block text-15 text-ink-soft">{item.place}</span>
                     </li>
                 ))}

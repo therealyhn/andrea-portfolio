@@ -25,7 +25,7 @@ export default function HeroIndex({ chapters, status }) {
                             <span className="font-sans text-11 font-medium leading-100 tracking-12 text-cream-faint">
                                 {chapter.no}
                             </span>
-                            <b className="font-serif text-[21px] font-normal leading-110 tracking-neg1 opsz-20 group-hover/ix:italic">
+                            <b className="font-serif text-[21px] font-normal leading-110 tracking-neg1 opsz-12 group-hover/ix:italic">
                                 {chapter.short}
                             </b>
                             <i className="font-sans text-12 font-medium not-italic leading-100 text-cream-faint">

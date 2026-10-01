@@ -92,3 +92,11 @@ Executor ne bira OPEN/PROPOSED odluke: task koji zavisi od njih staje sa BLOCKED
 - Sanity fajlovi su 19.6-533.3 MB (4K "Yacht editorial" = 533.3 MB). Lightbox ih strimuje direktno sa CDN-a. Predlog: vlasnik ih
   prekodira (1080p H.264, ~10-30 MB) i zameni u Studiju; posle zamene se menjaju ref-ovi u `VIDEO_META` (planer dopunjuje karticu).
   Redizajn ne zavisi od ove odluke.
+
+## O12 - Optička veličina Bodoni Moda fonta - RESOLVED 2026-10-01 (vlasnik)
+- Vlasnik: tanki potezi slova (ANDREA i ostali serif tekst) se na računaru loše vide. Redizajn koristi opsz 20/34/36/40/52 -
+  na ekranima gustine 1x hairline potezi padaju na oko 1 px.
+- Rešenje (odstupanje od redizajna): `.opsz-24` za ANDREA, `.opsz-18` za Display naslove, "Milenović", drop cap, mejl u footer-u,
+  linkove menija i naslov "Thank you"; `.opsz-12` za sitan serif tekst. Težina ostaje 400. Širina ANDREA +1-2%, visine strane na
+  1440/1024/390 iste kao pre.
+
