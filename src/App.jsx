@@ -4,17 +4,23 @@ import Header from "./components/layout/Header";
 import MobileMenu from "./components/layout/MobileMenu";
 import Hero from "./components/sections/Hero";
 import About from "./components/sections/About";
-import Portfolio from "./components/sections/Portfolio";
+import Work from "./components/sections/Work";
 import WhyMe from "./components/sections/WhyMe";
 import Contact from "./components/sections/Contact";
 import Footer from "./components/layout/Footer";
+import Lightbox from "./components/overlays/Lightbox";
 import { NAV_COPY, SECTION_IDS } from "./data/siteData";
 import useSiteMedia from "./hooks/useSiteMedia";
 import useHeaderSolid from "./hooks/useHeaderSolid";
 import useScrollSpy from "./hooks/useScrollSpy";
+import useLightbox from "./hooks/useLightbox";
+
+const NO_CHAPTERS = [];
 
 export default function App() {
-  const { status, data } = useSiteMedia();
+  const { status, data, retry } = useSiteMedia();
+  const chapters = data?.chapters ?? NO_CHAPTERS;
+  const lightbox = useLightbox(chapters);
   const sentinelRef = useRef(null);
   const menuButtonRef = useRef(null);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -50,16 +56,17 @@ export default function App() {
       <main id="main">
         <Hero
           heroFigure={data?.heroFigure ?? null}
-          chapters={data?.chapters ?? []}
+          chapters={chapters}
           status={status}
           sentinelRef={sentinelRef}
         />
         <About />
-        <Portfolio />
+        <Work media={data} status={status} retry={retry} onOpenItem={lightbox.openItem} />
         <WhyMe whyFigure={data?.whyFigure ?? null} />
         <Contact />
       </main>
       <Footer />
+      <Lightbox chapters={chapters} state={lightbox.state} onClose={lightbox.close} onGo={lightbox.go} />
     </>
   );
 }

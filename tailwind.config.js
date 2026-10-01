@@ -121,6 +121,7 @@ export default {
         tap: "44px",
         logo: "26px",
         "hero-edge": "clamp(32px,7cqh,72px)",
+        "lb-nav": "clamp(12px,2vw,40px)",
       },
       maxWidth: {
         wrap: "1560px",

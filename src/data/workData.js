@@ -115,4 +115,28 @@ export const VIDEO_META = {
   },
 };
 
-export const WORK_COPY = { eyebrow: "Portfolio", summaryLead: "from technical drawing to AI campaign" };
+export const WORK_COPY = {
+  eyebrow: "Portfolio",
+  title: [{ text: "My " }, { text: "work", em: true }],
+  summaryLead: "from technical drawing to AI campaign",
+  loading: "Loading portfolio...",
+  error: "The portfolio could not be loaded.",
+  retry: "Try again",
+  chapter: "Chapter",
+  readStory: "Read the full story",
+  stepSuffix: "items",
+  stripHint: "Scroll horizontally.",
+  playFilm: "Play film",
+};
+
+// Previous / next buttons of a chapter strip ("<label> <short> items") and of the lightbox ("<label>")
+export const MEDIA_STEPS = [
+  { dir: -1, icon: "left", label: "Previous" },
+  { dir: 1, icon: "arrow", label: "Next" },
+];
+
+export const LIGHTBOX_COPY = {
+  close: "Close",
+  zoomHintTouch: "Tap the image to zoom",
+  zoomHintPointer: "Click the image to zoom",
+};

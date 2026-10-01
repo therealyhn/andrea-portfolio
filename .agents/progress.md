@@ -1,11 +1,11 @@
 # Progress - andrea-portfolio redizajn
 
 ## Trenutno stanje
-- CURRENT: R2.02 DONE 2026-10-01 (Opus 5.5 na "nastavi" posle /compact). Novi header, meni, hero, About i Why Me su u App.jsx;
-  između njih i dalje stari Portfolio, ispod stari Contact/Footer. Nova šema NIJE deploy-ovana (R3.02).
+- CURRENT: R2.03 DONE 2026-10-01 (Opus 5.5 na "nastavi" posle /compact). Novi header, meni, hero, About, Work (+ Lightbox) i
+  Why Me su u App.jsx; ispod i dalje stari Contact/Footer. Nova šema NIJE deploy-ovana (R3.02).
 - Aktivan task: nema.
-- Sledeći kandidat: R2.03 (DEPENDS R2.02 DONE).
-- Poslednja isporuka: R2.02 (commit `R2.02 DONE: ...`).
+- Sledeći kandidat: R2.04 (DEPENDS R2.03 DONE, O05 RESOLVED).
+- Poslednja isporuka: R2.03 (commit `R2.03 DONE: ...`).
 
 ## Task registar
 | ID | Naziv | Status | Napomena (<= 300 znakova) |
@@ -14,7 +14,7 @@
 | R1.02 | Sanity šema i sloj podataka | DONE | Opus 5.5 ("nastavi sad"). Schema validate 0/0, Node VERIFY 8/8 izlaza tačno, eslint 0, build 0. Ispravljeni brojevi redova JSON-a u planu (podaci 666, pravni 667). |
 | R2.01 | Header, mobilni meni, Hero | DONE | Opus 5.5 ("nastavi"). eslint 0, build 0; 3 viewport-a = redizajn po getBoundingClientRect (indeks 25/13/6/6), solid header, meni/Escape/fokus, spy 5/5, konzola 0. Van WRITE: fontsReady.js (čeka Bodoni), dev port 5173 (Sanity CORS). |
 | R2.02 | About i Why Me | DONE | Opus 5.5 ("nastavi"). eslint 0, build 0; About/Why = redizajn na 1440/1024/390 (47 elemenata, iste visine; 1440/1024 bez starih compact-height pravila), sticky "Why me?", drop cap, konzola 0. Van WRITE: Display `id` prop. |
-| R2.03 | Work sekcija i Lightbox | TODO | |
+| R2.03 | Work sekcija i Lightbox | DONE | Opus 5.5 ("nastavi"). eslint/lint/build 0; Work = redizajn na 1440 (sve pozicije), na 390 razlike samo od podataka; strelice/--p, drag, lightbox 01/25, zum, Escape+fokus, video, greška+retry, konzola 0. Van WRITE: workData natpisi. |
 | R2.04 | Drawer, Contact, Footer | TODO | |
 | R3.01 | Čišćenje i QA gate | TODO | REVIEW, gate M2 |
 | R3.02 | Sanity backup, Studio deploy, sadržaj | TODO | REVIEW, vlasnik, čeka O08, O10 |
@@ -32,31 +32,41 @@
 - Vlasnik/klijent u Studiju (R3.02): upload izrezanih figura, preimenovanje kategorija 2-4, brisanje duplikata (pozicija 25).
 
 ## POSLEDNJI handoff
-### Handoff R2.02 - 2026-10-01
+### Handoff R2.03 - 2026-10-01
 - Status: DONE
-- Repo: andrea-portfolio, commit "R2.02 DONE: About i Why Me" (hash: `git log -1`)
-- Izmenjeni fajlovi: src/App.jsx (WhyMeSec -> WhyMe sa `whyFigure`), src/components/sections/{About,WhyMe}.jsx,
-  src/components/about/{AboutArt,AboutCopy,CvBlock}.jsx, src/components/why/{WhyFigure,SkillsList,WhyClose}.jsx,
-  src/components/ui/RichText.jsx, src/data/{aboutData,whyData}.js; obrisani src/components/sections/WhyMeSec.jsx,
-  src/components/whyme/ (ceo), src/components/ui/Button.jsx (grep `ui/Button"` = 0); tailwind.config.js bez izmena (svi tokeni
-  postoje); van WRITE: src/components/ui/Display.jsx - dodat `id` prop (cilj `aria-labelledby` sekcije; treba i R2.03/R2.04)
-- Provere: eslint WRITE fajlova + Display.jsx -> exit 0; npm run build -> exit 0 (sve nove klase u CSS-u); Playwright :5173 vs :5181,
-  pozicije 26 About + 21 Why elemenata relativno na sekciju (Reveal transform isključen): 1440x900 i 1024x768 identične posle
-  uklanjanja starih compact-height pravila iz CSSOM-a, 390x844 identične i bez toga; visine About/Why 1309/1575, 1434/1408,
-  1983/2298 = redizajn; razlika samo tekst brojeva veština (`<span>` umesto `::before`). Drop cap rgb(184,23,47), Bodoni 69.7px,
-  opsz 40; umetnuta slika preklapa glavnu 100 px i 48 px ispod; veštine 2 kolone 01-10; sticky: skrol +200 i +450 -> naslov na
-  y=158 (screenshot-ovi .playwright-mcp/r202-why-1440-a/b.png, van repoa); Sanity whyFigure (page.route mock): src CDN w=780,
-  srcset 390-1560, sizes "(max-width: 959px) 88vw, 600px", width/height iz ref-a; konzola 0 grešaka/upozorenja.
+- Repo: andrea-portfolio, commit "R2.03 DONE: Work sekcija i Lightbox" (hash: `git log -1`)
+- Izmenjeni fajlovi: src/App.jsx (Portfolio -> Work sa `media/status/retry/onOpenItem`, Lightbox posle Footer-a, `chapters` =
+  `data?.chapters ?? NO_CHAPTERS` i za Hero), src/components/sections/Work.jsx, src/components/work/{WorkHead,WorkStatus,Chapter,
+  ChapterMeta,Strip,ImageTile,VideoTile}.jsx, src/components/overlays/{Lightbox,LightboxMedia}.jsx, src/hooks/{useStripScroll,
+  useDragScroll,useVideoMeta,useLightbox}.js, tailwind.config.js (spacing `lb-nav` = clamp(12px,2vw,40px), strelice lightbox-a);
+  obrisani src/components/sections/Portfolio.jsx i src/components/portfolio/ (ceo); van WRITE: src/data/workData.js - WORK_COPY
+  dopunjen (title, loading, error, retry, chapter, readStory, stepSuffix, stripHint, playFilm) + nova MEDIA_STEPS i LIGHTBOX_COPY
+  (natpisi u data fajlu po agent-base pravilu; R1.02 Node provera nije pogođena)
+- Provere: eslint WRITE + workData -> exit 0; npm run lint -> exit 0 (greška starog portfolio/Lightbox.jsx nestala); npm run build ->
+  exit 0 (23 proverene klase u CSS-u; `upto700:data-[zoom=true]` posle `upto700:` u CSS-u). Playwright :5173 vs :5181 (compact-height
+  pravila obrisana iz CSSOM-a, Reveal transform isključen): 1440x900 - zaglavlje i 4 poglavlja (meta, naslov, lead, brojač,
+  strelice, scroller, prve 3 pločice, traka, natpis i play videa) = redizajn piksel za piksel, ista visina sekcije; 390x844 - iste
+  pozicije osim pomaka od podataka (dugme "Read the full story" +52 px dolazi u R2.04; Sanity naslov "AI DESIGN AND IMAGES
+  GENERATION" lomi se u 3 reda). Interakcije: Next -> 01->03, --p .0949->.1708; Prev disabled na početku; drag mišem 300 px ->
+  scrollLeft 396 (snap), tokom drag-a data-drag/grabbing/snap none/pointer-events none, lightbox se ne otvara; klik na pločicu ->
+  "Design of clothes" "01 / 25", fokus Close, body zaključan; ArrowRight -> 02 / 25; ArrowLeft x2 -> 25 / 25 (krug); klik na
+  sliku -> data-zoom true, width 1425px; Escape -> zatvoren, fokus na pločici, medij uklonjen posle 420 ms; klik pored slike
+  zatvara; video pločica -> `<video controls autoplay playsinline preload=auto>`, pauziran pri zatvaranju (mp4 presretnut); 390:
+  strelice skrivene, swipe +-120 px menja stavku, 30 px ne, zum padding 0 i max-height none; apicdn abort -> "The portfolio could
+  not be loaded." + "Try again" -> 4 poglavlja; odložen upit -> "Loading portfolio..." i prazna rečenica; čist prolaz: konzola 0
+  grešaka/upozorenja, 390 bez horizontalnog skrola (scrollWidth 375). Screenshot-ovi .playwright-mcp/r203-*.png (van repoa).
 - Pregled: git diff --check exit 0; eslint exit 0
-- Napomene: (1) Reveal + Eyebrow/Display = Reveal omotač oko komponente (Eyebrow/Display nemaju ref). (2) About inset `src` =
-  ai-visual-640.webp (lokalno nema 480; srcset 320/640 isti kao redizajn). (3) Broj veštine je `<span aria-hidden="true">`.
-- Otvoreno (prelazno): stari compact-height media upiti u src/index.css (`@media (min-width:1024px) and (max-height:900px|820px)`,
-  `#about`/`#whyme`/`#work`/`#contact` sa `!important` padding-om) i dalje važe do R3.01: na 1440x900 About ima padding 56px
-  umesto 173px, Why dobija 56px gore/dole. Za vizuelnu proveru R2.03/R2.04 na 1440x900 i 1024x768 obriši ta pravila iz CSSOM-a
-  u Playwright-u (CSSMediaRule sa `max-height`, selektor sa id-em sekcije) ili ih planer premesti u raniji task.
-  Stari PortfolioModal/LegalModal `body.style.overflow = "auto"` i dalje (vidi R2.01) -> nestaje u R2.03/R2.04.
+- Napomene: (1) Lightbox dijalog ima `tabIndex={-1}`: u redizajnu klik na sliku (zum) prebacuje fokus na body pa Escape i strelice
+  ne rade; VERIFY redosled (zum pa Escape) to traži. (2) `key` medija u lightbox-u = sesija otvaranja + pozicija (ponovno
+  otvaranje uvek montira nov medij). (3) Pločice su `memo` (traka se renderuje po frejmu skrola); klase pločice (li, dugme, slika)
+  izvozi ImageTile.jsx, koristi ih VideoTile. (4) Poster videa ima `loading="lazy"` (u redizajnu su bili data URI). (5) `onError`
+  slike = učitana (vidi se alt umesto nevidljive slike). (6) `clamp(96px,12vw,180px)` je arbitrary u Why i Work (2x) - kandidat
+  za token u R3.01. (7) STOP uslovi nisu nastupili.
+- Otvoreno (prelazno): compact-height upiti u src/index.css i dalje menjaju padding #work na 1440x900 i 1024x768 (R3.01); stari
+  `.portfolio-swiper` CSS u index.css, paket `swiper` i `manualChunks.swiper` u vite.config.js (prazan chunk u build-u) - R3.01;
+  LegalModal u starom Footer-u i dalje postavlja inline body overflow - R2.04.
 - Tuđe necommitovane izmene: nema
-- Sledeći task: R2.03
+- Sledeći task: R2.04
 
 ## Šablon handoff-a
 ```
@@ -78,3 +88,4 @@
 - 2026-10-01 R1.02 DONE (Opus 5.5 na "nastavi sad"): šema (hidden polja, figure), upit, normalizacija, workData, useSiteMedia; M1 PASSED.
 - 2026-10-01 R2.01 DONE (Opus 5.5 na "nastavi"): header, meni, hero = redizajn na 3 viewport-a; fontsReady čeka Bodoni; dev port 5173 (CORS).
 - 2026-10-01 R2.02 DONE (Opus 5.5 na "nastavi"): About i Why Me = redizajn na 3 viewport-a, sticky naslov; Display dobio `id`.
+- 2026-10-01 R2.03 DONE (Opus 5.5 na "nastavi"): Work + Lightbox = redizajn, interakcije i greška/retry provereni; Portfolio i Swiper kod obrisani.
