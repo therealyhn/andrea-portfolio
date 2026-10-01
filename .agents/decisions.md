@@ -64,7 +64,10 @@ Executor ne bira OPEN/PROPOSED odluke: task koji zavisi od njih staje sa BLOCKED
 - Statički SPA na deljenom hostingu + Sanity CDN za slike/video. Nema baze, servera ni tenant-a. Jedini kapacitet je Sanity
   plan (bandwidth za video, videti O11). Kartica kapaciteta se ne pravi.
 
-## O08 - Backup i restore - PROPOSED
+## O08 - Backup i restore - RESOLVED 2026-10-01 (bez Sanity backup-a)
+- Vlasnik 2026-10-01: "ne treba backup, sanity samo sredi sheme pa cu ja deploy". Koraci 1-4 kartice R3.02 (export,
+  provera arhive, probni restore) se NE rade. Nova šema samo sakriva polja i dodaje `figure` - ne menja postojeće dokumente.
+  Ispod: prvobitni predlog (istorija).
 - Kod: git (lokalno; push radi vlasnik kad odluči). Sanity: `npx sanity dataset export production <fajl>.tar.gz --no-assets` PRE
   deploy-a nove šeme (R3.02; šema ne menja dokumente ni assete, a asseti su ~1 GB videa), provera arhive, probni restore u
   privremeni dataset `restore-test` i njegovo brisanje posle provere.
@@ -81,6 +84,7 @@ Executor ne bira OPEN/PROPOSED odluke: task koji zavisi od njih staje sa BLOCKED
 - Potrebno od vlasnika pre R3.03: gde je sajt hostovan (Hostinger nalog / cPanel / drugo), putanja web root-a, način upload-a (FTP
   klijent ili File Manager). Domen iz koda: `andreamilenovic.com` (canonical u `index.html`). Ništa od ovoga se ne izmišlja.
 - Studio host za `npx sanity deploy` (R3.02): vlasnik potvrđuje postojeći `*.sanity.studio` naziv koji klijent koristi.
+  2026-10-01: vlasnik sam pokreće `npx sanity deploy` i bira host ("pa cu ja deploy"); host se upisuje posle deploy-a.
 - Rollback proba: nema staging-a. Predlog: posle deploy-a vlasnik vrati backup zip na web root, potvrdi da stari sajt radi, pa
   ponovo postavi novi build (5-10 minuta prekida u terminu koji vlasnik izabere). Alternativa: staging poddomen ako postoji.
 

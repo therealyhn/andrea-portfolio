@@ -1,11 +1,11 @@
 # Progress - andrea-portfolio redizajn
 
 ## Trenutno stanje
-- CURRENT: R3.01 DONE 2026-10-01 - vlasnik prihvatio ("Prihvatam, DONE"), gate M2 PASSED. Sajt je kompletno po redizajnu,
-  lokalno; `npm audit fix` urađen (0 ranjivosti). Nova šema NIJE deploy-ovana (R3.02).
-- Aktivan task: nema.
-- Sledeći kandidat: R3.02 (vlasnik, vođeno; Executor Opus 5) - čeka O08 (potvrda putanje backup-a) i O10 (Studio host).
-- Poslednja isporuka: R3.01 (commit-ovi `R3.01 IN_REVIEW: ...`, `R3.01 DONE: npm audit fix, 0 ranjivosti`, `R3.01 DONE: ...`).
+- CURRENT: R3.02 IN_PROGRESS 2026-10-01 - šeme sređene (Studio singletoni), čeka VLASNIKA: `npx sanity deploy`, pa izmene u Studiju
+  (figure, nazivi kategorija 2-4, brisanje duplikata), pa executor VERIFY. O08 RESOLVED: bez backup-a (vlasnikova odluka).
+- Aktivan task: R3.02 (IN_PROGRESS, čeka vlasnikov deploy i sadržaj).
+- Sledeći kandidat: R3.03 posle R3.02 (čeka O10 - hosting, web root).
+- Poslednja isporuka: R3.02 deo 1 (commit `R3.02 IN_PROGRESS: ...`).
 
 ## Task registar
 | ID | Naziv | Status | Napomena (<= 300 znakova) |
@@ -17,7 +17,7 @@
 | R2.03 | Work sekcija i Lightbox | DONE | Opus 5.5 ("nastavi"). eslint/lint/build 0; Work = redizajn na 1440 (sve pozicije), na 390 razlike samo od podataka; strelice/--p, drag, lightbox 01/25, zum, Escape+fokus, video, greška+retry, konzola 0. Van WRITE: workData natpisi. |
 | R2.04 | Drawer, Contact, Footer | DONE | Opus 5.5 ("nastavi ovde"). eslint/lint/build 0; Contact i Footer = redizajn na 1440 i 390 (0 razlika); forma (web3forms presretnut): 4 greške, 500 -> alert, uspeh -> Thank you; drawer priča/pravni, Escape, fokus, View the designs; konzola 0. |
 | R3.01 | Čišćenje i QA gate | DONE | Vlasnik: "Prihvatam, DONE" (2026-10-01). lint/build 0; LH mob 96/100/100/100, desk 100x4; tastatura + zamke; 4 viewport-a = redizajn; 88 asseta i 3 paketa obrisana; npm audit fix -> 0. |
-| R3.02 | Sanity backup, Studio deploy, sadržaj | TODO | REVIEW, vlasnik, čeka O08, O10 |
+| R3.02 | Sanity backup, Studio deploy, sadržaj | IN_PROGRESS | Opus 5.5. Backup otpao (O08, vlasnik). Šema validate 0/0, Studio build 0, singletoni (bez create/delete/duplicate). Čeka vlasnikov `npx sanity deploy` + izmene u Studiju, pa VERIFY. |
 | R3.03 | Deploy i rollback proba | TODO | REVIEW, vlasnik, čeka O10 |
 
 ## Milestone gate registar
@@ -28,10 +28,33 @@
 | M3 Produkcija | PENDING | |
 
 ## Otvorene stavke van koda
-- O07, O08 PROPOSED; O10, O11 OPEN (vidi `decisions.md`). O10 (hosting, web root, Studio host) treba pre R3.02/R3.03.
+- O07 PROPOSED (N/A); O08 RESOLVED (bez backup-a); O10 OPEN (hosting, web root - za R3.03; Studio host bira vlasnik pri
+  deploy-u); O11 OPEN (vidi `decisions.md`).
 - Vlasnik/klijent u Studiju (R3.02): upload izrezanih figura, preimenovanje kategorija 2-4, brisanje duplikata (pozicija 25).
 
 ## POSLEDNJI handoff
+### Handoff R3.02 (deo 1) - 2026-10-01
+- Status: IN_PROGRESS - čeka vlasnika (deploy Studija i sadržaj), pa executor VERIFY i IN_REVIEW
+- Repo: andrea-portfolio, commit "R3.02 IN_PROGRESS: Studio singletoni, bez backup-a" (hash: `git log -1`)
+- Odluka vlasnika (2026-10-01): "ne treba backup, sanity samo sredi sheme pa cu ja deploy" -> O08 RESOLVED (koraci 1-4 kartice se
+  ne rade); deploy i Studio host radi vlasnik.
+- Izmenjeni fajlovi: sanity/structure.js (novo: 3 dokumenta sajta - BANER, WORK - KATEGORIJE, WHY ME - otvaraju se direktno po
+  postojećim `_id`), sanity/sanity.config.js (`structureTool({ structure })`; `schema.templates` bez create za hero/workSection/
+  whyMe; `document.actions` za njih samo publish, discardChanges, restore - bez delete/duplicate/unpublish); `.agents/` fajlovi;
+  schemaTypes bez izmena (već po §2.1 iz R1.02); van WRITE kartice: sanity/structure.js i sanity.config.js (kartica R3.02 ima samo
+  `.agents/`; vlasnik tražio "sredi sheme" - sajt čita tačno jedan dokument po tipu, drugi BANER bi se mogao prikazati umesto prvog)
+- Provere: dataset (javni GROQ): hero 1, whyMe 1, workSection 1 dokument (id-jevi u structure.js); stari tipovi about, contactPage,
+  footer i dalje u dataset-u (Studio ih ne prikazuje, sajt ih ne čita); `npx eslint sanity.config.js structure.js schemaTypes` ->
+  exit 0; `npx sanity schema validate` -> exit 0, 0 errors, 0 warnings; `npx sanity build <scratchpad> -y` -> exit 0 (napomena CLI:
+  nema `appId`, Studio se auto-ažurira - informativno). NOT_RUN: Studio UI u pregledaču (traži Sanity prijavu - vlasnik vidi posle
+  deploy-a).
+- Sledeći koraci (vlasnik): `cd C:\xampp\htdocs\Projects\andrea-portfolio\sanity` -> `npx sanity deploy` (host); u Studiju: BANER ->
+  SLIKA (figura), WHY ME -> SLIKA (figura), WORK - KATEGORIJE: nazivi "AI design and image generation", "AI fashion video",
+  "Portraits", u "Design of clothes" obrisati medij 25 (duplikat, `_key 3400972d6ddd`), Publish.
+- Posle toga (executor): Node provera iz R1.02 (figure != null, naslovi, `133fe10f8203|01|...|24|0`), dev :5173 (ili :3333) i
+  screenshot hero-a i Why Me sa Sanity figurama, IN_REVIEW pitanje.
+- Tuđe necommitovane izmene: nema
+
 ### Handoff R3.01 - 2026-10-01
 - Status: DONE - vlasnik 2026-10-01: "Prihvatam, DONE"; gate M2 PASSED
 - Repo: andrea-portfolio, commit-ovi "R3.01 IN_REVIEW: čišćenje i QA gate" (7242335), "R3.01 DONE: npm audit fix, 0 ranjivosti"
@@ -105,3 +128,4 @@
 - 2026-10-01 R2.04 DONE (Opus 5.5 na "nastavi ovde"): Contact, Footer, Drawer = redizajn; forma i drawer provereni (web3forms presretnut).
 - 2026-10-01 R3.01 IN_REVIEW (Opus 5.5 na "go"): čišćenje (3 paketa, 88 asseta, stari CSS/tokeni), LH 96-100, 4 viewport-a = redizajn.
 - 2026-10-01 R3.01 DONE: vlasnik prihvatio ("Prihvatam, DONE"), M2 PASSED; npm audit fix na vlasnikov izbor -> 0 ranjivosti.
+- 2026-10-01 R3.02 IN_PROGRESS: vlasnik "ne treba backup" (O08 RESOLVED); Studio singletoni; čeka vlasnikov deploy i sadržaj.
