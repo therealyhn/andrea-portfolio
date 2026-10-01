@@ -3,7 +3,8 @@ import useStripScroll from "../../hooks/useStripScroll";
 import ChapterMeta from "./ChapterMeta";
 import Strip from "./Strip";
 
-// .chap - meta column and strip side by side, stacked up to 959px; the hero index links to #ch-<key>
+// .chap - meta column and strip side by side, stacked up to 959px; the hero index links to #ch-<key>.
+// No top line on the first chapter (owner, 2026-10-01: no divider under the "My work" title).
 export default function Chapter({ chapter, chapterIndex, onOpenItem, onOpenStory }) {
     const scrollerRef = useRef(null);
     const strip = useStripScroll(scrollerRef, chapter.items.length);
@@ -12,7 +13,7 @@ export default function Chapter({ chapter, chapterIndex, onOpenItem, onOpenStory
         <article
             id={`ch-${chapter.key}`}
             aria-labelledby={`cht-${chapter.key}`}
-            className="grid scroll-mt-16 grid-cols-[minmax(280px,27%)_minmax(0,1fr)] gap-[clamp(24px,3.5vw,64px)] border-t border-line-dark py-[clamp(40px,4.5vw,64px)] last:border-b upto959:grid-cols-[1fr] upto959:gap-7"
+            className="grid scroll-mt-16 grid-cols-[minmax(280px,27%)_minmax(0,1fr)] gap-[clamp(24px,3.5vw,64px)] border-t border-line-dark py-[clamp(40px,4.5vw,64px)] first:border-t-0 last:border-b upto959:grid-cols-[1fr] upto959:gap-7"
         >
             <ChapterMeta
                 chapter={chapter}
