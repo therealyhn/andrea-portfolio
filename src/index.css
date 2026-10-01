@@ -2,25 +2,60 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
-html {
-  scroll-behavior: smooth;
-  overflow-x: hidden;
-}
+@layer base {
+  :root {
+    --hd: 72px;
+    --ease: cubic-bezier(.2, .7, .1, 1);
+  }
 
-body {
-  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  background-color: #2b0d12;
-  color: #f5f5f5;
-  overflow-x: hidden;
-}
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    scroll-behavior: smooth;
+    scroll-padding-top: 64px;
+  }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: "Playfair Display", serif;
+  body {
+    background: theme("colors.wine.DEFAULT");
+    color: theme("colors.cream.DEFAULT");
+    font: 400 16px/1.65 theme("fontFamily.sans");
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: clip;
+    text-rendering: optimizeLegibility;
+  }
+
+  img,
+  video,
+  svg {
+    display: block;
+    max-width: 100%;
+  }
+
+  ::selection {
+    background: theme("colors.cream.DEFAULT");
+    color: theme("colors.wine.DEFAULT");
+  }
+
+  :focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 4px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: .01ms !important;
+      animation-delay: 0s !important;
+      transition-duration: .01ms !important;
+      transition-delay: 0s !important;
+    }
+  }
 }
 
 /* --- Swiper pagination custom --- */
@@ -85,32 +120,6 @@ h6 {
   text-align: left;
 }
 
-/* Scrollbar – WebKit */
-::-webkit-scrollbar {
-  width: 10px;
-  height: 8px;
-  background: #ede6de;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #7a1f28;
-  border-radius: 6px;
-  border: 2px solid #ede6de;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #5c161d;
-}
-
-::-webkit-scrollbar-corner {
-  background: #ede6de;
-}
-
-/* Scrollbar – Firefox */
-* {
-  scrollbar-width: thin;
-  scrollbar-color: #7a1f28 #ede6de;
-}
 
 /* Compact-height laptop profile (e.g. low vertical viewport with desktop width) */
 @media (min-width: 1024px) and (max-height: 900px) {
