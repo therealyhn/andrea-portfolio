@@ -1,103 +1,105 @@
-import { useEffect, useState } from "react";
-import { sanityClient, urlFor } from "../../lib/sanityClient";
-import LegalModal from "../ui/LegalModal";
+import { EMAIL_PARTS, FOOTER_COPY, FOOTER_NAV, FOOTER_SOCIAL } from "../../data/contactData";
+import { LEGAL_COPY, LEGAL_DOCS, LEGAL_KEYS } from "../../data/legalData";
+import { BRAND, CONTACT } from "../../data/siteData";
+import Eyebrow from "../ui/Eyebrow";
+import Icon from "../ui/Icon";
+import Wrap from "../ui/Wrap";
 
-export default function Footer() {
-    const [data, setData] = useState(null);
-    const [legalModal, setLegalModal] = useState(null); // "privacy" | "terms" | null
+const YEAR = new Date().getFullYear();
 
-    useEffect(() => {
-        sanityClient
-            .fetch(`*[_type == "footer"][0]{
-                copyrightName,
-                logo,
-                facebookUrl,
-                twitterUrl,
-                instagramUrl
-            }`)
-            .then(setData)
-            .catch(console.error);
-    }, []);
+// .ft__cols h3 / a, button
+const COLUMN_TITLE_CLASSES = "mb-3.5 font-sans text-11 font-medium uppercase leading-120 tracking-20 text-cream-faint";
+const COLUMN_LINK_CLASSES =
+    "flex min-h-9 items-center gap-2.5 text-left text-15 text-cream-soft transition-colors duration-300 hover:text-cream";
 
-    const logoUrl = data?.logo
-        ? urlFor(data.logo).width(400).url()
-        : "/img/placeholders/1-1.jpg";
-
+/*
+  .ft - large email link and three link columns (Navigate, Follow, Legal -> drawer), the AM mark masked over a
+  wine gradient, and the copyright bar.
+*/
+export default function Footer({ onOpenLegal }) {
     return (
-        <footer className="relative bg-surface-soft text-text-light pt-24 pb-10 overflow-hidden">
-
-            <div className="absolute inset-0 bg-surface-soft/50 mix-blend-multiply" />
-            <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-surface-soft" />
-
-            <div className="relative z-20 max-w-7xl mx-auto px-6">
-                {/* Gornji red */}
-                <div className="flex flex-col md:flex-row items-center md:items-start justify-between gap-10 mb-16">
-                    {/* Levo — Logo */}
-                    <div className="flex-shrink-0">
-                        <img
-                            src={logoUrl}
-                            alt="Logo"
-                            className="h-10 brightness-0 invert opacity-80"
-                            loading="lazy"
-                        />
+        <footer className="overflow-hidden bg-wine-3 pt-[clamp(88px,10vw,150px)] text-cream">
+            <Wrap>
+                {/* .ft__top */}
+                <div className="grid grid-cols-[minmax(0,1fr)_auto] items-end gap-x-16 gap-y-8 border-b border-line-dark pb-[clamp(56px,6vw,88px)] upto959:grid-cols-[1fr]">
+                    <div>
+                        <Eyebrow className="text-cream-soft">{FOOTER_COPY.eyebrow}</Eyebrow>
+                        {/* .ft__mail */}
+                        <a
+                            href={`mailto:${CONTACT.email}`}
+                            className="mt-[22px] inline-block bg-[linear-gradient(currentColor,currentColor)] bg-[length:0_1px] bg-[position:0_100%] bg-no-repeat font-serif text-[length:clamp(26px,5.4vw,88px)] font-normal leading-110 tracking-neg2 opsz-34 transition-[background-size] duration-700 ease-editorial hover:bg-[length:100%_1px] hover:italic"
+                        >
+                            {EMAIL_PARTS[0]}
+                            <wbr />
+                            {EMAIL_PARTS[1]}
+                        </a>
                     </div>
 
-                    {/* Centar — Social ikone */}
-                    <div className="flex justify-center gap-8">
-                        {[
-                            { id: "facebook", url: data?.facebookUrl },
-                            { id: "tik-tok", url: data?.tiktokUrl },
-                            { id: "linkedin", url: "https://www.linkedin.com/in/andrea-milenovi%C4%87-457057276" },
-                            { id: "instagram", url: data?.instagramUrl }
-                        ].map((social) => (
-                            <a
-                                key={social.id}
-                                href={social.url || "#"}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="group relative"
-                            >
-                                <div className="p-3 rounded-full border border-white/10 bg-white/5 transition-all duration-300 group-hover:bg-white group-hover:border-white">
-                                    <img
-                                        src={`/img/svg/social/${social.id}.svg`}
-                                        alt={social.id}
-                                        className="h-5 w-5 opacity-70 group-hover:opacity-100 brightness-0 invert group-hover:invert-0 transition-all duration-300 group-hover:rotate-[12deg]"
-                                    />
-                                </div>
-                                {/* animated ring on hover */}
-                                <span className="absolute -inset-1 rounded-full border border-text-light/20 opacity-0 group-hover:opacity-100 group-hover:animate-ping pointer-events-none"></span>
-                            </a>
-                        ))}
-                    </div>
-
-                    {/* Desno — Copyright */}
-                    <div className="text-center md:text-right font-body">
-                        <p className="text-[10px] uppercase tracking-[0.2em] text-white/40 mb-1">
-                            © {new Date().getFullYear()} {data?.copyrightName || "Andrea Portfolio"}
-                        </p>
-                        <p className="text-[10px] uppercase tracking-[0.2em] text-white/20">
-                            All rights reserved.
-                        </p>
+                    {/* .ft__cols */}
+                    <div className="grid grid-cols-[repeat(3,auto)] gap-x-[clamp(32px,5vw,88px)] gap-y-6 upto560:grid-cols-[1fr_1fr]">
+                        <div>
+                            <h3 className={COLUMN_TITLE_CLASSES}>{FOOTER_COPY.navigateTitle}</h3>
+                            {FOOTER_NAV.map((link) => (
+                                <a key={link.id} href={`#${link.id}`} className={COLUMN_LINK_CLASSES}>
+                                    {link.label}
+                                </a>
+                            ))}
+                        </div>
+                        <div>
+                            <h3 className={COLUMN_TITLE_CLASSES}>{FOOTER_COPY.followTitle}</h3>
+                            {FOOTER_SOCIAL.map((social) => (
+                                <a
+                                    key={social.label}
+                                    href={social.url}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className={COLUMN_LINK_CLASSES}
+                                >
+                                    <Icon name={social.icon} size={18} />
+                                    {social.label}
+                                </a>
+                            ))}
+                        </div>
+                        <div>
+                            <h3 className={COLUMN_TITLE_CLASSES}>{FOOTER_COPY.legalTitle}</h3>
+                            {LEGAL_KEYS.map((key) => (
+                                <button
+                                    key={key}
+                                    type="button"
+                                    onClick={(event) => onOpenLegal(key, event.currentTarget)}
+                                    className={COLUMN_LINK_CLASSES}
+                                >
+                                    {LEGAL_DOCS[key].title}
+                                </button>
+                            ))}
+                        </div>
                     </div>
                 </div>
 
-                {/* Linija */}
-                <div className="w-full h-px bg-white/5 mb-8" />
+                {/* .ft__mark */}
+                <div
+                    aria-hidden="true"
+                    className="mt-[clamp(56px,7vw,110px)] aspect-[2296/700] w-full bg-[linear-gradient(180deg,#6e1428_0%,#4a0917_55%,rgba(74,9,23,0)_100%)] [mask:url(/img/logo/am-mark.png)_top_center/100%_auto_no-repeat]"
+                />
 
-                {/* Potpis */}
-                <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] uppercase tracking-[0.25em] text-white/30 font-body">
+                {/* .ft__bar */}
+                <div className="flex flex-wrap justify-between gap-x-6 gap-y-2.5 border-t border-line-dark pb-[max(26px,env(safe-area-inset-bottom))] pt-[22px] text-13 text-cream-faint">
                     <p>
-                        Developed & Hosted by{" "}
-                        <a href="https://maestro-solutions.org" target="_blank" rel="noopener noreferrer" className="text-text-light hover:text-white transition-colors underline underline-offset-4 decoration-white/10">Maestro Solutions</a>
+                        © {YEAR} {BRAND.copyright}. {LEGAL_COPY.rights}
                     </p>
-                    <div className="flex gap-6">
-                        <button onClick={() => setLegalModal("privacy")} className="hover:text-white transition-colors">Privacy Policy</button>
-                        <button onClick={() => setLegalModal("terms")} className="hover:text-white transition-colors">Terms of Service</button>
-                    </div>
+                    <p>
+                        {FOOTER_COPY.developedBy}{" "}
+                        <a
+                            href={BRAND.developer.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-cream-soft underline decoration-cream/40 underline-offset-4 hover:text-cream"
+                        >
+                            {BRAND.developer.label}
+                        </a>
+                    </p>
                 </div>
-            </div>
-
-            <LegalModal type={legalModal} onClose={() => setLegalModal(null)} />
+            </Wrap>
         </footer>
     );
 }

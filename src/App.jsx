@@ -9,11 +9,13 @@ import WhyMe from "./components/sections/WhyMe";
 import Contact from "./components/sections/Contact";
 import Footer from "./components/layout/Footer";
 import Lightbox from "./components/overlays/Lightbox";
+import Drawer from "./components/overlays/Drawer";
 import { NAV_COPY, SECTION_IDS } from "./data/siteData";
 import useSiteMedia from "./hooks/useSiteMedia";
 import useHeaderSolid from "./hooks/useHeaderSolid";
 import useScrollSpy from "./hooks/useScrollSpy";
 import useLightbox from "./hooks/useLightbox";
+import useDrawer from "./hooks/useDrawer";
 
 const NO_CHAPTERS = [];
 
@@ -21,6 +23,7 @@ export default function App() {
   const { status, data, retry } = useSiteMedia();
   const chapters = data?.chapters ?? NO_CHAPTERS;
   const lightbox = useLightbox(chapters);
+  const drawer = useDrawer();
   const sentinelRef = useRef(null);
   const menuButtonRef = useRef(null);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -61,12 +64,19 @@ export default function App() {
           sentinelRef={sentinelRef}
         />
         <About />
-        <Work media={data} status={status} retry={retry} onOpenItem={lightbox.openItem} />
+        <Work
+          media={data}
+          status={status}
+          retry={retry}
+          onOpenItem={lightbox.openItem}
+          onOpenStory={drawer.openStory}
+        />
         <WhyMe whyFigure={data?.whyFigure ?? null} />
         <Contact />
       </main>
-      <Footer />
+      <Footer onOpenLegal={drawer.openLegal} />
       <Lightbox chapters={chapters} state={lightbox.state} onClose={lightbox.close} onGo={lightbox.go} />
+      <Drawer chapters={chapters} state={drawer.state} onClose={drawer.close} />
     </>
   );
 }

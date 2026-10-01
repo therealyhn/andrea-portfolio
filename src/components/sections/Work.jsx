@@ -7,7 +7,7 @@ import WorkStatus from "../work/WorkStatus";
 const NO_CHAPTERS = [];
 
 // .work - header, then the Sanity chapters (or the loading / error line with a retry)
-export default function Work({ media, status, retry, onOpenItem }) {
+export default function Work({ media, status, retry, onOpenItem, onOpenStory }) {
     const chapters = media?.chapters ?? NO_CHAPTERS;
 
     return (
@@ -29,7 +29,13 @@ export default function Work({ media, status, retry, onOpenItem }) {
             {status === "ready" && (
                 <div>
                     {chapters.map((chapter, ci) => (
-                        <Chapter key={chapter.key} chapter={chapter} chapterIndex={ci} onOpenItem={onOpenItem} />
+                        <Chapter
+                            key={chapter.key}
+                            chapter={chapter}
+                            chapterIndex={ci}
+                            onOpenItem={onOpenItem}
+                            onOpenStory={onOpenStory}
+                        />
                     ))}
                 </div>
             )}

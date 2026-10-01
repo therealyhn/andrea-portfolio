@@ -1,172 +1,42 @@
-import { useEffect, useState } from "react";
-import { sanityClient } from "../../lib/sanityClient";
-import useInView from "../../hooks/useInView";
-import "animate.css";
+import { CONTACT_COPY } from "../../data/contactData";
+import ContactForm from "../contact/ContactForm";
+import ContactList from "../contact/ContactList";
+import Display from "../ui/Display";
+import Eyebrow from "../ui/Eyebrow";
+import Reveal from "../ui/Reveal";
+import RichText from "../ui/RichText";
+import Wrap from "../ui/Wrap";
 
+// .contact - title, then intro with the contact channels next to the form (stacked up to 959px)
 export default function Contact() {
-    const [sectionRef, inView] = useInView({ threshold: 0.3 });
-    const [contact, setContact] = useState(null);
-
-    // Fetch Sanity
-    useEffect(() => {
-        sanityClient
-            .fetch(`*[_type == "contactPage"][0]{
-                intro, addressValue, emailValue, phoneValue, instagramHandle, instagramUrl
-            }`)
-            .then(setContact)
-            .catch((err) => console.error("Contact fetch error:", err));
-    }, []);
-
-    const introText = contact?.intro || "Molim vas popunite formular ili me kontaktirajte direktno.";
-
     return (
-        <section id="contact" ref={sectionRef} className="contact-section py-20 md:py-24 lg:py-28 relative overflow-hidden bg-background-dark">
-            {/* Red overlay tint */}
-            <div className="absolute inset-0 bg-surface-soft/40 mix-blend-multiply" />
-            <div className="absolute inset-0 bg-gradient-to-b from-background-dark via-background-dark/80 to-black" />
+        <section
+            id="contact"
+            aria-labelledby="contactTitle"
+            className="bg-paper pb-[clamp(88px,10vw,150px)] pt-[clamp(96px,12vw,180px)] text-ink"
+        >
+            <Wrap>
+                <Reveal>
+                    <Eyebrow className="text-ink-soft">{CONTACT_COPY.eyebrow}</Eyebrow>
+                </Reveal>
+                <Reveal delay=".08s">
+                    <Display
+                        id="contactTitle"
+                        className="mb-[clamp(48px,6vw,96px)] mt-6 text-[length:clamp(64px,12vw,208px)] leading-[.84] [&_em]:text-rouge"
+                    >
+                        <RichText segments={CONTACT_COPY.title} />
+                    </Display>
+                </Reveal>
 
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
-
-                {/* NASLOV */}
-                <div className={`contact-heading mb-12 md:mb-16 text-center md:text-left ${inView ? "animate__animated animate__fadeInUp" : "opacity-0"}`}>
-                    <h2 className="contact-title text-3xl sm:text-4xl md:text-5xl font-display uppercase tracking-widest text-text-light">
-                        Get in <span className="text-white/50">Touch</span>
-                    </h2>
+                {/* .contact__grid */}
+                <div className="grid grid-cols-[minmax(0,5fr)_minmax(0,6fr)] items-start gap-[clamp(40px,7vw,128px)] upto959:grid-cols-[1fr]">
+                    <Reveal>
+                        <p className="mb-9 max-w-[36ch] text-[19px] leading-160 text-ink-body">{CONTACT_COPY.intro}</p>
+                        <ContactList />
+                    </Reveal>
+                    <ContactForm />
                 </div>
-
-                <div className={`contact-grid grid gap-12 md:grid-cols-2 ${inView ? "animate__animated animate__fadeInUp animate__delay-1s" : "opacity-0"}`}>
-
-                    {/* LEVA STRANA: INFO */}
-                    <div className="contact-info flex flex-col justify-center">
-                        <p className="contact-intro text-text-light/80 text-lg mb-12 leading-relaxed max-w-md font-body">
-                            {introText}
-                        </p>
-
-                        <div className="space-y-8">
-                            {contact?.addressValue && (
-                                <div className="flex items-center gap-6 group hover:translate-x-2 transition-transform duration-300">
-                                    <div className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center bg-white/5 group-hover:bg-white transition-all duration-300">
-                                        <img src="/img/svg/location.svg" alt="location" className="w-5 h-5 opacity-80 group-hover:opacity-100 invert group-hover:invert-0 transition-all" />
-                                    </div>
-                                    <div>
-                                        <p className="text-xs uppercase tracking-widest text-white/50 mb-1">Address</p>
-                                        <p className="text-lg text-text-light">{contact.addressValue}</p>
-                                    </div>
-                                </div>
-                            )}
-
-                            {contact?.emailValue && (
-                                <a href={`mailto:${contact.emailValue}`} className="flex items-center gap-6 group hover:translate-x-2 transition-transform duration-300">
-                                    <div className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center bg-white/5 group-hover:bg-white transition-all duration-300">
-                                        <img src="/img/svg/email.svg" alt="email" className="w-5 h-5 opacity-80 group-hover:opacity-100 invert group-hover:invert-0 transition-all" />
-                                    </div>
-                                    <div>
-                                        <p className="text-xs uppercase tracking-widest text-white/50 mb-1">Email</p>
-                                        <p className="text-lg text-text-light group-hover:text-white transition-colors">{contact.emailValue}</p>
-                                    </div>
-                                </a>
-                            )}
-
-                            {contact?.phoneValue && (
-                                <a href={`tel:${contact.phoneValue.replace(/\s+/g, "")}`} className="flex items-center gap-6 group hover:translate-x-2 transition-transform duration-300">
-                                    <div className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center bg-white/5 group-hover:bg-white transition-all duration-300">
-                                        <img src="/img/svg/phone.svg" alt="phone" className="w-5 h-5 opacity-80 group-hover:opacity-100 invert group-hover:invert-0 transition-all" />
-                                    </div>
-                                    <div>
-                                        <p className="text-xs uppercase tracking-widest text-white/50 mb-1">Phone</p>
-                                        <p className="text-lg text-text-light group-hover:text-white transition-colors">{contact.phoneValue}</p>
-                                    </div>
-                                </a>
-                            )}
-
-                            <a href="https://www.linkedin.com/in/andrea-milenovi%C4%87-457057276" target="_blank" rel="noopener noreferrer" className="flex items-center gap-6 group hover:translate-x-2 transition-transform duration-300">
-                                <div className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center bg-white/5 group-hover:bg-white transition-all duration-300">
-                                    <img src="/img/svg/social/linkedin.svg" alt="linkedin" className="w-5 h-5 opacity-80 group-hover:opacity-100 invert group-hover:invert-0 transition-all" />
-                                </div>
-                                <div>
-                                    <p className="text-xs uppercase tracking-widest text-white/50 mb-1">LinkedIn</p>
-                                    <p className="text-lg text-text-light group-hover:text-white transition-colors">Andrea Milenović</p>
-                                </div>
-                            </a>
-
-                            {contact?.instagramHandle && (
-                                <a href={contact.instagramUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-6 group hover:translate-x-2 transition-transform duration-300">
-                                    <div className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center bg-white/5 group-hover:bg-white transition-all duration-300">
-                                        <img src="/img/svg/social/instagram.svg" alt="instagram" className="w-5 h-5 opacity-80 group-hover:opacity-100 invert group-hover:invert-0 transition-all" />
-                                    </div>
-                                    <div>
-                                        <p className="text-xs uppercase tracking-widest text-white/50 mb-1">Instagram</p>
-                                        <p className="text-lg text-text-light group-hover:text-white transition-colors">{contact.instagramHandle}</p>
-                                    </div>
-                                </a>
-                            )}
-                        </div>
-                    </div>
-
-                    {/* DESNA STRANA: FORMA */}
-                    <div className="contact-form bg-white/5 p-6 sm:p-8 md:p-10 rounded-[20px] border border-white/10 backdrop-blur-sm mt-2 md:mt-0">
-                        <form
-                            action="https://api.web3forms.com/submit"
-                            method="POST"
-                            className="space-y-6"
-                        >
-                            <input type="hidden" name="access_key" value={import.meta.env.VITE_WEB3FORMS_KEY} />
-
-                            <div className="space-y-1">
-                                <label className="text-xs uppercase tracking-widest text-white/50 ml-2">Name</label>
-                                <input
-                                    type="text"
-                                    name="name"
-                                    required
-                                    className="w-full bg-transparent border-b border-white/20 px-4 py-3 text-text-light outline-none focus:border-white transition-colors placeholder:text-white/20"
-                                    placeholder="Your name"
-                                />
-                            </div>
-
-                            <div className="space-y-1">
-                                <label className="text-xs uppercase tracking-widest text-white/50 ml-2">Email</label>
-                                <input
-                                    type="email"
-                                    name="email"
-                                    required
-                                    className="w-full bg-transparent border-b border-white/20 px-4 py-3 text-text-light outline-none focus:border-white transition-colors placeholder:text-white/20"
-                                    placeholder="your@email.com"
-                                />
-                            </div>
-
-                            <div className="space-y-1">
-                                <label className="text-xs uppercase tracking-widest text-white/50 ml-2">Phone</label>
-                                <input
-                                    type="tel"
-                                    name="phone"
-                                    required
-                                    className="w-full bg-transparent border-b border-white/20 px-4 py-3 text-text-light outline-none focus:border-white transition-colors placeholder:text-white/20"
-                                    placeholder="+381 61 123 456"
-                                />
-                            </div>
-
-                            <div className="space-y-1">
-                                <label className="text-xs uppercase tracking-widest text-white/50 ml-2">Message</label>
-                                <textarea
-                                    name="message"
-                                    rows="4"
-                                    required
-                                    className="w-full bg-transparent border-b border-white/20 px-4 py-3 text-text-light outline-none focus:border-white transition-colors resize-none placeholder:text-white/20"
-                                    placeholder="How can I help you?"
-                                />
-                            </div>
-
-                            <button
-                                type="submit"
-                                className="w-full mt-4 border border-text-light py-4 rounded-full text-text-light uppercase tracking-[0.2em] hover:bg-text-light hover:text-black transition-all duration-300 text-sm font-medium"
-                            >
-                                Send Message
-                            </button>
-                        </form>
-                    </div>
-
-                </div>
-            </div>
+            </Wrap>
         </section>
     );
 }

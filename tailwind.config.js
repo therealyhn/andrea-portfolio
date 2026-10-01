@@ -122,6 +122,7 @@ export default {
         logo: "26px",
         "hero-edge": "clamp(32px,7cqh,72px)",
         "lb-nav": "clamp(12px,2vw,40px)",
+        drawer: "clamp(20px,4vw,48px)",
       },
       maxWidth: {
         wrap: "1560px",
