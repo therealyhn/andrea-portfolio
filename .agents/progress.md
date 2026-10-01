@@ -1,11 +1,11 @@
 # Progress - andrea-portfolio redizajn
 
 ## Trenutno stanje
-- CURRENT: R3.01 IN_REVIEW 2026-10-01 (Opus 5.5 na "go"). Čišćenje urađeno, QA izmeren; čeka vlasnikovo prihvatanje (gate M2).
-  Pregled: preview build na http://localhost:3333 (5182 odbija Sanity CORS), redizajn na http://localhost:5181.
-- Aktivan task: R3.01 (IN_REVIEW - "nastavi" nije prihvatanje).
-- Sledeći kandidat: R3.02 posle prihvatanja (vlasnik, vođeno; čeka O08, O10).
-- Poslednja isporuka: R3.01 IN_REVIEW (commit `R3.01 IN_REVIEW: ...`).
+- CURRENT: R3.01 DONE 2026-10-01 - vlasnik prihvatio ("Prihvatam, DONE"), gate M2 PASSED. Sajt je kompletno po redizajnu,
+  lokalno; `npm audit fix` urađen (0 ranjivosti). Nova šema NIJE deploy-ovana (R3.02).
+- Aktivan task: nema.
+- Sledeći kandidat: R3.02 (vlasnik, vođeno; Executor Opus 5) - čeka O08 (potvrda putanje backup-a) i O10 (Studio host).
+- Poslednja isporuka: R3.01 (commit-ovi `R3.01 IN_REVIEW: ...`, `R3.01 DONE: npm audit fix, 0 ranjivosti`, `R3.01 DONE: ...`).
 
 ## Task registar
 | ID | Naziv | Status | Napomena (<= 300 znakova) |
@@ -16,7 +16,7 @@
 | R2.02 | About i Why Me | DONE | Opus 5.5 ("nastavi"). eslint 0, build 0; About/Why = redizajn na 1440/1024/390 (47 elemenata, iste visine; 1440/1024 bez starih compact-height pravila), sticky "Why me?", drop cap, konzola 0. Van WRITE: Display `id` prop. |
 | R2.03 | Work sekcija i Lightbox | DONE | Opus 5.5 ("nastavi"). eslint/lint/build 0; Work = redizajn na 1440 (sve pozicije), na 390 razlike samo od podataka; strelice/--p, drag, lightbox 01/25, zum, Escape+fokus, video, greška+retry, konzola 0. Van WRITE: workData natpisi. |
 | R2.04 | Drawer, Contact, Footer | DONE | Opus 5.5 ("nastavi ovde"). eslint/lint/build 0; Contact i Footer = redizajn na 1440 i 390 (0 razlika); forma (web3forms presretnut): 4 greške, 500 -> alert, uspeh -> Thank you; drawer priča/pravni, Escape, fokus, View the designs; konzola 0. |
-| R3.01 | Čišćenje i QA gate | IN_REVIEW | REVIEW, gate M2. Opus 5.5 ("go"). lint/build 0; LH mob 96/100/100/100, desk 100x4; tastatura 94 koraka + zamke; 4 viewport-a = redizajn (iste visine sekcija); 88 asseta i 3 paketa obrisana. |
+| R3.01 | Čišćenje i QA gate | DONE | Vlasnik: "Prihvatam, DONE" (2026-10-01). lint/build 0; LH mob 96/100/100/100, desk 100x4; tastatura + zamke; 4 viewport-a = redizajn; 88 asseta i 3 paketa obrisana; npm audit fix -> 0. |
 | R3.02 | Sanity backup, Studio deploy, sadržaj | TODO | REVIEW, vlasnik, čeka O08, O10 |
 | R3.03 | Deploy i rollback proba | TODO | REVIEW, vlasnik, čeka O10 |
 
@@ -24,7 +24,7 @@
 | Milestone | Status | Datum i citat |
 |---|---|---|
 | M1 Osnova | PASSED | 2026-10-01, objektivni kriterijum: build exit 0 + VERIFY R1.02 (gate bez vlasnikovog pregleda) |
-| M2 Sekcije | PENDING | |
+| M2 Sekcije | PASSED | 2026-10-01, AskUserQuestion "Da li prihvataš R3.01 kao DONE?" -> "Prihvatam, DONE" |
 | M3 Produkcija | PENDING | |
 
 ## Otvorene stavke van koda
@@ -33,8 +33,9 @@
 
 ## POSLEDNJI handoff
 ### Handoff R3.01 - 2026-10-01
-- Status: IN_REVIEW (čeka vlasnika: "Da li prihvataš R3.01 kao DONE?")
-- Repo: andrea-portfolio, commit "R3.01 IN_REVIEW: čišćenje i QA gate" (hash: `git log -1`)
+- Status: DONE - vlasnik 2026-10-01: "Prihvatam, DONE"; gate M2 PASSED
+- Repo: andrea-portfolio, commit-ovi "R3.01 IN_REVIEW: čišćenje i QA gate" (7242335), "R3.01 DONE: npm audit fix, 0 ranjivosti"
+  (9bb8fde) i "R3.01 DONE: prihvaćeno, gate M2 PASSED" (hash: `git log -1`)
 - Izmenjeni fajlovi: package.json + package-lock.json (`npm uninstall swiper animate.css @portabletext/react`), vite.config.js
   (`manualChunks` bez `portable` i `swiper`), src/index.css (samo 3 `@import` + `@layer base`; obrisani swiper/portfolio CSS i
   compact-height upiti), tailwind.config.js (obrisani `background`, `surface`, `text`, `border`, `primary`, `accent`,
@@ -72,9 +73,13 @@
   u scratchpad-u (oba MCP pregledača zauzeta drugom sesijom).
 - Napomene: arbitrary vrednosti koje se ponavljaju među sekcijama (`clamp(96px,12vw,180px)` Why/Work/Contact,
   `clamp(88px,10vw,150px)` Contact/Footer) ostale kako jesu - kartica ih ne traži; odluka planera.
-- Otvoreno: vlasnikovo prihvatanje (gate M2); `npm audit` nalazi (predlog posebnog koraka); O08/O10 za R3.02/R3.03.
+- Posle prihvatanja (vlasnik izabrao "Ispravi u posebnom koraku"): `npm audit fix` (bez --force) -> exit 0, 42 paketa u
+  package-lock.json (vite 7.3.0 -> 7.3.6, postcss 8.5.6 -> 8.5.28, follow-redirects 1.16.1, nanoid 3.3.19; package.json bez
+  izmena); `npm audit --omit=dev` -> 0 vulnerabilities; lint exit 0; build exit 0 (CSS isti hash, JS iste veličine); preview
+  :3333 smoke: poglavlja 25/13/6/6, hero indeks 4, visina 9238 = pre, lightbox "01 / 25", konzola 0.
+- Otvoreno: O08 (potvrda putanje backup-a) i O10 (Studio host, hosting) za R3.02/R3.03.
 - Tuđe necommitovane izmene: nema
-- Sledeći task: posle prihvatanja R3.02 (vlasnik, vođeno; čeka O08 i O10)
+- Sledeći task: R3.02 (vlasnik, vođeno; čeka O08 i O10)
 
 ## Šablon handoff-a
 ```
@@ -99,3 +104,4 @@
 - 2026-10-01 R2.03 DONE (Opus 5.5 na "nastavi"): Work + Lightbox = redizajn, interakcije i greška/retry provereni; Portfolio i Swiper kod obrisani.
 - 2026-10-01 R2.04 DONE (Opus 5.5 na "nastavi ovde"): Contact, Footer, Drawer = redizajn; forma i drawer provereni (web3forms presretnut).
 - 2026-10-01 R3.01 IN_REVIEW (Opus 5.5 na "go"): čišćenje (3 paketa, 88 asseta, stari CSS/tokeni), LH 96-100, 4 viewport-a = redizajn.
+- 2026-10-01 R3.01 DONE: vlasnik prihvatio ("Prihvatam, DONE"), M2 PASSED; npm audit fix na vlasnikov izbor -> 0 ranjivosti.
