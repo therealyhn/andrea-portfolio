@@ -99,4 +99,3 @@ Executor ne bira OPEN/PROPOSED odluke: task koji zavisi od njih staje sa BLOCKED
 - Rešenje (odstupanje od redizajna): `.opsz-24` za ANDREA, `.opsz-18` za Display naslove, "Milenović", drop cap, mejl u footer-u,
   linkove menija i naslov "Thank you"; `.opsz-12` za sitan serif tekst. Težina ostaje 400. Širina ANDREA +1-2%, visine strane na
   1440/1024/390 iste kao pre.
-
