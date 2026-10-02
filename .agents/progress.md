@@ -1,11 +1,11 @@
 # Progress - andrea-portfolio redizajn
 
 ## Trenutno stanje
-- CURRENT: R3.02 IN_PROGRESS 2026-10-01 - šeme sređene (Studio singletoni), čeka VLASNIKA: `npx sanity deploy`, pa izmene u Studiju
-  (figure, nazivi kategorija 2-4, brisanje duplikata), pa executor VERIFY. O08 RESOLVED: bez backup-a (vlasnikova odluka).
-- Aktivan task: R3.02 (IN_PROGRESS, čeka vlasnikov deploy i sadržaj).
-- Sledeći kandidat: R3.03 posle R3.02 (čeka O10 - hosting, web root).
-- Poslednja isporuka: R3.02 deo 1 (commit `R3.02 IN_PROGRESS: ...`).
+- CURRENT: PROJEKAT ZAVRŠEN 2026-10-02. Vlasnik: "gasi dev, zavrsen je ovaj projekat, pusten deploy i sanitiya i sajta sve gut". Sajt i Studio (Sanity 6.17) su
+  deploy-ovani; M1, M2 PASSED, M3 ACCEPTED.
+- Aktivan task: nema.
+- Sledeći kandidat: nema (nov posao = nova planer sesija).
+- Poslednja isporuka: zatvaranje (commit `R3.03 DONE: ...`).
 
 ## Task registar
 | ID | Naziv | Status | Napomena (<= 300 znakova) |
@@ -17,22 +17,36 @@
 | R2.03 | Work sekcija i Lightbox | DONE | Opus 5.5 ("nastavi"). eslint/lint/build 0; Work = redizajn na 1440 (sve pozicije), na 390 razlike samo od podataka; strelice/--p, drag, lightbox 01/25, zum, Escape+fokus, video, greška+retry, konzola 0. Van WRITE: workData natpisi. |
 | R2.04 | Drawer, Contact, Footer | DONE | Opus 5.5 ("nastavi ovde"). eslint/lint/build 0; Contact i Footer = redizajn na 1440 i 390 (0 razlika); forma (web3forms presretnut): 4 greške, 500 -> alert, uspeh -> Thank you; drawer priča/pravni, Escape, fokus, View the designs; konzola 0. |
 | R3.01 | Čišćenje i QA gate | DONE | Vlasnik: "Prihvatam, DONE" (2026-10-01). lint/build 0; LH mob 96/100/100/100, desk 100x4; tastatura + zamke; 4 viewport-a = redizajn; 88 asseta i 3 paketa obrisana; npm audit fix -> 0. |
-| R3.02 | Sanity backup, Studio deploy, sadržaj | IN_PROGRESS | Opus 5.5. Backup otpao (O08, vlasnik). Šema validate 0/0, Studio build 0, singletoni (bez create/delete/duplicate). Čeka vlasnikov `npx sanity deploy` + izmene u Studiju, pa VERIFY. |
-| R3.03 | Deploy i rollback proba | TODO | REVIEW, vlasnik, čeka O10 |
+| R3.02 | Sanity backup, Studio deploy, sadržaj | DONE | Vlasnik deploy-ovao Studio (Sanity 6.17, singletoni). Backup otpao (O08). Figure nisu upload-ovane (sajt koristi lokalne), nazivi kategorija i 25. medij ostavljeni - vlasnik: "sve gut". |
+| R3.03 | Deploy i rollback proba | DONE | Vlasnik deploy-ovao sajt. curl: / 200 no-cache, novi title, JS 200 immutable, hero-figure 200. Rollback proba i probna poruka forme nisu rađene/potvrđene ovde (vlasnik: "sve gut"). |
 
 ## Milestone gate registar
 | Milestone | Status | Datum i citat |
 |---|---|---|
 | M1 Osnova | PASSED | 2026-10-01, objektivni kriterijum: build exit 0 + VERIFY R1.02 (gate bez vlasnikovog pregleda) |
 | M2 Sekcije | PASSED | 2026-10-01, AskUserQuestion "Da li prihvataš R3.01 kao DONE?" -> "Prihvatam, DONE" |
-| M3 Produkcija | PENDING | |
+| M3 Produkcija | ACCEPTED | 2026-10-02, vlasnik: "gasi dev, zavrsen je ovaj projekat, pusten deploy i sanitiya i sajta sve gut" |
 
 ## Otvorene stavke van koda
-- O07 PROPOSED (N/A); O08 RESOLVED (bez backup-a); O10 OPEN (hosting, web root - za R3.03; Studio host bira vlasnik pri
-  deploy-u); O11 OPEN (vidi `decisions.md`).
+- O07 PROPOSED (N/A); O08 RESOLVED (bez backup-a); O10 zatvoren deploy-om (vlasnik sam); O11 OPEN (veličina videa, van koda).
 - Vlasnik/klijent u Studiju (R3.02): upload izrezanih figura, preimenovanje kategorija 2-4, brisanje duplikata (pozicija 25).
 
 ## POSLEDNJI handoff
+### Završni handoff - 2026-10-02
+- Status: projekat završen; M3 ACCEPTED (vlasnik: "gasi dev, zavrsen je ovaj projekat, pusten deploy i sanitiya i sajta sve gut")
+- Repo: andrea-portfolio, grana main, commit "R3.03 DONE: projekat završen, M3 ACCEPTED" (hash: `git log -1`); push nije rađen
+  iz sesije (vlasnikov korak).
+- Produkcija (curl 2026-10-02): https://andreamilenovic.com/ 200, `Cache-Control: no-cache, no-store, must-revalidate`, title
+  "Andrea Milenović | Fashion & AI Designer", `/assets/index-*.js` 200 `public, max-age=31536000, immutable`,
+  `/img/hero-figure.webp` 200.
+- Sanity (javni GROQ): figure na hero/whyMe nisu postavljene (sajt koristi lokalne), kategorije "Design of clothes" (25),
+  "AI DESIGN AND IMAGES GENERATION" (13), "AI FASHION VIDEO" (6), "PORTRAITS" (6) - ostavljeno po vlasnikovoj odluci.
+- Izmene posle R3.01 na vlasnikov zahtev: Studio singletoni + Sanity 6.17 (vision 6.17, react 19.3); Bodoni opsz 24/18/12 (O12);
+  bez linije ispod "My work"; index.css base preko @apply; hero raspored kao u redizajnu (zamena vraćena).
+- Nije urađeno (vlasnikova odluka): Sanity backup (O08), rollback proba, probna poruka kroz formu iz sesije; `npm audit` u
+  sanity/ 15 nalaza u alatima za build (bez --force).
+- Sledeći rad: nova planer sesija sa novim zahtevom.
+
 ### Handoff R3.02 (deo 1) - 2026-10-01
 - Status: IN_PROGRESS - čeka vlasnika (deploy Studija i sadržaj), pa executor VERIFY i IN_REVIEW
 - Repo: andrea-portfolio, commit "R3.02 IN_PROGRESS: Studio singletoni, bez backup-a" (hash: `git log -1`)
@@ -135,3 +149,4 @@
 - 2026-10-01 vlasnik: bez linije ispod naslova "My work" (prvo poglavlje bez gornje ivice, `first:border-t-0`).
 - 2026-10-02 vlasnik: Studio na Sanity 6.17 (izabrao "Ostani na 6.17"); usklađeno @sanity/vision 6.17, react/react-dom 19.3.0 -> validate 0/0, studio build 0, login ekran bez grešaka; npm audit u sanity/ 15 (alati za build, bez --force).
 - 2026-10-02 vlasnik: hero vraćen kao u redizajnu ("Milenović" levo, "Based in Požarevac, Serbia" desno) - poništava izmenu 2b2b9f9.
+- 2026-10-02 ZAVRŠENO: vlasnik deploy-ovao sajt i Studio ("sve gut"); M3 ACCEPTED; curl produkcije OK.
