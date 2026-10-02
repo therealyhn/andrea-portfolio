@@ -30,8 +30,8 @@ export default function Hero({ heroFigure, chapters, status, sentinelRef }) {
                 {BRAND.role}
             </p>
 
-            {/* .hero__place - wide landscape only, on the left (swapped with the last name, owner 2026-10-01) */}
-            <p className="absolute left-gutter top-[calc(var(--hd)_+_3cqh_+_min(20.5cqw,30cqh)*.84_+_1.6cqh)] z-[3] flex items-center gap-2.5 font-sans text-11 font-medium uppercase leading-140 tracking-20 text-cream-soft motion-fade [--fade-delay:.65s] cq-land-1199:hidden cq-portrait:hidden">
+            {/* .hero__place - wide landscape only */}
+            <p className="absolute right-gutter top-[calc(var(--hd)_+_3cqh_+_min(20.5cqw,30cqh)*.84_+_1.6cqh)] z-[3] flex items-center gap-2.5 font-sans text-11 font-medium uppercase leading-140 tracking-20 text-cream-soft motion-fade [--fade-delay:.65s] cq-land-1199:hidden cq-portrait:hidden">
                 <Icon name="pin" size={16} />
                 {BRAND.place}
             </p>
