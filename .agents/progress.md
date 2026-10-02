@@ -48,6 +48,7 @@
   exit 0; `npx sanity schema validate` -> exit 0, 0 errors, 0 warnings; `npx sanity build <scratchpad> -y` -> exit 0 (napomena CLI:
   nema `appId`, Studio se auto-ažurira - informativno). NOT_RUN: Studio UI u pregledaču (traži Sanity prijavu - vlasnik vidi posle
   deploy-a).
+- 2026-10-02: Studio podignut na Sanity 6.17 (vlasnik), @sanity/vision 6.17, react/react-dom 19.3.0; validate 0/0, build 0.
 - Sledeći koraci (vlasnik): `cd C:\xampp\htdocs\Projects\andrea-portfolio\sanity` -> `npx sanity deploy` (host); u Studiju: BANER ->
   SLIKA (figura), WHY ME -> SLIKA (figura), WORK - KATEGORIJE: nazivi "AI design and image generation", "AI fashion video",
   "Portraits", u "Design of clothes" obrisati medij 25 (duplikat, `_key 3400972d6ddd`), Publish.
@@ -132,3 +133,4 @@
 - 2026-10-01 vlasnik: u hero-u (landscape) prezime "Milenović" desno, "Based in Požarevac, Serbia" levo (svesno odstupanje od redizajna; portret isti).
 - 2026-10-01 vlasnik (O12): Bodoni opsz smanjen (52/34-40/20 -> 24/18/12) da se tanki potezi vide na računaru.
 - 2026-10-01 vlasnik: bez linije ispod naslova "My work" (prvo poglavlje bez gornje ivice, `first:border-t-0`).
+- 2026-10-02 vlasnik: Studio na Sanity 6.17 (izabrao "Ostani na 6.17"); usklađeno @sanity/vision 6.17, react/react-dom 19.3.0 -> validate 0/0, studio build 0, login ekran bez grešaka; npm audit u sanity/ 15 (alati za build, bez --force).
