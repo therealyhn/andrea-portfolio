@@ -11,40 +11,31 @@
   html {
     -webkit-text-size-adjust: 100%;
     text-size-adjust: 100%;
-    scroll-behavior: smooth;
-    scroll-padding-top: 64px;
+    @apply scroll-smooth scroll-pt-16;
   }
 
   body {
-    background: theme("colors.wine.DEFAULT");
-    color: theme("colors.cream.DEFAULT");
-    font: 400 16px/1.65 theme("fontFamily.sans");
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    overflow-x: clip;
+    @apply overflow-x-clip bg-wine font-sans text-16 font-normal leading-165 text-cream antialiased;
     text-rendering: optimizeLegibility;
   }
 
   img,
   video,
   svg {
-    display: block;
-    max-width: 100%;
+    @apply block max-w-full;
   }
 
   ::selection {
-    background: theme("colors.cream.DEFAULT");
-    color: theme("colors.wine.DEFAULT");
+    @apply bg-cream text-wine;
   }
 
   :focus-visible {
-    outline: 2px solid currentColor;
-    outline-offset: 4px;
+    @apply outline outline-2 outline-offset-4 outline-current;
   }
 
   @media (prefers-reduced-motion: reduce) {
     html {
-      scroll-behavior: auto;
+      @apply scroll-auto;
     }
 
     *,
