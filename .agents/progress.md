@@ -150,3 +150,4 @@
 - 2026-10-02 vlasnik: Studio na Sanity 6.17 (izabrao "Ostani na 6.17"); usklađeno @sanity/vision 6.17, react/react-dom 19.3.0 -> validate 0/0, studio build 0, login ekran bez grešaka; npm audit u sanity/ 15 (alati za build, bez --force).
 - 2026-10-02 vlasnik: hero vraćen kao u redizajnu ("Milenović" levo, "Based in Požarevac, Serbia" desno) - poništava izmenu 2b2b9f9.
 - 2026-10-02 ZAVRŠENO: vlasnik deploy-ovao sajt i Studio ("sve gut"); M3 ACCEPTED; curl produkcije OK.
+- 2026-10-18: prerender za botove (`scripts/prerender.mjs`, puppeteer), status u maestro-solutions SEO-018.
