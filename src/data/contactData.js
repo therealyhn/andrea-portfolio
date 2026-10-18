@@ -71,7 +71,7 @@ export const FOOTER_COPY = {
   navigateTitle: "Navigate",
   followTitle: "Follow",
   legalTitle: "Legal",
-  developedBy: "Developed & Hosted by",
+  developedBy: "Developed, Designed & Hosted by",
 };
 
 export const FOOTER_NAV = NAV_LINKS.filter((link) => link.id !== "home");
