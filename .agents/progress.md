@@ -151,3 +151,4 @@
 - 2026-10-02 vlasnik: hero vraćen kao u redizajnu ("Milenović" levo, "Based in Požarevac, Serbia" desno) - poništava izmenu 2b2b9f9.
 - 2026-10-02 ZAVRŠENO: vlasnik deploy-ovao sajt i Studio ("sve gut"); M3 ACCEPTED; curl produkcije OK.
 - 2026-10-18: prerender za botove (`scripts/prerender.mjs`, puppeteer), status u maestro-solutions SEO-018.
+- 2026-10-21: SEO (maestro-solutions client-seo CS-15): www na bare domen u jednom skoku, 404.html sa noindex, jedan h1 (noscript p), robots bez Host, llms.txt, ProfilePage + Person.

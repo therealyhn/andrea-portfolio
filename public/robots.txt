@@ -1,6 +1,13 @@
-﻿User-agent: *
+User-agent: *
 Allow: /
-Host: andreamilenovic.com
+
+# AI: pretraga i posete na zahtev korisnika su dozvoljene kroz grupu iznad;
+# treniranje modela nije (client-seo O02).
+User-agent: GPTBot
+User-agent: ClaudeBot
+User-agent: CCBot
+User-agent: Applebot-Extended
+User-agent: Meta-ExternalAgent
+Disallow: /
 
 Sitemap: https://andreamilenovic.com/sitemap.xml
-

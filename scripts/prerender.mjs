@@ -216,6 +216,25 @@ function buildHtml(template, snapshot) {
   )
 }
 
+// 404.html (client-seo O11): the homepage snapshot without canonical, with `noindex`; Apache serves it
+// for every unknown address through `ErrorDocument 404`.
+function toNotFoundPage(html) {
+  const withoutCanonical = html.replace(/\s*<link rel="canonical"[^>]*>/, '')
+  const withoutGooglebot = withoutCanonical.replace(/\s*<meta name="googlebot"[^>]*>/, '')
+  const notFoundHtml = withoutGooglebot.replace(
+    /<meta name="robots" content="[^"]*"\s*\/?>/,
+    '<meta name="robots" content="noindex" />',
+  )
+  if (
+    withoutCanonical === html ||
+    withoutGooglebot === withoutCanonical ||
+    notFoundHtml === withoutGooglebot
+  ) {
+    throw new Error('404.html: canonical, googlebot or robots tag not found in the homepage snapshot')
+  }
+  return notFoundHtml
+}
+
 async function main() {
   const template = await readFile(path.join(distDir, 'index.html'), 'utf8')
   if (template.split(ROOT_PLACEHOLDER).length !== 2) {
@@ -242,7 +261,9 @@ async function main() {
     await writeFile(outPath, html, 'utf8')
   }
 
-  console.log(`Prerendered ${rendered.size} route(s) into dist/.`)
+  await writeFile(path.join(distDir, '404.html'), toNotFoundPage(rendered.get('/')), 'utf8')
+
+  console.log(`Prerendered ${rendered.size} route(s) and 404.html into dist/.`)
 }
 
 main().catch((error) => {

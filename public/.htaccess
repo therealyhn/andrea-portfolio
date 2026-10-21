@@ -1,16 +1,17 @@
 # ============================================================
-# HTTPS redirect
+# HTTPS and www to the bare domain, one redirect
 # ============================================================
 RewriteEngine On
-RewriteCond %{HTTPS} off
-RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+RewriteCond %{HTTPS} off [OR]
+RewriteCond %{HTTP_HOST} ^www\. [NC]
+RewriteRule ^ https://andreamilenovic.com%{REQUEST_URI} [R=301,L]
 
 # ============================================================
-# React SPA — all routes to index.html
+# One page only ("/"), no SPA fallback: every unknown address
+# is a real 404 with 404.html (noindex), see client-seo O11
 # ============================================================
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^ index.html [L]
+ErrorDocument 404 /404.html
+AddDefaultCharset UTF-8
 
 # ============================================================
 # Gzip compression
