@@ -1,9 +1,8 @@
 import { memo, useCallback, useState } from "react";
-import { imageSrcSet, imageUrl } from "../../lib/sanity/imageUrl";
+import { imageSrcSet, imageUrl } from "../../lib/cms";
 import { pad2 } from "../../lib/utils/format";
 
 const TILE_SRC_WIDTH = 480;
-const TILE_WIDTHS = [320, 480, 720, 960, 1280];
 // Tile height in `sizes`: min(116vw, 64svh) is 116vw on a 390x844 phone, 600px on desktop
 const NARROW_TILE_VW = 116;
 const WIDE_TILE_PX = 600;
@@ -20,7 +19,7 @@ export const TILE_BUTTON_CLASSES =
 export const TILE_MEDIA_CLASSES =
     "size-full object-cover opacity-0 [transition:transform_1.1s_var(--ease),opacity_.6s] group-hover/tile:scale-[1.035] data-[loaded=true]:opacity-100";
 
-// .tile - image from the Sanity CDN; opens the lightbox
+// .tile - image from the CMS public media; opens the lightbox
 function ImageTile({ item, index, total, chapterIndex, onOpenItem }) {
     const [loaded, setLoaded] = useState(false);
     const ratio = item.width / item.height;
@@ -40,9 +39,9 @@ function ImageTile({ item, index, total, chapterIndex, onOpenItem }) {
             >
                 <img
                     ref={imageRef}
-                    srcSet={imageSrcSet(item.ref, TILE_WIDTHS)}
+                    srcSet={imageSrcSet(item)}
                     sizes={`(max-width:959px) ${Math.round(NARROW_TILE_VW * ratio)}vw, ${Math.round(WIDE_TILE_PX * ratio)}px`}
-                    src={imageUrl(item.ref, TILE_SRC_WIDTH)}
+                    src={imageUrl(item, TILE_SRC_WIDTH)}
                     alt={item.alt}
                     width={TILE_SRC_WIDTH}
                     height={Math.round(TILE_SRC_WIDTH / ratio)}

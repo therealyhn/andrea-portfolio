@@ -40,7 +40,7 @@ export const SKILLS = [
   "Gemini AI",
 ];
 
-// Local figure shown until (or instead of) the Sanity `whyFigure` (O06)
+// Local figure shown until (or instead of) the CMS `whyFigure` (O06)
 export const WHY_FIGURE = {
   src: "/img/whyme-figure.webp",
   width: 780,

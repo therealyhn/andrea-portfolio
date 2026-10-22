@@ -10,7 +10,7 @@ import Icon from "../ui/Icon";
   .hero - full-height opening section and the size container for every cq-* variant inside it.
   The sentinel (28% down) tells the header when to turn solid; timeline-hero drives the scroll-out motion.
 */
-export default function Hero({ heroFigure, chapters, status, sentinelRef }) {
+export default function Hero({ heroFigure, chapters, sentinelRef }) {
     return (
         <section
             id="home"
@@ -45,7 +45,7 @@ export default function Hero({ heroFigure, chapters, status, sentinelRef }) {
             />
 
             <HeroIntro />
-            <HeroIndex chapters={chapters} status={status} />
+            <HeroIndex chapters={chapters} />
         </section>
     );
 }

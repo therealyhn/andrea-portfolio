@@ -18,7 +18,7 @@ export const ABOUT_COPY = {
   cta: { label: "See the portfolio", href: "#work", variant: "wine", icon: "arrow" },
 };
 
-// Local copies of the redesign's Sanity crops (plan §2.8), same widths
+// Local copies of the redesign's image crops (plan §2.8), same widths
 export const ABOUT_ART = {
   main: {
     src: "/img/about/illustration-720.webp",

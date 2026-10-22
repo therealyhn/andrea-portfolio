@@ -13,13 +13,13 @@ const origin = `http://127.0.0.1:${port}`
 const routes = ['/']
 
 // The snapshot is written only when all of these exist: the footer link, the page title and the
-// content that arrives from Sanity (Work chapters, the hero chapter index, Work images).
+// content from the CMS (Work chapters, the hero chapter index, Work images from its public media).
 const REQUIRED_SELECTORS = [
   'a[href="https://maestro-solutions.org"]',
   'h1',
   '#work article[id^="ch-"]',
   '#home a[href^="#ch-"]',
-  '#work img[src^="https://cdn.sanity.io/"]',
+  '#work img[src*="/public/media/"]',
 ]
 
 // Removed from the snapshot so the hidden copy never loads players or runs scripts.
@@ -37,9 +37,6 @@ const SNAPSHOT_HEAD_SELECTORS = [
 
 const ROOT_PLACEHOLDER = '<div id="root"></div>'
 const HEAD_PLACEHOLDER = '<!--prerender-head-->'
-
-// Sanity accepts browser requests only from its CORS origins, so its API calls are sent from Node.
-const SANITY_API = /^https:\/\/[a-z0-9-]+\.api(cdn)?\.sanity\.io\//
 
 const mimeTypes = {
   '.html': 'text/html; charset=UTF-8',
@@ -96,21 +93,6 @@ function startServer(template) {
   })
 }
 
-async function proxySanity(request) {
-  try {
-    const response = await fetch(request.url())
-    await request.respond({
-      status: response.status,
-      contentType: response.headers.get('content-type') ?? 'application/json',
-      headers: { 'Access-Control-Allow-Origin': origin },
-      body: Buffer.from(await response.arrayBuffer()),
-    })
-  } catch (error) {
-    console.error(`Sanity request failed: ${request.url()}`, error)
-    await request.abort()
-  }
-}
-
 async function scrollThrough(page) {
   await page.evaluate(async () => {
     const pause = () => new Promise((resolve) => setTimeout(resolve, 150))
@@ -127,14 +109,6 @@ async function renderRoute(browser, route) {
   try {
     await page.setViewport({ width: 1440, height: 900 })
     await page.emulateMediaFeatures([{ name: 'prefers-reduced-motion', value: 'reduce' }])
-    await page.setRequestInterception(true)
-    page.on('request', (request) => {
-      if (request.method() === 'GET' && SANITY_API.test(request.url())) {
-        proxySanity(request)
-      } else {
-        request.continue()
-      }
-    })
 
     await page.goto(`${origin}${route}`, { waitUntil: 'domcontentloaded' })
     await scrollThrough(page)

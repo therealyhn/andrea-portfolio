@@ -15,7 +15,7 @@ export const HERO_COPY = {
   indexTitle: "Selected work",
 };
 
-// Local cut-out figure shown until (or instead of) the Sanity figure (O06)
+// Local cut-out figure shown until (or instead of) the CMS figure (O06)
 export const HERO_FIGURE = {
   src: "/img/hero-figure.webp",
   width: 680,

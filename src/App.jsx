@@ -11,17 +11,14 @@ import Footer from "./components/layout/Footer";
 import Lightbox from "./components/overlays/Lightbox";
 import Drawer from "./components/overlays/Drawer";
 import { NAV_COPY, SECTION_IDS } from "./data/siteData";
-import useSiteMedia from "./hooks/useSiteMedia";
+import { siteMedia } from "./lib/cms";
 import useHeaderSolid from "./hooks/useHeaderSolid";
 import useScrollSpy from "./hooks/useScrollSpy";
 import useLightbox from "./hooks/useLightbox";
 import useDrawer from "./hooks/useDrawer";
 
-const NO_CHAPTERS = [];
-
 export default function App() {
-  const { status, data, retry } = useSiteMedia();
-  const chapters = data?.chapters ?? NO_CHAPTERS;
+  const { chapters } = siteMedia;
   const lightbox = useLightbox(chapters);
   const drawer = useDrawer();
   const sentinelRef = useRef(null);
@@ -57,21 +54,10 @@ export default function App() {
       <MobileMenu open={menuOpen} activeId={activeId} onClose={closeMenu} />
 
       <main id="main">
-        <Hero
-          heroFigure={data?.heroFigure ?? null}
-          chapters={chapters}
-          status={status}
-          sentinelRef={sentinelRef}
-        />
+        <Hero heroFigure={siteMedia.heroFigure} chapters={chapters} sentinelRef={sentinelRef} />
         <About />
-        <Work
-          media={data}
-          status={status}
-          retry={retry}
-          onOpenItem={lightbox.openItem}
-          onOpenStory={drawer.openStory}
-        />
-        <WhyMe whyFigure={data?.whyFigure ?? null} />
+        <Work media={siteMedia} onOpenItem={lightbox.openItem} onOpenStory={drawer.openStory} />
+        <WhyMe whyFigure={siteMedia.whyFigure} />
         <Contact />
       </main>
       <Footer onOpenLegal={drawer.openLegal} />

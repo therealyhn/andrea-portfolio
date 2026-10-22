@@ -1,7 +1,7 @@
 import { HERO_FIGURE } from "../../data/heroData";
 import useFigureSource from "../../hooks/useFigureSource";
 
-// .hero__fig - cut-out figure standing on the bottom edge; local file until the Sanity figure has loaded (O06)
+// .hero__fig - cut-out figure standing on the bottom edge; local file until the CMS figure has loaded (O06)
 export default function HeroFigure({ figure }) {
     const source = useFigureSource(figure, HERO_FIGURE);
 

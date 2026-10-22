@@ -1,14 +1,9 @@
-import { WORK_COPY } from "../../data/workData";
-import ButtonLink from "../ui/ButtonLink";
 import Chapter from "../work/Chapter";
 import WorkHead from "../work/WorkHead";
-import WorkStatus from "../work/WorkStatus";
 
-const NO_CHAPTERS = [];
-
-// .work - header, then the Sanity chapters (or the loading / error line with a retry)
-export default function Work({ media, status, retry, onOpenItem, onOpenStory }) {
-    const chapters = media?.chapters ?? NO_CHAPTERS;
+// .work - header, then the chapters from the CMS (read at build time, src/lib/cms.js)
+export default function Work({ media, onOpenItem, onOpenStory }) {
+    const { chapters } = media;
 
     return (
         <section
@@ -18,27 +13,17 @@ export default function Work({ media, status, retry, onOpenItem, onOpenStory }) 
         >
             <WorkHead chapters={chapters} />
 
-            {status === "loading" && <WorkStatus role="status" message={WORK_COPY.loading} />}
-            {status === "error" && (
-                <WorkStatus role="alert" message={WORK_COPY.error}>
-                    <ButtonLink variant="ghost" onClick={retry}>
-                        {WORK_COPY.retry}
-                    </ButtonLink>
-                </WorkStatus>
-            )}
-            {status === "ready" && (
-                <div>
-                    {chapters.map((chapter, ci) => (
-                        <Chapter
-                            key={chapter.key}
-                            chapter={chapter}
-                            chapterIndex={ci}
-                            onOpenItem={onOpenItem}
-                            onOpenStory={onOpenStory}
-                        />
-                    ))}
-                </div>
-            )}
+            <div>
+                {chapters.map((chapter, ci) => (
+                    <Chapter
+                        key={chapter.key}
+                        chapter={chapter}
+                        chapterIndex={ci}
+                        onOpenItem={onOpenItem}
+                        onOpenStory={onOpenStory}
+                    />
+                ))}
+            </div>
         </section>
     );
 }

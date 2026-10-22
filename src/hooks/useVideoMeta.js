@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react";
 
-// Size and length of a film read from its own metadata (for videos without static VIDEO_META)
+// Size and length of a film read from its own metadata (for videos the CMS sent without them)
 export default function useVideoMeta() {
     const [meta, setMeta] = useState(null);
 

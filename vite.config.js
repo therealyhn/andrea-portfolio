@@ -8,7 +8,6 @@ export default defineConfig({
       output: {
         manualChunks: {
           vendor: ['react', 'react-dom'],
-          sanity: ['@sanity/client', '@sanity/image-url'],
         },
       },
     },

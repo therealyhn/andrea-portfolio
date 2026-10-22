@@ -1,0 +1,150 @@
+name: Objava na hosting
+
+# Sadržaj dolazi iz Maestro CMS instance klijenta u trenutku izrade. Instanca pokreće ovaj workflow
+# posle objave (workflow_dispatch, plan.md §3.19 u maestro-cms), a ručno pokretanje služi za ponovnu
+# objavu bez izmene. `push` na main ulazi u `on:` tek posle prelaska u produkciji (kartica MS.12b).
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# Deljeni hosting nema atomsku zamenu izdanja: dve objave u isto vreme bi pomešale
+# fajlove, pa se objave redaju umesto da se prekidaju.
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
+env:
+  # Folder u koji FTP nalog upisuje sajt. Nema podrazumevane vrednosti: pogrešan
+  # folder se upload-uje bez greške, a sajt ostaje star.
+  DEPLOY_ROOT: ${{ vars.FTP_SERVER_DIR }}
+  # Javni API CMS instance klijenta, na primer https://cms.andreamilenovic.com/api/v1.
+  CMS_API_URL: ${{ vars.CMS_API_URL }}
+  SITE_URL: https://andreamilenovic.com/
+
+jobs:
+  deploy:
+    name: Izrada i objava
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Provera podešavanja
+        # Pada za nekoliko sekundi sa čitljivom porukom, pre izrade.
+        env:
+          FTP_SERVER: ${{ secrets.FTP_SERVER }}
+          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+          VITE_WEB3FORMS_KEY: ${{ secrets.VITE_WEB3FORMS_KEY }}
+        run: |
+          for name in FTP_SERVER FTP_USERNAME FTP_PASSWORD VITE_WEB3FORMS_KEY; do
+            if [ -z "${!name}" ]; then
+              echo "::error::Secret $name nije postavljen."
+              exit 1
+            fi
+          done
+          case "$CMS_API_URL" in
+            https://*) ;;
+            *) echo "::error::Varijabla CMS_API_URL mora postojati i početi sa https:// (javni API CMS instance klijenta)."; exit 1 ;;
+          esac
+          case "$DEPLOY_ROOT" in
+            */) ;;
+            *) echo "::error::Varijabla FTP_SERVER_DIR mora postojati i završiti se sa / (npr. / ili /public_html/)."; exit 1 ;;
+          esac
+          case "$FTP_SERVER" in
+            *://*|*/*|*:*|*\ *) echo "::error::FTP_SERVER mora biti samo ime servera ili IP, bez ftp://, putanje, porta i razmaka."; exit 1 ;;
+          esac
+          if getent hosts "$FTP_SERVER" > /dev/null; then
+            echo "FTP server se razrešava, dužina imena ${#FTP_SERVER} znakova."
+          else
+            echo "::error::FTP_SERVER se ne razrešava (dužina ${#FTP_SERVER} znakova; višak obično znači razmak ili novi red)."
+            exit 1
+          fi
+
+      - name: Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Instalacija
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Chrome za prerender
+        # Ubuntu 24.04 kroz AppArmor zabranjuje neprivilegovane korisničke prostore imena, pa Chrome
+        # iz Puppeteer-a ne može da podigne svoj sandbox; prerender otvara samo sopstvenu izradu.
+        run: |
+          if [ -f /proc/sys/kernel/apparmor_restrict_unprivileged_userns ]; then
+            echo 0 | sudo tee /proc/sys/kernel/apparmor_restrict_unprivileged_userns > /dev/null
+          fi
+
+      - name: Izrada (sadržaj iz CMS-a, Vite, prerender)
+        env:
+          VITE_WEB3FORMS_KEY: ${{ secrets.VITE_WEB3FORMS_KEY }}
+        run: npm run build
+
+      - name: Provera izlaza
+        env:
+          VITE_WEB3FORMS_KEY: ${{ secrets.VITE_WEB3FORMS_KEY }}
+        run: |
+          fail=0
+          for file in .htaccess index.html 404.html robots.txt sitemap.xml llms.txt; do
+            test -f "dist/$file" || { echo "::error::dist/$file ne postoji."; fail=1; }
+          done
+          if ! grep -q 'data-prerendered' dist/index.html; then
+            echo "::error::dist/index.html nema prerenderovan sadržaj."
+            fail=1
+          fi
+          if find dist -name '*.map' | grep -q .; then
+            echo "::error::dist sadrži source map fajlove."
+            fail=1
+          fi
+          # Bez ključa u paketu forma ne šalje poruke (vrednost se ne ispisuje).
+          if ! grep -q -F "$VITE_WEB3FORMS_KEY" dist/assets/*.js; then
+            echo "::error::Web3Forms ključ nije u izradi."
+            fail=1
+          fi
+          echo "Poglavlja u prerenderovanoj strani: $(grep -o '<article id="ch-' dist/index.html | wc -l)"
+          exit $fail
+
+      - name: Upload na hosting
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps
+          port: 21
+          local-dir: ./dist/
+          server-dir: ${{ env.DEPLOY_ROOT }}
+          state-name: .ftp-deploy-state.json
+          dangerous-clean-slate: false
+
+      - name: Provera objavljenog sajta
+        # Upload u pogrešan folder prolazi bez greške, zato se poredi paket na sajtu sa ovom
+        # izradom; query string zaobilazi keš.
+        run: |
+          expected="$(grep -o 'assets/index-[A-Za-z0-9_-]*\.js' dist/index.html | head -1)"
+          if [ -z "$expected" ]; then
+            echo "::error::U dist/index.html nema imena JS paketa."
+            exit 1
+          fi
+          echo "Ova izrada: $expected"
+          for attempt in 1 2 3 4 5; do
+            live="$(curl -fsS --max-time 20 "${SITE_URL}?deploy-check=${GITHUB_RUN_ID}-${attempt}" || true)"
+            if printf '%s' "$live" | grep -q "$expected"; then
+              echo "Sajt služi $expected"
+              exit 0
+            fi
+            echo "Pokušaj $attempt: sajt još ne služi $expected."
+            sleep 10
+          done
+          echo "::error::Sajt služi stariji ili drugi sadržaj. Proveri FTP_SERVER_DIR i da DNS andreamilenovic.com pokazuje na ovaj hosting."
+          exit 1

@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { LIGHTBOX_COPY, MEDIA_STEPS } from "../../data/workData";
 import useFocusTrap from "../../hooks/useFocusTrap";
 import useScrollLock from "../../hooks/useScrollLock";
-import { imageUrl } from "../../lib/sanity/imageUrl";
+import { imageUrl } from "../../lib/cms";
 import { pad2 } from "../../lib/utils/format";
 import Icon from "../ui/Icon";
 import LightboxMedia from "./LightboxMedia";
@@ -13,7 +13,6 @@ const ZOOM_FALLBACK_WIDTH = 2400;
 const SWIPE_MIN_PX = 48;
 const SWIPE_RATIO = 1.4;
 const PRELOAD_WIDTH = 1200;
-const PRELOAD_QUALITY = 82;
 
 // .lb__nav - previous / next on the stage edges, hidden up to 700px (swipe there)
 const NAV_CLASSES =
@@ -57,7 +56,7 @@ export default function Lightbox({ chapters, state, onClose, onGo }) {
             const neighbour = items[(itemIndex + step + items.length) % items.length];
             if (neighbour.kind !== "image") return;
             const preload = new Image();
-            preload.src = imageUrl(neighbour.ref, PRELOAD_WIDTH, PRELOAD_QUALITY);
+            preload.src = imageUrl(neighbour, PRELOAD_WIDTH);
         });
     }, [open, chapter, itemIndex]);
 

@@ -7,8 +7,8 @@ import { TILE_BUTTON_CLASSES, TILE_ITEM_CLASSES, TILE_MEDIA_CLASSES } from "./Im
 const DEFAULT_RATIO = 16 / 9;
 
 /*
-  .tile--video - poster (static VIDEO_META) or the film's first frame, play badge and caption with the length.
-  Without static metadata the ratio and length come from the video itself once its metadata loads.
+  .tile--video - poster (from the CMS) or the film's first frame, play badge and caption with the length.
+  Without a size or length from the CMS the ratio and length come from the video itself once its metadata loads.
 */
 function VideoTile({ item, index, chapterIndex, onOpenItem }) {
     const { meta, onLoadedMetadata } = useVideoMeta();

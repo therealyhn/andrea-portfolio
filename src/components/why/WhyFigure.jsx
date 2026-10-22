@@ -1,18 +1,17 @@
 import { WHY_FIGURE } from "../../data/whyData";
-import { imageSrcSet, imageUrl } from "../../lib/sanity/imageUrl";
+import { imageSrcSet, imageUrl } from "../../lib/cms";
 
-const SANITY_WIDTHS = [390, 780, 1170, 1560];
-const SANITY_SIZES = "(max-width: 959px) 88vw, 600px";
+const FIGURE_SIZES = "(max-width: 959px) 88vw, 600px";
 
-// Sanity `whyFigure` when set, otherwise the local cut-out (O06)
+// CMS `whyFigure` when set, otherwise the local cut-out (O06)
 function figureSource(figure) {
     if (!figure) {
         return { src: WHY_FIGURE.src, width: WHY_FIGURE.width, height: WHY_FIGURE.height };
     }
     return {
-        src: imageUrl(figure.ref, 780),
-        srcSet: imageSrcSet(figure.ref, SANITY_WIDTHS),
-        sizes: SANITY_SIZES,
+        src: imageUrl(figure, 780),
+        srcSet: imageSrcSet(figure),
+        sizes: FIGURE_SIZES,
         width: figure.width,
         height: figure.height,
     };

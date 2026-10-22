@@ -1,9 +1,7 @@
 import { useEffect, useRef, useState } from "react";
-import { imageSrcSet, imageUrl } from "../../lib/sanity/imageUrl";
+import { imageSrcSet, imageUrl } from "../../lib/cms";
 
 const LIGHTBOX_SRC_WIDTH = 1200;
-const LIGHTBOX_WIDTHS = [800, 1200, 1600, 2200];
-const LIGHTBOX_QUALITY = 82;
 
 // .lb__media - fitted into the stage below the top bar and caption
 const MEDIA_CLASSES =
@@ -17,7 +15,7 @@ const IMAGE_CLASSES =
     "cursor-zoom-in data-[loading=true]:opacity-0 group-data-[zoom=true]/stage:mx-auto group-data-[zoom=true]/stage:max-h-none group-data-[zoom=true]/stage:max-w-none group-data-[zoom=true]/stage:cursor-zoom-out group-data-[zoom=true]/stage:shadow-none upto700:group-data-[zoom=true]/stage:max-h-none";
 
 /*
-  The open lightbox item: a Sanity image (srcset up to 2200px, zoom width from the Lightbox) or the film
+  The open lightbox item: a CMS image (srcset of its variants, zoom width from the Lightbox) or the film
   (autoplay with controls, paused as soon as the lightbox closes).
 */
 export default function LightboxMedia({ item, active, zoomWidth }) {
@@ -50,9 +48,9 @@ export default function LightboxMedia({ item, active, zoomWidth }) {
 
     return (
         <img
-            srcSet={imageSrcSet(item.ref, LIGHTBOX_WIDTHS, LIGHTBOX_QUALITY)}
+            srcSet={imageSrcSet(item)}
             sizes={zoomWidth ? `${zoomWidth}px` : `min(${(ratio * 100).toFixed(1)}vh, 100vw)`}
-            src={imageUrl(item.ref, LIGHTBOX_SRC_WIDTH, LIGHTBOX_QUALITY)}
+            src={imageUrl(item, LIGHTBOX_SRC_WIDTH)}
             alt={item.alt}
             width={item.width}
             height={item.height}

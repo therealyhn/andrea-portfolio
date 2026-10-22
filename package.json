@@ -4,14 +4,12 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build && node scripts/prerender.mjs",
+    "dev": "node scripts/fetch-cms-content.mjs && vite",
+    "build": "node scripts/fetch-cms-content.mjs && vite build && node scripts/prerender.mjs",
     "lint": "eslint .",
     "preview": "vite preview"
   },
   "dependencies": {
-    "@sanity/client": "^7.13.2",
-    "@sanity/image-url": "^2.0.2",
     "react": "^19.2.0",
     "react-dom": "^19.2.0"
   },

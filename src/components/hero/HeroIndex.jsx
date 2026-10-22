@@ -2,11 +2,8 @@ import { HERO_COPY } from "../../data/heroData";
 
 /*
   .hero__index - chapter list linking to each Work chapter (bottom right, wide landscape only).
-  The list stays empty until the Sanity data is ready.
 */
-export default function HeroIndex({ chapters, status }) {
-    const items = status === "ready" ? chapters : [];
-
+export default function HeroIndex({ chapters }) {
     return (
         <nav
             aria-label={HERO_COPY.indexLabel}
@@ -16,7 +13,7 @@ export default function HeroIndex({ chapters, status }) {
                 {HERO_COPY.indexTitle}
             </h2>
             <ol className="[&>li:last-child>a]:border-b">
-                {items.map((chapter) => (
+                {chapters.map((chapter) => (
                     <li key={chapter.key}>
                         <a
                             href={`#ch-${chapter.key}`}

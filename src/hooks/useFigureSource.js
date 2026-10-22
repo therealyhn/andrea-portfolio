@@ -1,16 +1,13 @@
 import { useEffect, useState } from "react";
-import { imageSrcSet, imageUrl } from "../lib/sanity/imageUrl";
-
-const FIGURE_WIDTHS = [480, 680, 1020, 1360];
+import { imageSrcSet, imageUrl } from "../lib/cms";
 
 // The figure is at most 82vh / 1240px tall, so its rendered width is that height times the aspect ratio.
-function sanitySource(figure) {
+function cmsSource(figure) {
     const ratio = figure.width / figure.height;
 
     return {
-        ref: figure.ref,
-        src: imageUrl(figure.ref, 1360),
-        srcSet: imageSrcSet(figure.ref, FIGURE_WIDTHS),
+        src: imageUrl(figure, 1360),
+        srcSet: imageSrcSet(figure),
         sizes: `min(${Math.round(82 * ratio * 100) / 100}vh, ${Math.round(1240 * ratio)}px)`,
         width: figure.width,
         height: figure.height,
@@ -18,7 +15,7 @@ function sanitySource(figure) {
 }
 
 /*
-  Source for a cut-out figure <img> (O06): the local file first; once the Sanity figure
+  Source for a cut-out figure <img> (O06): the local file first; once the CMS figure
   has fully loaded, the same <img> switches to it (no second layer, no opacity swap).
 */
 export default function useFigureSource(figure, local) {
@@ -27,7 +24,7 @@ export default function useFigureSource(figure, local) {
     useEffect(() => {
         if (!figure) return;
 
-        const source = sanitySource(figure);
+        const source = cmsSource(figure);
         const preload = new Image();
         let active = true;
 
@@ -45,7 +42,7 @@ export default function useFigureSource(figure, local) {
         };
     }, [figure]);
 
-    if (figure && loaded && loaded.ref === figure.ref) return loaded;
+    if (figure && loaded && loaded.src === imageUrl(figure, 1360)) return loaded;
 
     return { src: local.src, srcSet: undefined, sizes: undefined, width: local.width, height: local.height };
 }
