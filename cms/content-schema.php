@@ -61,12 +61,15 @@ return [
                     ['key' => 'naziv', 'type' => 'text', 'label' => 'Naziv kategorije', 'required' => true],
                     [
                         // Galerija (ugovor 3.12, Dopuna 22.10.2026): lista medija redom kojim ih sajt prikazuje.
+                        // Opis svakog medija je u unosu (`alt: true`, Dopuna 12.11.2026, kartica SN.06); uvoz
+                        // ga upisuje iz `cms/sanity-asset-meta.json`.
                         'key' => 'galerija',
                         'type' => 'media',
                         'label' => 'Mediji (slike i video)',
                         'help' => 'Slike i video klipovi ove kategorije. Redosled ovde je redosled na sajtu.',
                         'kinds' => ['image', 'video'],
                         'multiple' => true,
+                        'alt' => true,
                     ],
                 ],
             ],
