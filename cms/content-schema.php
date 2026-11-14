@@ -18,6 +18,7 @@ return [
         'key' => 'baner',
         'name' => 'Baner',
         'kind' => 'single',
+        'icon' => 'image',
         'titleField' => 'figura',
         'fields' => [
             [
@@ -34,6 +35,7 @@ return [
         'key' => 'zasto-ja',
         'name' => 'Zašto ja',
         'kind' => 'single',
+        'icon' => 'award',
         'titleField' => 'figura',
         'fields' => [
             [
@@ -50,6 +52,7 @@ return [
         'key' => 'radovi',
         'name' => 'Radovi',
         'kind' => 'single',
+        'icon' => 'images',
         'titleField' => 'kategorije',
         'fields' => [
             [
