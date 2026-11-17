@@ -1,9 +1,12 @@
 name: Objava na hosting
 
 # Sadržaj dolazi iz Maestro CMS instance klijenta u trenutku izrade. Instanca pokreće ovaj workflow
-# posle objave (workflow_dispatch, plan.md §3.19 u maestro-cms), a ručno pokretanje služi za ponovnu
-# objavu bez izmene. `push` na main ulazi u `on:` tek posle prelaska u produkciji (kartica MS.12b).
+# posle objave (workflow_dispatch, plan.md §3.19 u maestro-cms), ručno pokretanje služi za ponovnu
+# objavu bez izmene, a `push` na main objavljuje izmenu koda (od prelaska u produkciji 17.11.2026,
+# kartica MS.12b u maestro-cms).
 on:
+  push:
+    branches: [main]
   workflow_dispatch:
 
 permissions:
@@ -19,7 +22,7 @@ env:
   # Folder u koji FTP nalog upisuje sajt. Nema podrazumevane vrednosti: pogrešan
   # folder se upload-uje bez greške, a sajt ostaje star.
   DEPLOY_ROOT: ${{ vars.FTP_SERVER_DIR }}
-  # Javni API CMS instance klijenta, na primer https://cms.andreamilenovic.com/api/v1.
+  # Javni API CMS instance klijenta: https://cms.andreamilenovic.com/dashboard/api/v1.
   CMS_API_URL: ${{ vars.CMS_API_URL }}
   SITE_URL: https://andreamilenovic.com/
 
