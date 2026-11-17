@@ -13,9 +13,6 @@ dist-ssr
 *.local
 .env
 src/generated/
-sanity/node_modules
-sanity/dist
-sanity/.env
 
 # Editor directories and files
 .vscode/*

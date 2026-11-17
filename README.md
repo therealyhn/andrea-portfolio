@@ -60,7 +60,9 @@ Production since 17.11.2026: the CMS instance is `https://cms.andreamilenovic.co
 - `npm run build`: content from the CMS, `vite build`, then `scripts/prerender.mjs` (headless Chrome) writes the snapshot and `404.html` into `dist/`. The browser loads only the images and films, from the CMS public media.
 - `VITE_WEB3FORMS_KEY` (contact form): `.env` locally, a repository secret in GitHub.
 - Deploy: `.github/workflows/deploy.yml`, FTPS to the hosting. It runs on every push to `main`, after every CMS publish (the instance starts it through `workflow_dispatch`, `siteBuild` in the instance `client.php`) and manually from the Actions tab; runs queue instead of cancelling each other. It needs the repository variables `CMS_API_URL` (https) and `FTP_SERVER_DIR`, and the secrets `FTP_SERVER`, `FTP_USERNAME`, `FTP_PASSWORD` and `VITE_WEB3FORMS_KEY`.
-- The `sanity/` folder (the former Studio) stays until the switch in production.
+
+## Before the CMS (Sanity)
+Until the switch on 17.11.2026 the site read its content from Sanity. The Sanity Studio (`sanity/`), the import map (`cms/sanity-map.json`) and the film data for the import (`cms/sanity-asset-meta.json` and `cms/posters/`) were removed from the repository after the switch. The way back is commit `93a82de`, the last one that reads Sanity, built and uploaded the way the site was published before the switch, while the Sanity project still exists (the owner decides when it is shut down); the DNS name `cms.andreamilenovic.com` does not get in the way.
 
 ---
 
