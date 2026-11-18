@@ -18,7 +18,7 @@ return [
         'key' => 'baner',
         'name' => 'Baner',
         'kind' => 'single',
-        'icon' => 'image',
+        'icon' => 'house',
         'titleField' => 'figura',
         'fields' => [
             [
