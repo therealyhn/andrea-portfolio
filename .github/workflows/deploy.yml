@@ -42,9 +42,8 @@ jobs:
           FTP_SERVER: ${{ secrets.FTP_SERVER }}
           FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
           FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
-          VITE_WEB3FORMS_KEY: ${{ secrets.VITE_WEB3FORMS_KEY }}
         run: |
-          for name in FTP_SERVER FTP_USERNAME FTP_PASSWORD VITE_WEB3FORMS_KEY; do
+          for name in FTP_SERVER FTP_USERNAME FTP_PASSWORD; do
             if [ -z "${!name}" ]; then
               echo "::error::Secret $name nije postavljen."
               exit 1
@@ -77,6 +76,21 @@ jobs:
       - name: Instalacija
         run: npm ci
 
+      - name: PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          tools: composer:v2
+          coverage: none
+
+      - name: PHPMailer
+        # Endpoint forme (public/api/contact.php) šalje kroz PHPMailer iz server/vendor; vendor nije u gitu.
+        # Objava pada na poznat sigurnosni propust u zaključanoj verziji.
+        run: |
+          composer validate --strict --working-dir=server
+          composer audit --locked --working-dir=server
+          composer install --no-dev --classmap-authoritative --no-interaction --no-progress --working-dir=server
+
       - name: Lint
         run: npm run lint
 
@@ -89,29 +103,33 @@ jobs:
           fi
 
       - name: Izrada (sadržaj iz CMS-a, Vite, prerender)
-        env:
-          VITE_WEB3FORMS_KEY: ${{ secrets.VITE_WEB3FORMS_KEY }}
         run: npm run build
 
+      - name: Endpoint forme
+        # Vite kopira public/api u dist/api; vendor ide pored njega, a api/.htaccess ga zatvara za posetioce.
+        # get_oauth_token.php je primer stranica iz PHPMailer paketa; endpoint je ne koristi, pa ne ide na server.
+        run: |
+          cp -R server/vendor dist/api/vendor
+          rm -f dist/api/vendor/phpmailer/phpmailer/get_oauth_token.php
+          php -l dist/api/contact.php
+          php -l dist/api/lib/kontakt.php
+
       - name: Provera izlaza
-        env:
-          VITE_WEB3FORMS_KEY: ${{ secrets.VITE_WEB3FORMS_KEY }}
         run: |
           fail=0
-          for file in .htaccess index.html 404.html robots.txt sitemap.xml llms.txt; do
+          for file in .htaccess index.html 404.html robots.txt sitemap.xml llms.txt api/contact.php api/lib/kontakt.php api/.htaccess api/vendor/autoload.php; do
             test -f "dist/$file" || { echo "::error::dist/$file ne postoji."; fail=1; }
           done
+          if [ -e dist/api/config.php ] || find dist -name 'kontakt-config.php' | grep -q .; then
+            echo "::error::dist sadrži config forme; config živi samo iznad public_html na serveru."
+            fail=1
+          fi
           if ! grep -q 'data-prerendered' dist/index.html; then
             echo "::error::dist/index.html nema prerenderovan sadržaj."
             fail=1
           fi
           if find dist -name '*.map' | grep -q .; then
             echo "::error::dist sadrži source map fajlove."
-            fail=1
-          fi
-          # Bez ključa u paketu forma ne šalje poruke (vrednost se ne ispisuje).
-          if ! grep -q -F "$VITE_WEB3FORMS_KEY" dist/assets/*.js; then
-            echo "::error::Web3Forms ključ nije u izradi."
             fail=1
           fi
           echo "Poglavlja u prerenderovanoj strani: $(grep -o '<article id="ch-' dist/index.html | wc -l)"
@@ -151,3 +169,41 @@ jobs:
           done
           echo "::error::Sajt služi stariji ili drugi sadržaj. Proveri FTP_SERVER_DIR i da DNS andreamilenovic.com pokazuje na ovaj hosting."
           exit 1
+
+      - name: Provera forme na sajtu
+        # Prazan POST mora da stigne do provere polja (422): tada su config iznad public_html, vendor i
+        # dozvoljen Origin na mestu, a mejl se ne šalje. vendor i lib moraju vratiti 403. Hostinger CDN
+        # ume da vrati goli 307 ili da prekine vezu (000), pa se samo tada zahtev ponavlja.
+        run: |
+          origin="${SITE_URL%/}"
+          body_file="$RUNNER_TEMP/forma-odgovor"
+          probe() {
+            local path="$1"
+            shift
+            local attempt
+            for attempt in 1 2 3 4 5; do
+              code="$(curl -sS -o "$body_file" -w '%{http_code}' --max-time 20 "$@" "${SITE_URL}${path}?deploy-check=${GITHUB_RUN_ID}-${attempt}" || true)"
+              case "$code" in
+                307|000) echo "Pokušaj $attempt za $path: HTTP $code, ponavljam za 5 s."; sleep 5 ;;
+                *) return 0 ;;
+              esac
+            done
+          }
+          fail=0
+          probe api/contact.php -X POST -H "Origin: $origin" -H 'Content-Type: application/json' --data '{}'
+          if [ "$code" = 422 ] && grep -q '"success":false' "$body_file"; then
+            echo "api/contact.php: 422 na prazan POST."
+          else
+            echo "::error::api/contact.php na prazan POST vraća HTTP $code umesto 422 (kontakt-config.php iznad public_html, api/vendor ili Origin)."
+            fail=1
+          fi
+          for path in api/vendor/autoload.php api/lib/kontakt.php; do
+            probe "$path"
+            if [ "$code" = 403 ]; then
+              echo "$path: 403."
+            else
+              echo "::error::$path vraća HTTP $code umesto 403 (api/.htaccess)."
+              fail=1
+            fi
+          done
+          exit $fail

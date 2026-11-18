@@ -1,0 +1,11 @@
+{
+  "origin": "https://andreamilenovic.com",
+  "textField": "message",
+  "message": {
+    "name": "Proba Primer",
+    "email": "posetilac@primer.test",
+    "phone": "+381 60 000 0000",
+    "message": "Inquiry about a brand identity project.\nSecond line of the message.",
+    "website": ""
+  }
+}

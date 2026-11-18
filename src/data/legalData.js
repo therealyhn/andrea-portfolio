@@ -3,7 +3,7 @@
 export const LEGAL_DOCS = {
   privacy: {
     title: "Privacy Policy",
-    updated: "March 2026",
+    updated: "November 2026",
     sections: [
       {
         heading: "1. Who We Are",
@@ -11,7 +11,7 @@ export const LEGAL_DOCS = {
       },
       {
         heading: "2. What Information We Collect",
-        body: "We collect only the information you voluntarily provide through the contact form: your name, email address, and message content. We do not collect payment information, create user accounts, or require registration of any kind.",
+        body: "We collect only the information you voluntarily provide through the contact form: your name, email address, and message content. We do not collect payment information, create user accounts, or require registration of any kind. To prevent abuse, the form keeps a hash of the IP address (not the address itself) for at most 24 hours.",
       },
       {
         heading: "3. How We Use Your Information",

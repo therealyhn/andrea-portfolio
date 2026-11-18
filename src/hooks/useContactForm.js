@@ -2,7 +2,8 @@ import { useState } from "react";
 import { submitContact } from "../lib/api/submitContact";
 import { CONTACT_FIELD_NAMES, isFieldValid } from "../lib/validators/contactRules";
 
-const EMPTY_VALUES = Object.fromEntries(CONTACT_FIELD_NAMES.map((name) => [name, ""]));
+// `website` is the honeypot (no rule): sent as typed, the server decides.
+const EMPTY_VALUES = { ...Object.fromEntries(CONTACT_FIELD_NAMES.map((name) => [name, ""])), website: "" };
 
 /*
   Contact form state. A field is checked on blur (when it has a value) and again on every input while it is

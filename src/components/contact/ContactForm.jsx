@@ -36,6 +36,17 @@ export default function ContactForm() {
                     <FormField {...fieldProps("phone")} />
                 </div>
                 <FormField {...fieldProps("message")} />
+                {/* Honeypot: hidden from people and screen readers, out of the tab order. */}
+                <input
+                    type="text"
+                    name="website"
+                    value={form.values.website}
+                    onChange={form.onChange}
+                    tabIndex={-1}
+                    autoComplete="off"
+                    aria-hidden="true"
+                    className="sr-only"
+                />
 
                 {/* .form__foot */}
                 <div className="mt-2 flex flex-wrap items-center justify-between gap-[18px]">

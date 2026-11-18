@@ -13,6 +13,8 @@ dist-ssr
 *.local
 .env
 src/generated/
+kontakt-config.php
+server/vendor/
 
 # Editor directories and files
 .vscode/*

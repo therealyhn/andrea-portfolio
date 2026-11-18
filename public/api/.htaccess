@@ -1,0 +1,6 @@
+Options -Indexes
+Require all denied
+
+<Files "contact.php">
+    Require all granted
+</Files>
